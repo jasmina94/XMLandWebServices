@@ -70,7 +70,6 @@ public class TPodaciOPrenosu {
     public void setId(long id) {
         this.id = id;
     }
-
     /**
      * Gets the value of the duznikUPrenosu property.
      * 

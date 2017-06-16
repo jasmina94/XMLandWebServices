@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -96,6 +95,7 @@ public class StavkaPreseka {
     public void setId(long id) {
         this.id = id;
     }
+
 
     /**
      * Gets the value of the podaciODuzniku property.
@@ -218,7 +218,9 @@ public class StavkaPreseka {
         "datumNaloga",
         "datumValute"
     })
+
     @Entity
+    @Table(name = "podaci_o_uplati")
     public static class PodaciOUplati {
 
         @Id
@@ -249,7 +251,6 @@ public class StavkaPreseka {
         @XmlAttribute(name = "smer")
         //TODO: Ovde sme vrednost da bude ili T ili K
         protected String smer;
-
 
         public PodaciOUplati() {}
 
