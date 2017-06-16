@@ -219,6 +219,7 @@ public class StavkaPreseka {
         "datumValute"
     })
     @Entity
+    @Table(name = "podaci_o_uplati")
     public static class PodaciOUplati {
 
         @Id
