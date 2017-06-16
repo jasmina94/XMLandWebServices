@@ -38,5 +38,4 @@ dependencies {
 
 	// Dev tools
 	runtime('org.springframework.boot:spring-boot-devtools')
-
 }
