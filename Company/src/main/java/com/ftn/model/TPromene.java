@@ -1,6 +1,7 @@
 
-package model;
+package com.ftn.model;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -9,26 +10,27 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TPodaciPlacanje complex type.
+ * <p>Java class for TPromene complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TPodaciPlacanje">
+ * &lt;complexType name="TPromene">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="model">
+ *         &lt;element name="broj_promena">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}positiveInteger">
- *               &lt;totalDigits value="2"/>
+ *               &lt;totalDigits value="6"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
- *         &lt;element name="poziv_na_broj">
+ *         &lt;element name="ukupno">
  *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="20"/>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}decimal">
+ *               &lt;totalDigits value="15"/>
+ *               &lt;fractionDigits value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -41,63 +43,63 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TPodaciPlacanje", namespace = "http://www.ftn.uns.ac.rs/tipovi", propOrder = {
-    "model",
-    "pozivNaBroj"
+@XmlType(name = "TPromene", namespace = "http://www.ftn.uns.ac.rs/tipovi", propOrder = {
+    "brojPromena",
+    "ukupno"
 })
-public class TPodaciPlacanje {
+public class TPromene {
 
+    @XmlElement(name = "broj_promena", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    protected BigInteger brojPromena;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
-    protected BigInteger model;
-    @XmlElement(name = "poziv_na_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
-    protected String pozivNaBroj;
+    protected BigDecimal ukupno;
 
     /**
-     * Gets the value of the model property.
+     * Gets the value of the brojPromena property.
      * 
      * @return
      *     possible object is
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getModel() {
-        return model;
+    public BigInteger getBrojPromena() {
+        return brojPromena;
     }
 
     /**
-     * Sets the value of the model property.
+     * Sets the value of the brojPromena property.
      * 
      * @param value
      *     allowed object is
      *     {@link BigInteger }
      *     
      */
-    public void setModel(BigInteger value) {
-        this.model = value;
+    public void setBrojPromena(BigInteger value) {
+        this.brojPromena = value;
     }
 
     /**
-     * Gets the value of the pozivNaBroj property.
+     * Gets the value of the ukupno property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link BigDecimal }
      *     
      */
-    public String getPozivNaBroj() {
-        return pozivNaBroj;
+    public BigDecimal getUkupno() {
+        return ukupno;
     }
 
     /**
-     * Sets the value of the pozivNaBroj property.
+     * Sets the value of the ukupno property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link BigDecimal }
      *     
      */
-    public void setPozivNaBroj(String value) {
-        this.pozivNaBroj = value;
+    public void setUkupno(BigDecimal value) {
+        this.ukupno = value;
     }
 
 }

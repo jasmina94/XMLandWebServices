@@ -1,5 +1,5 @@
 
-package model;
+package com.ftn.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

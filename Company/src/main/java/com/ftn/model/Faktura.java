@@ -1,5 +1,5 @@
 
-package model;
+package com.ftn.model;
 
 import com.ftn.util.DateAdapter;
 
@@ -179,7 +179,6 @@ public class Faktura {
     @XmlJavaTypeAdapter(DateAdapter.class)
     protected Date datumRacuna;
     @XmlAttribute(name = "datum_valute")
-    @XmlSchemaType(name = "date")
     @XmlJavaTypeAdapter(DateAdapter.class)
     protected Date datumValute;
 
