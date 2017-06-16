@@ -2,10 +2,12 @@
 package com.ftn.model;
 
 import java.math.BigInteger;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -45,12 +47,32 @@ import javax.xml.bind.annotation.XmlType;
     "model",
     "pozivNaBroj"
 })
+@Entity
 public class TPodaciPlacanje {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Size(max = 2)
+    @Column(nullable = false)
     protected BigInteger model;
     @XmlElement(name = "poziv_na_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Size(max = 20)
+    @Column(nullable = false)
     protected String pozivNaBroj;
+
+    public TPodaciPlacanje() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the value of the model property.
