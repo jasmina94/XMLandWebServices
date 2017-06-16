@@ -45,13 +45,6 @@ public class ObjectFactory {
         return new TPodaciBanka();
     }
 
-    /**
-     * Create an instance of {@link TStavkaFaktura }
-     * 
-     */
-    public TStavkaFaktura createTStavkaFaktura() {
-        return new TStavkaFaktura();
-    }
 
     /**
      * Create an instance of {@link TPromene }
@@ -77,13 +70,6 @@ public class ObjectFactory {
         return new TPodaciOPrenosu();
     }
 
-    /**
-     * Create an instance of {@link TPodaciSubjekt }
-     * 
-     */
-    public TPodaciSubjekt createTPodaciSubjekt() {
-        return new TPodaciSubjekt();
-    }
 
     /**
      * Create an instance of {@link TPodaciPlacanje }
@@ -155,6 +141,55 @@ public class ObjectFactory {
      */
     public Presek createPresek() {
         return new Presek();
+    }
+
+
+    /**
+     * Create an instance of {@link Mt910 }
+     *
+     */
+    public Mt910 createMt910() {
+        return new Mt910();
+    }
+
+    /**
+     * Create an instance of {@link Mt900 }
+     *
+     */
+    public Mt900 createMt900() {
+        return new Mt900();
+    }
+
+    /**
+     * Create an instance of {@link Mt103 }
+     *
+     */
+    public Mt103 createMt103() {
+        return new Mt103();
+    }
+
+    /**
+     * Create an instance of {@link Mt102Zaglavlje }
+     *
+     */
+    public Mt102Zaglavlje createMt102Zaglavlje() {
+        return new Mt102Zaglavlje();
+    }
+
+    /**
+     * Create an instance of {@link Mt102Telo }
+     *
+     */
+    public Mt102Telo createMt102Telo() {
+        return new Mt102Telo();
+    }
+
+    /**
+     * Create an instance of {@link Mt102 }
+     *
+     */
+    public Mt102 createMt102() {
+        return new Mt102();
     }
 
 }

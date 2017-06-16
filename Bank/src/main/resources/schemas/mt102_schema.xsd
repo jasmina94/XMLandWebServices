@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt102" xmlns:mt102="http://www.ftn.uns.ac.rs/mt102"
+    xmlns:mt102body="http://www.ftn.uns.ac.rs/mt102body"
+    xmlns:mt102header="http://www.ftn.uns.ac.rs/mt102header">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/mt102header"
+        schemaLocation="mt102_header_schema.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/mt102body" schemaLocation="mt102_body_schema.xsd"/>
+    <xs:element name="mt102">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mt102header:mt102_zaglavlje"/>
+                <xs:element maxOccurs="unbounded" ref="mt102body:mt102_telo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
