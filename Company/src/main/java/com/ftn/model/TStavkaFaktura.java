@@ -1,11 +1,14 @@
 
-package model;
+package com.ftn.model;
 
 import java.math.BigDecimal;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -117,28 +120,64 @@ import javax.xml.bind.annotation.XmlType;
     "umanjenoZaRabat",
     "ukupanPorez"
 })
+@Entity
 public class TStavkaFaktura {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+
     @XmlElement(name = "redni_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi")
+    @Column
+    @Size(min = 1, max = 999)
     protected int redniBroj;
     @XmlElement(name = "naziv_robe_usluge", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 120)
     protected String nazivRobeUsluge;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=10, fraction=2)
     protected BigDecimal kolicina;
     @XmlElement(name = "jedinica_mere", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 6)
     protected String jedinicaMere;
     @XmlElement(name = "jedinicna_cena", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=10, fraction=2)
     protected BigDecimal jedinicnaCena;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal vrednost;
     @XmlElement(name = "procenat_rabata", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=5, fraction=2)
     protected BigDecimal procenatRabata;
     @XmlElement(name = "iznos_rabata", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal iznosRabata;
     @XmlElement(name = "umanjeno_za_rabat", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal umanjenoZaRabat;
     @XmlElement(name = "ukupan_porez", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
+
+    public TStavkaFaktura () {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the value of the redniBroj property.

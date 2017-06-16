@@ -1,12 +1,15 @@
 
-package model;
+package com.ftn.model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -47,12 +50,32 @@ import javax.xml.bind.annotation.XmlType;
     "brojPromena",
     "ukupno"
 })
+@Entity
 public class TPromene {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
     @XmlElement(name = "broj_promena", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 6)
     protected BigInteger brojPromena;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupno;
+
+    public TPromene() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 
     /**
      * Gets the value of the brojPromena property.

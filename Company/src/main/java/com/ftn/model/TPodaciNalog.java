@@ -1,5 +1,5 @@
 
-package model;
+package com.ftn.model;
 
 import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;

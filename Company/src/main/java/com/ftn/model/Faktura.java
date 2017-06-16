@@ -1,16 +1,15 @@
 
-package model;
+package com.ftn.model;
+
+import com.ftn.util.DateAdapter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -127,41 +126,70 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "uplataNaRacun",
     "stavkaFakture"
 })
+
 @XmlRootElement(name = "faktura", namespace = "httl://www.ftn.uns.ac.rs/faktura")
+@Entity
 public class Faktura {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @ManyToOne(optional = false)
     protected TPodaciSubjekt podaciODobavljacu;
     @XmlElement(name = "podaci_o_kupcu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @ManyToOne(optional = false)
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected BigDecimal vrednostRobe;
     @XmlElement(name = "vrednost_usluga", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected BigDecimal vrednostUsluga;
     @XmlElement(name = "ukupno_roba_i_usluga", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected BigDecimal ukupnoRobaIUsluga;
     @XmlElement(name = "ukupan_rabat", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected BigDecimal ukupanRabat;
     @XmlElement(name = "ukupan_porez", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected BigDecimal ukupanPorez;
     @XmlElement(name = "oznaka_valute", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     protected TOznakaValute oznakaValute;
     @XmlElement(name = "Iznos_za_uplatu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected BigDecimal iznosZaUplatu;
     @XmlElement(name = "uplata_na_racun", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
     protected String uplataNaRacun;
     @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @OneToMany
+    @JoinColumn(nullable = false)
     protected List<TStavkaFaktura> stavkaFakture;
     @XmlAttribute(name = "id_poruke")
     protected String idPoruke;
     @XmlAttribute(name = "broj_racuna")
     protected Long brojRacuna;
     @XmlAttribute(name = "datum_racuna")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumRacuna;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumRacuna;
     @XmlAttribute(name = "datum_valute")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumValute;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumValute;
+
+    public Faktura() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the value of the podaciODobavljacu property.
@@ -488,7 +516,7 @@ public class Faktura {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumRacuna() {
+    public Date getDatumRacuna() {
         return datumRacuna;
     }
 
@@ -497,10 +525,10 @@ public class Faktura {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumRacuna(XMLGregorianCalendar value) {
+    public void setDatumRacuna(Date value) {
         this.datumRacuna = value;
     }
 
@@ -509,10 +537,10 @@ public class Faktura {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatumValute() {
+    public Date getDatumValute() {
         return datumValute;
     }
 
@@ -521,10 +549,10 @@ public class Faktura {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumValute(XMLGregorianCalendar value) {
+    public void setDatumValute(Date value) {
         this.datumValute = value;
     }
 

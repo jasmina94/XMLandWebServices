@@ -1,5 +1,5 @@
 
-package model;
+package com.ftn.model;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;

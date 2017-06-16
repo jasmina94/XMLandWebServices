@@ -1,11 +1,15 @@
 
-package model;
+package com.ftn.model;
+
+import org.springframework.data.repository.cdi.Eager;
 
 import java.math.BigInteger;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -18,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="model">
+ *         &lt;element name="com.ftn.model">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}positiveInteger">
  *               &lt;totalDigits value="2"/>
@@ -45,15 +49,33 @@ import javax.xml.bind.annotation.XmlType;
     "model",
     "pozivNaBroj"
 })
+@Entity
 public class TPodaciPlacanje {
-
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 2)
     protected BigInteger model;
     @XmlElement(name = "poziv_na_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 20)
     protected String pozivNaBroj;
 
+    public TPodaciPlacanje() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     /**
-     * Gets the value of the model property.
+     * Gets the value of the com.ftn.model property.
      * 
      * @return
      *     possible object is
@@ -65,7 +87,7 @@ public class TPodaciPlacanje {
     }
 
     /**
-     * Sets the value of the model property.
+     * Sets the value of the com.ftn.model property.
      * 
      * @param value
      *     allowed object is
