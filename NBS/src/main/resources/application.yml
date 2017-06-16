@@ -1,0 +1,15 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/quatrofantasticoxmlnbs?useUnicode=yes&characterEncoding=UTF-8
+        username: root
+        password: root
+
+    jpa:
+        show_sql: true
+        hibernate:
+            ddl-auto: create
+            naming:
+                strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
