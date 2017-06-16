@@ -1,11 +1,11 @@
 
 package com.ftn.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -33,15 +33,33 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TPrenosUcesnik", namespace = "http://www.ftn.uns.ac.rs/tipovi", propOrder = {
 
 })
+@Entity
 public class TPrenosUcesnik {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
     @XmlElement(name = "racun_ucesnika", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
     protected String racunUcesnika;
     @XmlElement(name = "model_prenosa", namespace = "http://www.ftn.uns.ac.rs/tipovi")
     @XmlSchemaType(name = "unsignedInt")
     protected long modelPrenosa;
     @XmlElement(name = "poziv_na_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
     protected String pozivNaBroj;
+
+
+    public TPrenosUcesnik() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the value of the racunUcesnika property.

@@ -117,4 +117,36 @@ public class ObjectFactory {
         return new TPodaciNalog.Iznos();
     }
 
+    /**
+     * Create an instance of {@link NalogZaPrenos }
+     *
+     */
+    public NalogZaPrenos createNalogZaPrenos() {
+        return new NalogZaPrenos();
+    }
+
+    /**
+     * Create an instance of {@link ZahtevZaIzvod }
+     *
+     */
+    public ZahtevZaIzvod createZahtevZaIzvod() {
+        return new ZahtevZaIzvod();
+    }
+
+    /**
+     * Create an instance of {@link ZaglavljePreseka }
+     *
+     */
+    public ZaglavljePreseka createZaglavljePreseka() {
+        return new ZaglavljePreseka();
+    }
+
+    /**
+     * Create an instance of {@link StavkaPreseka }
+     *
+     */
+    public StavkaPreseka createStavkaPreseka() {
+        return new StavkaPreseka();
+    }
+
 }
