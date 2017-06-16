@@ -1,10 +1,11 @@
 
 package com.ftn.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -38,20 +39,37 @@ import javax.xml.bind.annotation.XmlType;
     "swiftKod",
     "obracunskiRacun"
 })
+@Entity
 public class TPodaciBanka {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
     @XmlElement(name = "swift_kod", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false, length = 8)
     protected String swiftKod;
     @XmlElement(name = "obracunski_racun", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
     protected String obracunskiRacun;
+
+    public TPodaciBanka() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the value of the swiftKod property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getSwiftKod() {
         return swiftKod;
@@ -59,11 +77,11 @@ public class TPodaciBanka {
 
     /**
      * Sets the value of the swiftKod property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setSwiftKod(String value) {
         this.swiftKod = value;
@@ -71,11 +89,11 @@ public class TPodaciBanka {
 
     /**
      * Gets the value of the obracunskiRacun property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getObracunskiRacun() {
         return obracunskiRacun;
@@ -83,11 +101,11 @@ public class TPodaciBanka {
 
     /**
      * Sets the value of the obracunskiRacun property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setObracunskiRacun(String value) {
         this.obracunskiRacun = value;
