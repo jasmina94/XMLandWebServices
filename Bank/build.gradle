@@ -22,11 +22,19 @@ repositories {
 }
 
 dependencies {
-
 	// Spring
 	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
-	compile "org.springframework.boot:spring-boot-starter-web-services:$springBootVersion"
+	compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
 
 	// Test
 	testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+
+	// Database
+	compile 'mysql:mysql-connector-java:5.1.36'
+
+	// Util
+	compile 'com.google.guava:guava:20.0'
+
+	// Dev tools
+	runtime('org.springframework.boot:spring-boot-devtools')
 }

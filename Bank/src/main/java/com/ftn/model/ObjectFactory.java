@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * for XML content. The Java representation of XML 
  * content can consist of schema derived interfaces 
  * and classes representing the binding of schema 
- * type definitions, element declarations and com.ftn.model
+ * type definitions, element declarations and model 
  * groups.  Factory methods for each of these are 
  * provided in this class.
  * 
@@ -38,19 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Faktura }
+     * Create an instance of {@link TPodaciBanka }
      * 
      */
-    public Faktura createFaktura() {
-        return new Faktura();
-    }
-
-    /**
-     * Create an instance of {@link TPodaciSubjekt }
-     * 
-     */
-    public TPodaciSubjekt createTPodaciSubjekt() {
-        return new TPodaciSubjekt();
+    public TPodaciBanka createTPodaciBanka() {
+        return new TPodaciBanka();
     }
 
     /**
@@ -59,14 +51,6 @@ public class ObjectFactory {
      */
     public TStavkaFaktura createTStavkaFaktura() {
         return new TStavkaFaktura();
-    }
-
-    /**
-     * Create an instance of {@link TPodaciBanka }
-     * 
-     */
-    public TPodaciBanka createTPodaciBanka() {
-        return new TPodaciBanka();
     }
 
     /**
@@ -94,6 +78,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TPodaciSubjekt }
+     * 
+     */
+    public TPodaciSubjekt createTPodaciSubjekt() {
+        return new TPodaciSubjekt();
+    }
+
+    /**
      * Create an instance of {@link TPodaciPlacanje }
      * 
      */
@@ -118,19 +110,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link NalogZaPrenos }
-     *
-     */
-    public NalogZaPrenos createNalogZaPrenos() {
-        return new NalogZaPrenos();
-    }
-
-    /**
      * Create an instance of {@link ZahtevZaIzvod }
      *
      */
     public ZahtevZaIzvod createZahtevZaIzvod() {
         return new ZahtevZaIzvod();
+    }
+
+    /**
+     * Create an instance of {@link NalogZaPrenos }
+     *
+     */
+    public NalogZaPrenos createNalogZaPrenos() {
+        return new NalogZaPrenos();
     }
 
     /**

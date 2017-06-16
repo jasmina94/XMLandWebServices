@@ -61,6 +61,7 @@ public class TPrenosUcesnik {
         this.id = id;
     }
 
+
     /**
      * Gets the value of the racunUcesnika property.
      * 
