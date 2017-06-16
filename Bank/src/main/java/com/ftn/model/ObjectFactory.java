@@ -149,4 +149,12 @@ public class ObjectFactory {
         return new StavkaPreseka.PodaciOUplati();
     }
 
+    /**
+     * Create an instance of {@link Presek }
+     *
+     */
+    public Presek createPresek() {
+        return new Presek();
+    }
+
 }
