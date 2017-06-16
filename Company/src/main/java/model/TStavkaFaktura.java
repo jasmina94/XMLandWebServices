@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 
@@ -137,7 +138,7 @@ public class TStavkaFaktura {
     protected String nazivRobeUsluge;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 10, fraction digits = 2
+    @Digits(integer=10, fraction=2)
     protected BigDecimal kolicina;
     @XmlElement(name = "jedinica_mere", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
@@ -145,27 +146,27 @@ public class TStavkaFaktura {
     protected String jedinicaMere;
     @XmlElement(name = "jedinicna_cena", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 10, fraction digits = 2
+    @Digits(integer=10, fraction=2)
     protected BigDecimal jedinicnaCena;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 12, fraction digits = 2
+    @Digits(integer=12, fraction=2)
     protected BigDecimal vrednost;
     @XmlElement(name = "procenat_rabata", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 5, fraction digits = 2
+    @Digits(integer=5, fraction=2)
     protected BigDecimal procenatRabata;
     @XmlElement(name = "iznos_rabata", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 12, fraction digits = 2
+    @Digits(integer=12, fraction=2)
     protected BigDecimal iznosRabata;
     @XmlElement(name = "umanjeno_za_rabat", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 12, fraction digits = 2
+    @Digits(integer=12, fraction=2)
     protected BigDecimal umanjenoZaRabat;
     @XmlElement(name = "ukupan_porez", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
-    //TODO: Ogranicenje total digits = 12, fraction digits = 2
+    @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
     public TStavkaFaktura () {}
