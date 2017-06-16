@@ -340,6 +340,7 @@ public class Mt102Telo {
         "value"
     })
     @Entity
+    @Table(name = "mt102telo_iznos")
     public static class Iznos {
 
         @Id

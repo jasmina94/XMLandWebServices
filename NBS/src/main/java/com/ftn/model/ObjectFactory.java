@@ -72,30 +72,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TPrenosUcesnik }
-     * 
-     */
-    public TPrenosUcesnik createTPrenosUcesnik() {
-        return new TPrenosUcesnik();
-    }
-
-    /**
-     * Create an instance of {@link TPodaciOPrenosu }
-     * 
-     */
-    public TPodaciOPrenosu createTPodaciOPrenosu() {
-        return new TPodaciOPrenosu();
-    }
-
-    /**
-     * Create an instance of {@link TPodaciSubjekt }
-     * 
-     */
-    public TPodaciSubjekt createTPodaciSubjekt() {
-        return new TPodaciSubjekt();
-    }
-
-    /**
      * Create an instance of {@link TPodaciPlacanje }
      * 
      */

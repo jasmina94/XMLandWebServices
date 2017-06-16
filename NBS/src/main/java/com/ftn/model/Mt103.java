@@ -436,6 +436,7 @@ public class Mt103 {
         "datumValute"
     })
     @Entity
+    @Table(name = "mt103_podaci_o_uplati")
     public static class PodaciOUplati {
 
         @Id
@@ -650,6 +651,7 @@ public class Mt103 {
             "value"
         })
         @Entity
+        @Table(name = "mt103_podaci_o_uplati_iznos")
         public static class Iznos {
 
             @Id
