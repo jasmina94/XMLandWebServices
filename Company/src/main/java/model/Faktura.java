@@ -128,6 +128,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "stavkaFakture"
 })
 @XmlRootElement(name = "faktura", namespace = "httl://www.ftn.uns.ac.rs/faktura")
+
 public class Faktura {
 
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
