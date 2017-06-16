@@ -1,10 +1,12 @@
 
 package model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -53,14 +55,35 @@ import javax.xml.bind.annotation.XmlType;
     "adresa",
     "pib"
 })
+@Entity
 public class TPodaciSubjekt {
 
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String naziv;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String adresa;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false, length = 11)
     protected String pib;
+
+    public TPodaciSubjekt () {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Gets the value of the naziv property.
