@@ -24,6 +24,8 @@ repositories {
 
 dependencies {
 	// Spring
+	compile "org.springframework.boot:spring-boot-starter-validation:$springBootVersion"
+	compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
 	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 	compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
 
@@ -38,4 +40,7 @@ dependencies {
 
 	// Dev tools
 	runtime('org.springframework.boot:spring-boot-devtools')
+
+	// Lombok
+	compileOnly('org.projectlombok:lombok')
 }
