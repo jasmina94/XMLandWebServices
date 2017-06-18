@@ -4,6 +4,7 @@ import com.ftn.model.Firma;
 import com.ftn.model.Lokacija;
 import com.ftn.model.Zaposleni;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
@@ -11,11 +12,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * Created by Olivera on 17.6.2017..
+ * Created by Olivera on 18.6.2017..
  */
 @Data
 @NoArgsConstructor
 public class ZaposleniDTO {
+
+    private long id;
 
     @NotNull
     @Size(min = 13, max = 13)

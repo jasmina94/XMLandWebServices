@@ -4,10 +4,9 @@ import com.ftn.model.Zaposleni;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Created by Olivera on 17.6.2017..
+ * Created by Alex on 6/17/17.
  */
 public interface ZaposleniDao extends JpaRepository<Zaposleni, Long> {
 
-    <E extends Zaposleni> E findByKorisnickoIme(String korisnickoIme);
-
+    Zaposleni findByKorisnickoIme(String username);
 }
