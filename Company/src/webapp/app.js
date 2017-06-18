@@ -1,6 +1,9 @@
 /**
  * Created by Olivera on 17.6.2017..
  */
+
+'use strict';
+
 var app = angular.module('app', ['ui.router', 'ngMessages', 'ngMaterial', 'material.svgAssetsCache', 'md.data.table']);
 
 app.factory('authInterceptor', ['$q', '$injector', function ($q, $injector) {

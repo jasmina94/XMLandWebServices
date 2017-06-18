@@ -4,7 +4,6 @@ import com.ftn.model.Firma;
 import com.ftn.model.Lokacija;
 import com.ftn.model.Zaposleni;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
