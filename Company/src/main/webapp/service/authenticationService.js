@@ -5,6 +5,7 @@ app.service('authenticationService', function ($http, $window) {
 
     return {
         login: function (zaposleni, successCallback, errorCallback) {
+            alert("Usao sam ovde");
             $http.post('/api/login', zaposleni, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
