@@ -1,5 +1,6 @@
 package com.ftn.controller;
 
+import com.ftn.constants.Auth;
 import com.ftn.service.ZaposleniService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class ZaposleniController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(zaposleniService.read(), HttpStatus.OK);
