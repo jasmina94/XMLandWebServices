@@ -2,12 +2,16 @@
 package com.ftn.model;
 
 import com.ftn.util.DateAdapter;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -144,18 +148,23 @@ public class Faktura {
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal vrednostRobe;
     @XmlElement(name = "vrednost_usluga", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal vrednostUsluga;
     @XmlElement(name = "ukupno_roba_i_usluga", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false, name = "ukupno_roba_i_usluga")
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupnoRobaIUsluga;
     @XmlElement(name = "ukupan_rabat", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupanRabat;
     @XmlElement(name = "ukupan_porez", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupanPorez;
     @XmlElement(name = "oznaka_valute", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
@@ -163,17 +172,21 @@ public class Faktura {
     protected TOznakaValute oznakaValute;
     @XmlElement(name = "Iznos_za_uplatu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal iznosZaUplatu;
     @XmlElement(name = "uplata_na_racun", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
+    @Pattern(regexp = "\\d{3}-\\d{1,13}-\\d{2}")
     protected String uplataNaRacun;
     @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @OneToMany
     @JoinColumn(nullable = false)
     protected List<TStavkaFaktura> stavkaFakture;
     @XmlAttribute(name = "id_poruke")
+    @Size(max = 50)
     protected String idPoruke;
     @XmlAttribute(name = "broj_racuna")
+    @Size(max = 6)
     protected Long brojRacuna;
     @XmlAttribute(name = "datum_racuna")
     @XmlJavaTypeAdapter(DateAdapter.class)
