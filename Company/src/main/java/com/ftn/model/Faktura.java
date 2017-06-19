@@ -1,17 +1,15 @@
 
 package com.ftn.model;
 
+import com.ftn.model.dto.FakturaDTO;
 import com.ftn.util.DateAdapter;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -141,10 +139,10 @@ public class Faktura {
     private long id;
 
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPodaciSubjekt podaciODobavljacu;
     @XmlElement(name = "podaci_o_kupcu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
@@ -186,7 +184,8 @@ public class Faktura {
     @Size(max = 50)
     protected String idPoruke;
     @XmlAttribute(name = "broj_racuna")
-    @Size(max = 6)
+    @Min(100000)
+    @Max(999999)
     protected Long brojRacuna;
     @XmlAttribute(name = "datum_racuna")
     @XmlJavaTypeAdapter(DateAdapter.class)
@@ -196,6 +195,24 @@ public class Faktura {
     protected Date datumValute;
 
     public Faktura() {}
+
+    public void merge(FakturaDTO fakturaDTO) {
+        this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
+        this.podaciOKupcu = fakturaDTO.getPodaciOKupcu().construct();
+        this.vrednostRobe = fakturaDTO.getVrednostRobe();
+        this.vrednostUsluga = fakturaDTO.getVrednostUsluga();
+        this.ukupnoRobaIUsluga = fakturaDTO.getUkupnoRobaIUsluga();
+        this.ukupanRabat = fakturaDTO.getUkupanRabat();
+        this.ukupanPorez = fakturaDTO.getUkupanPorez();
+        this.oznakaValute = fakturaDTO.getOznakaValute();
+        this.iznosZaUplatu = fakturaDTO.getIznosZaUplatu();
+        this.uplataNaRacun = fakturaDTO.getUplataNaRacun();
+        this.idPoruke = fakturaDTO.getIdPoruke();
+        this.brojRacuna = fakturaDTO.getBrojRacuna();
+        this.datumRacuna = fakturaDTO.getDatumRacuna();
+        this.datumValute = fakturaDTO.getDatumValute();
+    }
+
 
     public long getId() {
         return id;
