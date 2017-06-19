@@ -27,9 +27,10 @@ public class ZaposleniController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
+        System.out.println("Ovde sam");
+        System.out.print(zaposleniService.read());
         return new ResponseEntity<>(zaposleniService.read(), HttpStatus.OK);
     }
 }

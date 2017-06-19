@@ -34,5 +34,10 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             url: '/login',
             controller: 'LoginController',
             templateUrl: 'page/login.html'
-        });
+        })
+        .state('home', {
+            url: '/home',
+            controller: 'HomeController',
+            templateUrl: 'page/home.html'
+        })
 });

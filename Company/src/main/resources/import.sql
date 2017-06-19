@@ -6,3 +6,6 @@ INSERT INTO `quatrofantasticoxmlcompany`.`poslovni_partner` (`adresa`,`naziv`,`p
 
 INSERT INTO `quatrofantasticoxmlcompany`.`zaposleni` (`adresa`,`ime`,`jmbg`,`prezime`,`lozinka`,`korisnicko_ime`,`firma_id`,`lokacija_id`) VALUES ("Pariskih komuna 10","Pera", 1204966345060, "Peric","pera", "pera", 1, 1), ("Kikindska 68", "Mika", 2104966345060,"Mikic","mika", "mika", 1, 1), ("Zelengorska 2a","zika", 2901975345161, "zikic","zika", "zika", 2, 1);
 
+INSERT INTO `quatrofantasticoxmlcompany`.`tpodaci_subjekt` (`adresa`, `naziv`, `pib`) VALUES ('Pozeska PB', 'Pionir d.o.o,', 111111111), ("Zrenjaninski put 100", "Imlek", 222222222);
+
+INSERT INTO `quatrofantasticoxmlcompany`.`faktura` (`broj_racuna`, `datum_racuna`, `datum_valute`, `id_poruke`, `iznos_za_uplatu`, `oznaka_valute`, `ukupan_porez`, `ukupan_rabat`, `ukupno_roba_i_usluga`, `uplata_na_racun`, `vrednost_robe`, `vrednost_usluga`, `podaciodobavljacu_id`, `podaciokupcu_id`) VALUES (123456, "2017-05-10","2017-05-12", 2, 14000.00, "RSD", 7000.00, 4000.00, 14000.00, "840-1234567894754-12", 14000.00, 0.00, 1, 2);

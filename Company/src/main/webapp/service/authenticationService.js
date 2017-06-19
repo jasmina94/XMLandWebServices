@@ -4,8 +4,8 @@ app.service('authenticationService', function ($http, $window) {
     var LOCAL_STORAGE_INSTANCE = $window.localStorage;
 
     return {
-        login: function (zaposleni, successCallback, errorCallback) {
-            $http.post('/api/login', zaposleni, {
+        login: function (user, successCallback, errorCallback) {
+            $http.post('/api/login', user, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
@@ -31,9 +31,9 @@ app.service('authenticationService', function ($http, $window) {
                 }
             }
         },
-        setUser: function (zaposleni) {
-            if (LOCAL_STORAGE_INSTANCE && zaposleni) {
-                LOCAL_STORAGE_INSTANCE.setItem(LOCAL_STORAGE_KEY, JSON.stringify(zaposleni));
+        setUser: function (user) {
+            if (LOCAL_STORAGE_INSTANCE && user) {
+                LOCAL_STORAGE_INSTANCE.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
             }
         }
     }

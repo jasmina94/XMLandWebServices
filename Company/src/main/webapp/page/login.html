@@ -4,7 +4,7 @@
                  ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">Dobro dosli</span>
+                    <span class="md-headline">Unesite kredencijale</span>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
@@ -23,8 +23,7 @@
                                 <label>Lozinka</label>
                                 <input id="password" name="password" type="password"
                                        data-ng-model="zaposleni.lozinka" required>
-                                <div ng-messages="loginForm.password.$error"
-                                     ng-if="loginForm.password.$dirty">
+                                <div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$dirty">
                                     <div ng-message="required">Ovo polje ne moze biti prazno.</div>
                                 </div>
                             </md-input-container>

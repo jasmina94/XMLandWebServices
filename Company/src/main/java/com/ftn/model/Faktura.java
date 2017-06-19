@@ -149,7 +149,7 @@ public class Faktura {
     @Column(nullable = false)
     protected BigDecimal vrednostUsluga;
     @XmlElement(name = "ukupno_roba_i_usluga", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "ukupno_roba_i_usluga")
     protected BigDecimal ukupnoRobaIUsluga;
     @XmlElement(name = "ukupan_rabat", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
