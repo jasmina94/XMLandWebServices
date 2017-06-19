@@ -45,7 +45,7 @@ public class ZaposleniDTO {
         this.prezime = zaposleni.getPrezime();
         this.adresa = zaposleni.getAdresa();
         this.korisnickoIme = zaposleni.getKorisnickoIme();
-        this.lokacija = zaposleni.getLokacija();
-        this.firma = zaposleni.getFirma();
+        //this.lokacija = zaposleni.getLokacija();
+        //this.firma = zaposleni.getFirma();
     }
 }

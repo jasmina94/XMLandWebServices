@@ -3,8 +3,8 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
     $scope.submit = function () {
         authenticationService.login($scope.zaposleni, function () {
             $http.get('/api/employees')
-                .success(function (zaposleni) {
-                    authenticationService.setUser(zaposleni);
+                .success(function (response) {
+                    authenticationService.setUser(response.data);
                     alert("Uspeh")
                     //$state.transitionTo('navigation.home');
                 })

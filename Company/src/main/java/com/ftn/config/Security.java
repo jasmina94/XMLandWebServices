@@ -54,6 +54,7 @@ public class Security extends WebSecurityConfigurerAdapter {
                 .loginPage("/#/login").permitAll()
                 .loginProcessingUrl("/api/login").permitAll()
                 .usernameParameter("korisnickoIme")
+                .passwordParameter("lozinka")
                 .successHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK))
                 .failureHandler((request, response, exception) -> response.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
                 .and()
