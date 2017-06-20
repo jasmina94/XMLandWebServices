@@ -2,10 +2,7 @@
 package com.ftn.model;
 
 import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
@@ -169,6 +166,10 @@ public class TStavkaFaktura {
     @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
+    @ManyToOne(optional = false)
+    private Faktura faktura;
+
+
     public TStavkaFaktura () {}
 
     public long getId() {
@@ -178,6 +179,13 @@ public class TStavkaFaktura {
     public void setId(long id) {
         this.id = id;
     }
+
+    public Faktura getFaktura() {
+        return faktura;
+    }
+
+    public void setFaktura(Faktura faktura){this.faktura = faktura;}
+
 
     /**
      * Gets the value of the redniBroj property.

@@ -26,4 +26,9 @@ public class TStavkaFakturaServiceImplementation implements TStavkaFakturaServic
     public List<TStavkaFakturaDTO> read() {
         return tStavkaFakturaDao.findAll().stream().map(TStavkaFakturaDTO::new).collect(Collectors.toList());
     }
+
+    @Override
+    public List<TStavkaFakturaDTO> read(Long fakturaId) {
+        return tStavkaFakturaDao.findByFakturaId(fakturaId).stream().map(TStavkaFakturaDTO::new).collect(Collectors.toList());
+    }
 }

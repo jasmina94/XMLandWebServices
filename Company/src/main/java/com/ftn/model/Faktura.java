@@ -137,7 +137,6 @@ public class Faktura {
     @GeneratedValue
     @XmlTransient
     private long id;
-
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPodaciSubjekt podaciODobavljacu;
@@ -177,8 +176,8 @@ public class Faktura {
     @Pattern(regexp = "\\d{3}-\\d{1,13}-\\d{2}")
     protected String uplataNaRacun;
     @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @OneToMany
-    @JoinColumn(nullable = false, name = "faktura_id")
+    @OneToMany(mappedBy = "faktura")
+    //TODO: Razmisli o ovome @JoinColumn(nullable = false, name = "faktura_id")
     protected List<TStavkaFaktura> stavkaFakture;
     @XmlAttribute(name = "id_poruke")
     @Size(max = 50)

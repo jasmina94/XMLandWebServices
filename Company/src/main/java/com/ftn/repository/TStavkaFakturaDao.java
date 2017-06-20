@@ -3,6 +3,7 @@ package com.ftn.repository;
 import com.ftn.model.TStavkaFaktura;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,4 +12,6 @@ import java.util.Optional;
 public interface TStavkaFakturaDao extends JpaRepository<TStavkaFaktura, Long> {
 
     Optional<TStavkaFaktura> findById(Long id);
+
+    List<TStavkaFaktura> findByFakturaId(Long id);
 }

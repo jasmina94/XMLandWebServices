@@ -10,4 +10,7 @@ import java.util.List;
 public interface TStavkaFakturaService {
 
     List<TStavkaFakturaDTO> read();
+
+    List<TStavkaFakturaDTO> read(Long fakturaID);
+
 }
