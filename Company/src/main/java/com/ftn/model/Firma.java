@@ -27,8 +27,7 @@ public class Firma {
 
     private String adresa;
 
-    @ManyToOne
-    private Lokacija lokacija;
+    private String  mesto;
 
     @OneToMany(mappedBy = "firma", cascade = CascadeType.ALL)
     private List<PoslovniPartner> poslovniPartneri = new ArrayList<>();

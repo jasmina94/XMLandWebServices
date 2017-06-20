@@ -29,14 +29,13 @@ public class Zaposleni {
 
     private String adresa;
 
+    private String mesto;
+
     @Column(unique = true)
     private String korisnickoIme;
 
     @Column(nullable = false)
     private String lozinka;
-
-    @ManyToOne
-    private Lokacija lokacija;
 
     @ManyToOne
     //TODO: Da li je obavezno?

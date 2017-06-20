@@ -27,10 +27,9 @@ public class PoslovniPartner {
 
     private String adresa;
 
+    private String mesto;
+
     @ManyToOne(optional = false)
     private Firma firma;
-
-    @ManyToOne
-    private Lokacija lokacija;
 
 }

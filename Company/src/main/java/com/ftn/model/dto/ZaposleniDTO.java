@@ -1,7 +1,6 @@
 package com.ftn.model.dto;
 
 import com.ftn.model.Firma;
-import com.ftn.model.Lokacija;
 import com.ftn.model.Zaposleni;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,10 +31,10 @@ public class ZaposleniDTO {
 
     private String adresa;
 
+    private String mesto;
+    
     @NotNull
     private String korisnickoIme;
-
-    private Lokacija lokacija;
 
     private Firma firma;
 
