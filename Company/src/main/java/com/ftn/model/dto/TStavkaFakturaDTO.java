@@ -65,6 +65,7 @@ public class TStavkaFakturaDTO {
     }
 
     public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura, boolean cascade) {
+        this.id = tStavkaFaktura.getId();
         this.redniBroj = tStavkaFaktura.getRedniBroj();
         this.nazivRobeUsluge = tStavkaFaktura.getNazivRobeUsluge();
         this.kolicina = tStavkaFaktura.getKolicina();
