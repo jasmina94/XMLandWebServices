@@ -30,14 +30,11 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
     };
 
     $scope.showStavke = function(faktura) {
-        alert(faktura.id);
         $mdDialog.show({
             parent: angular.element(document.body),
             templateUrl: 'dialog/stavkeFakture.html',
-            //controller: 'FakturaFormController',
-            locals: { faktura: faktura}
-        }).finally(function () {
-            // loadData();
+            controller: 'StavkeFaktureController',
+            locals: {faktura: faktura}
         });
     }
 

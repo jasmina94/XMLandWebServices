@@ -1,7 +1,4 @@
-<md-dialog class="md-padding card" style="width: 400px">
-
-    <p>{{faktura.id}}</p>
-
+<md-dialog class="md-padding card" style="width: 1200px">
     <md-divider></md-divider>
     <md-card ng-class="{'md-whiteframe-4dp':hovering}"
              ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
@@ -9,42 +6,31 @@
             <table md-table>
                 <thead md-head md-order="query.order">
                 <tr md-row>
-                    <th md-column>Broj racuna</th>
-                    <th md-column><span>Datum racuna</span></th>
-                    <th md-column><span>Datum valute</span></th>
-                    <th md-column><span>Id poruke</span></th>
-                    <th md-column><span>Iznos za uplatu</span></th>
-                    <th md-column><span>Oznaka valute</span></th>
-                    <th md-column>Ukupan porez</th>
-                    <th md-column>Ukupan rabat</th>
-                    <th md-column><span>Ukupno roba i usluga</span></th>
-                    <th md-column><span>Vrednost robe</span></th>
-                    <th md-column><span>Vrednost usluga</span></th>
-                    <th md-column><span>Dobavljac</span></th>
-                    <th md-column><span>Kupac</span></th>
+                    <th md-column><span>Redni broj</span></th>
+                    <th md-column><span>Naziv robe/usluge</span></th>
+                    <th md-column><span>Kolicina</span></th>
+                    <th md-column><span>Jedinica mere</span></th>
+                    <th md-column><span>Jedinicna cena</span></th>
+                    <th md-column><span>Vrednost</span></th>
+                    <th md-column><span>Procenat rabata</span></th>
+                    <th md-column><span>Iznos rabata</span></th>
+                    <th md-column><span>Umanjeno za rabat</span></th>
+                    <th md-column><span>Ukupan porez</span></th>
                 </tr>
                 </thead>
                 <tbody md-body>
-                <tr md-row ng-repeat="faktura in fakture | limitTo: query.limit:(query.page-1) * query.limit"
+                <tr md-row ng-repeat="stavka in stavkeFakture | limitTo: query.limit:(query.page-1) * query.limit"
                     ng-click="null">
-                    <td md-cell>{{faktura.brojRacuna}}</td>
-                    <td md-cell>{{faktura.datumRacuna | date: 'dd-MM-yyyy'}}</td>
-                    <td md-cell>{{faktura.datumValute | date: 'dd-MM-yyyy'}}</td>
-                    <td md-cell>{{faktura.idPoruke}}</td>
-                    <td md-cell>{{faktura.iznosZaUplatu}}</td>
-                    <td md-cell>{{faktura.oznakaValute}}</td>
-                    <td md-cell>{{faktura.ukupanPorez}}</td>
-                    <td md-cell>{{faktura.ukupanRabat}}</td>
-                    <td md-cell>{{faktura.ukupnoRobaIUsluga}}</td>
-                    <td md-cell>{{faktura.vrednostRobe}}</td>
-                    <td md-cell>{{faktura.vrednostUsluga}}</td>
-                    <td md-cell>{{faktura.podaciODobavljacu.naziv}}</td>
-                    <td md-cell>{{faktura.podaciOKupcu.naziv}}</td>
-                    <td md-cell>
-                        <md-button class = "md-raised" ng-click = "showStavke(faktura)">
-                            Prikazi stavke
-                        </md-button>
-                    </td>
+                    <td md-cell>{{stavka.redniBroj}}</td>
+                    <td md-cell>{{stavka.nazivRobeUsluge}}</td>
+                    <td md-cell>{{stavka.kolicina}}</td>
+                    <td md-cell>{{stavka.jedinicaMere}}</td>
+                    <td md-cell>{{stavka.jedinicnaCena}}</td>
+                    <td md-cell>{{stavka.vrednost}}</td>
+                    <td md-cell>{{stavka.procenatRabata}}</td>
+                    <td md-cell>{{stavka.iznosRabata}}</td>
+                    <td md-cell>{{stavka.umanjenoZaRabat}}</td>
+                    <td md-cell>{{stavka.ukupanPorez}}</td>
                 </tbody>
             </table>
         </md-table-container>
@@ -52,6 +38,7 @@
                              md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
         </md-table-pagination>
     </md-card>
-
-
+    <md-dialog-actions layout="row" layout-align="end center">
+        <md-button ng-click="close()">Zatvori</md-button>
+    </md-dialog-actions>
 </md-dialog>

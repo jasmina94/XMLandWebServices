@@ -4,7 +4,7 @@
 app.controller('StavkeFaktureController', function ($scope, $http, $state, $mdDialog, stavkeFaktureService, faktura) {
 
     var loadData = function () {
-        stavkeFaktureService.read(function (response) {
+        stavkeFaktureService.read(faktura.id, function (response) {
             $scope.stavkeFakture = response.data;
         });
     };
@@ -13,5 +13,11 @@ app.controller('StavkeFaktureController', function ($scope, $http, $state, $mdDi
 
     $scope.close = function () {
         $mdDialog.hide();
+    };
+
+    $scope.query = {
+        order: 'name',
+        limit: 5,
+        page: 1
     };
 });

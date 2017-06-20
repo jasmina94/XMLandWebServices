@@ -3,7 +3,6 @@
         <div layout="row">
             <h3>Fakture</h3>
         </div>
-
         <md-divider></md-divider>
         <md-card ng-class="{'md-whiteframe-4dp':hovering}"
                  ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
@@ -11,14 +10,14 @@
                 <table md-table>
                     <thead md-head md-order="query.order">
                     <tr md-row>
-                        <th md-column>Broj racuna</th>
+                        <th md-column><span>Broj racuna</span></th>
                         <th md-column><span>Datum racuna</span></th>
                         <th md-column><span>Datum valute</span></th>
                         <th md-column><span>Id poruke</span></th>
                         <th md-column><span>Iznos za uplatu</span></th>
                         <th md-column><span>Oznaka valute</span></th>
-                        <th md-column>Ukupan porez</th>
-                        <th md-column>Ukupan rabat</th>
+                        <th md-column><span>Ukupan porez</span></th>
+                        <th md-column><span>Ukupan rabat</span></th>
                         <th md-column><span>Ukupno roba i usluga</span></th>
                         <th md-column><span>Vrednost robe</span></th>
                         <th md-column><span>Vrednost usluga</span></th>
@@ -54,8 +53,6 @@
                                  md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
             </md-table-pagination>
         </md-card>
-
-
     </div>
     <md-button class="md-primary md-fab md-fab-bottom-right"
                aria-label="Kreiraj fakturu" ng-click="addFaktura()">
