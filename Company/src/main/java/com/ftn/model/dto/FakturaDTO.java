@@ -64,6 +64,7 @@ public class FakturaDTO {
 
 
     public FakturaDTO(Faktura faktura) {
+        this.id = faktura.getId();
         this.podaciODobavljacu = new TPodaciSubjektDTO(faktura.getPodaciODobavljacu());
         this.podaciOKupcu = new TPodaciSubjektDTO(faktura.getPodaciOKupcu());
         this.vrednostRobe = faktura.getVrednostRobe();
