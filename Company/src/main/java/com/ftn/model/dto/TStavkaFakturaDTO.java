@@ -57,8 +57,15 @@ public class TStavkaFakturaDTO {
     @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
+    @NotNull
+    private FakturaDTO faktura;
 
     public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura) {
+        this(tStavkaFaktura, true);
+    }
+
+    public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura, boolean cascade) {
+        this.id = tStavkaFaktura.getId();
         this.redniBroj = tStavkaFaktura.getRedniBroj();
         this.nazivRobeUsluge = tStavkaFaktura.getNazivRobeUsluge();
         this.kolicina = tStavkaFaktura.getKolicina();
@@ -69,5 +76,8 @@ public class TStavkaFakturaDTO {
         this.iznosRabata = tStavkaFaktura.getIznosRabata();
         this.umanjenoZaRabat = tStavkaFaktura.getUmanjenoZaRabat();
         this.ukupanPorez = tStavkaFaktura.getUkupanPorez();
+        if(cascade) {
+            this.faktura = new FakturaDTO(tStavkaFaktura.getFaktura(), false);
+        }
     }
 }
