@@ -1,6 +1,8 @@
 
 package com.ftn.model;
 
+import com.ftn.model.dto.TPodaciSubjektDTO;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -76,6 +78,12 @@ public class TPodaciSubjekt {
     protected String pib;
 
     public TPodaciSubjekt () {}
+
+    public void merge(TPodaciSubjektDTO tPodaciSubjektDTO) {
+        this.naziv = tPodaciSubjektDTO.getNaziv();
+        this.adresa = tPodaciSubjektDTO.getAdresa();
+        this.pib = tPodaciSubjektDTO.getPib();
+    }
 
     public long getId() {
         return id;
