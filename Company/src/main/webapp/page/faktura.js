@@ -6,6 +6,14 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
     $scope.page.current = 3.2;
 
 
+    var loadData = function () {
+        fakturaService.read(function (response) {
+            $scope.fakture = response.data;
+        });
+    };
+
+    loadData();
+
     var openForm = function (faktura) {
         $mdDialog.show({
             parent: angular.element(document.body),
@@ -21,9 +29,13 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         openForm(null);
     };
 
+    $scope.showStavke = function(faktura) {
+        alert(faktura.id);
+    }
 
-
-
-
-
+    $scope.query = {
+        order: 'name',
+        limit: 5,
+        page: 1
+    };
 });

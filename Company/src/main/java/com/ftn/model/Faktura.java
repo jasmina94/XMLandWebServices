@@ -135,7 +135,7 @@ public class Faktura {
 
     @Id
     @GeneratedValue
-    @XmlTransient
+    //TODO: Vrati @XmlTransient
     private long id;
 
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
@@ -178,7 +178,7 @@ public class Faktura {
     protected String uplataNaRacun;
     @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @OneToMany
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "faktura_id")
     protected List<TStavkaFaktura> stavkaFakture;
     @XmlAttribute(name = "id_poruke")
     @Size(max = 50)

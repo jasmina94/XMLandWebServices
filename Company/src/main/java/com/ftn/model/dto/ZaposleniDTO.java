@@ -39,12 +39,13 @@ public class ZaposleniDTO {
     private Firma firma;
 
     public ZaposleniDTO(Zaposleni zaposleni) {
+        this.id = zaposleni.getId();
         this.jmbg = zaposleni.getJmbg();
         this.ime = zaposleni.getIme();
         this.prezime = zaposleni.getPrezime();
         this.adresa = zaposleni.getAdresa();
         this.korisnickoIme = zaposleni.getKorisnickoIme();
-        //this.lokacija = zaposleni.getLokacija();
+        this.mesto = zaposleni.getMesto();
         //this.firma = zaposleni.getFirma();
     }
 }
