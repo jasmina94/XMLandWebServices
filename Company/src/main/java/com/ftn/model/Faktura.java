@@ -135,7 +135,7 @@ public class Faktura {
 
     @Id
     @GeneratedValue
-    @XmlTransient
+    //TODO: Vrati @XmlTransient
     private long id;
 
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)

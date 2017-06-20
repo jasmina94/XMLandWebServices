@@ -30,8 +30,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
     };
 
     $scope.showStavke = function(faktura) {
-        
-
+        alert(faktura.id);
     }
 
     $scope.query = {
