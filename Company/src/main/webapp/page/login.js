@@ -4,7 +4,6 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
         authenticationService.login($scope.zaposleni, function () {
             $http.get('/api/employees')
                 .success(function (response) {
-                    //alert(response.ime);
                     authenticationService.setUser(response);
                     $state.transitionTo('home');
                 })

@@ -36,7 +36,6 @@ public class TStavkaFakturaController {
     @Transactional
     @GetMapping(value = "/fakture/{fakturaId}")
     public ResponseEntity read(@PathVariable Long fakturaId) {
-        System.out.print(fakturaId);
         return new ResponseEntity<>(tStavkaFakturaService.read(fakturaId), HttpStatus.OK);
     }
 }

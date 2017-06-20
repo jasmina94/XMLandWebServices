@@ -11,6 +11,7 @@ import com.ftn.service.FakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,17 @@ public class FakturaServiceImplementation implements FakturaService {
     @Override
     public List<FakturaDTO> read() {
         return fakturaDao.findAll().stream().map(FakturaDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FakturaDTO> read(String pib) {
+        List<Faktura> faktureFirme = new ArrayList<>();
+        for(Faktura faktura : fakturaDao.findAll()) {
+            if(faktura.getPodaciODobavljacu().getPib().equals(pib) || faktura.getPodaciOKupcu().getPib().equals(pib)) {
+                faktureFirme.add(faktura);
+            }
+        }
+        return faktureFirme.stream().map(FakturaDTO::new).collect(Collectors.toList());
     }
 
     @Override

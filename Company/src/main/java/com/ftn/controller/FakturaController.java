@@ -2,6 +2,7 @@ package com.ftn.controller;
 
 import com.ftn.constants.Auth;
 import com.ftn.exception.BadRequestException;
+import com.ftn.model.Faktura;
 import com.ftn.model.dto.FakturaDTO;
 import com.ftn.service.FakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by JELENA on 19.6.2017.
@@ -32,6 +34,12 @@ public class FakturaController {
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(fakturaService.read(), HttpStatus.OK);
+    }
+
+    @Transactional
+    @GetMapping(value = "/firma/{pib}")
+    public ResponseEntity read(@PathVariable String pib) {
+        return new ResponseEntity<>(fakturaService.read(pib), HttpStatus.OK);
     }
 
     @Transactional

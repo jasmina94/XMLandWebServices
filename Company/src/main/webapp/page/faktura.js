@@ -1,12 +1,14 @@
 /**
  * Created by JELENA on 20.6.2017.
  */
-app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDialog, fakturaService) {
+app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDialog, fakturaService, authenticationService) {
 
     $scope.page.current = 3.2;
 
 
     var loadData = function () {
+        zaposleni = authenticationService.getUser();
+        //TODO: prosledi pib firme u kojoj je zaposlen.
         fakturaService.read(function (response) {
             $scope.fakture = response.data;
         });
