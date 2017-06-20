@@ -32,6 +32,7 @@ public class TPodaciSubjektDTO {
 
 
     public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt) {
+        this.id = tPodaciSubjekt.getId();
         this.naziv = tPodaciSubjekt.getNaziv();
         this.adresa = tPodaciSubjekt.getAdresa();
         this.pib = tPodaciSubjekt.getPib();
