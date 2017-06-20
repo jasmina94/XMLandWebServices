@@ -4,7 +4,7 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
         authenticationService.login($scope.zaposleni, function () {
             $http.get('/api/employees')
                 .success(function (response) {
-                    alert(response);
+                    //alert(response.ime);
                     authenticationService.setUser(response);
                     $state.transitionTo('home');
                 })
@@ -15,10 +15,10 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
     var error = function () {
         $mdDialog.show(
             $mdDialog.alert()
-                .parent(angular.element(document.body))
-                .title('Neuspesno logovanje!')
-                .content('Pogresno korisnicko ime ili lozinka.')
-                .ok('Ok')
-        );
+            .parent(angular.element(document.body))
+            .title('Neuspesno logovanje!')
+            .content('Pogresno korisnicko ime ili lozinka.')
+            .ok('Ok')
+    );
     };
 });
