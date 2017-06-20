@@ -64,10 +64,14 @@ public class FakturaDTO {
 
 
     public FakturaDTO(Faktura faktura) {
+<<<<<<< HEAD
         this(faktura, true);
     }
 
     public FakturaDTO(Faktura faktura, boolean cascade) {
+=======
+        this.id = faktura.getId();
+>>>>>>> 2.1
         this.podaciODobavljacu = new TPodaciSubjektDTO(faktura.getPodaciODobavljacu());
         this.podaciOKupcu = new TPodaciSubjektDTO(faktura.getPodaciOKupcu());
         this.vrednostRobe = faktura.getVrednostRobe();
