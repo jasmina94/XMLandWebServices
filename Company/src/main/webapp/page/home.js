@@ -19,4 +19,9 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
     $scope.isActive = function (pageIndex) {
         return $scope.page.current === pageIndex;
     };
+
+    $scope.goToFakture = function () {
+        $state.transitionTo('home.faktura');
+    };
+
 });

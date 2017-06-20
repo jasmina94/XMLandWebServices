@@ -1,0 +1,36 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <p>Fakturaaaa form</p>
+    <!--
+    <form novalidate name="measurementUnitForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Naziv</label>
+                    <input id="name" name="name" type="text" data-ng-model="measurementUnit.name" required>
+                    <div ng-messages="measurementUnitForm.name.$error" ng-if="measurementUnitForm.name.$dirty">
+                        <div ng-message="required">Obavezan unos naziva merne jedinice.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Oznaka</label>
+                    <input id="label" name="label" type="text" data-ng-model="measurementUnit.label" required>
+                    <div ng-messages="measurementUnitForm.label.$error" ng-if="measurementUnitForm.label.$dirty">
+                        <div ng-message="required">Obavezan unos oznake merne jedinice.</div>
+                    </div>
+                </md-input-container>
+            </md-dialog-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Nazad</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="measurementUnitForm.$invalid">Sačuvaj
+            </md-button>
+        </md-dialog-actions>
+    </form>-->
+    <md-dialog-actions layout="row" layout-align="end center">
+        <md-button ng-click="close()">Nazad</md-button>
+        <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                   ng-disabled="measurementUnitForm.$invalid">Sačuvaj
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

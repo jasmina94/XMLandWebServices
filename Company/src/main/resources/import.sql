@@ -9,3 +9,5 @@ INSERT INTO `quatrofantasticoxmlcompany`.`zaposleni` (`adresa`,`ime`,`jmbg`,`pre
 INSERT INTO `quatrofantasticoxmlcompany`.`tpodaci_subjekt` (`adresa`, `naziv`, `pib`) VALUES ('Pozeska PB', 'Pionir d.o.o', 111111111), ("Zrenjaninski put 100", "Imlek", 222222222);
 
 INSERT INTO `quatrofantasticoxmlcompany`.`faktura` (`broj_racuna`, `datum_racuna`, `datum_valute`, `id_poruke`, `iznos_za_uplatu`, `oznaka_valute`, `ukupan_porez`, `ukupan_rabat`, `ukupno_roba_i_usluga`, `uplata_na_racun`, `vrednost_robe`, `vrednost_usluga`, `podaciodobavljacu_id`, `podaciokupcu_id`) VALUES (123456, "2017-05-10","2017-05-12", 2, 14000.00, "RSD", 7000.00, 4000.00, 14000.00, "840-1234567894754-12", 14000.00, 0.00, 1, 2);
+
+INSERT INTO `quatrofantasticoxmlcompany`.`tstavka_faktura` (`redni_broj`, `naziv_robe_usluge`, `kolicina`, `jedinica_mere`, `jedinicna_cena`, `vrednost`, `procenat_rabata`, `iznos_rabata`, `umanjeno_za_rabat`, `ukupan_porez`, `faktura_id` ) VALUES (1, "Cokoladno mleko", 15.00, "kg", 50.00, 750.00, 18.00, 100.00, 14.00, 2000.00, 1), (2, "Jogurt", 30.00, "litar", 100.00, 3000.00, 18.00, 200.00, 33.00, 20000.00, 1);
