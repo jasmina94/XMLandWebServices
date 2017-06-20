@@ -1,0 +1,57 @@
+<md-dialog class="md-padding card" style="width: 400px">
+
+    <p>{{faktura.id}}</p>
+
+    <md-divider></md-divider>
+    <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+             ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+        <md-table-container>
+            <table md-table>
+                <thead md-head md-order="query.order">
+                <tr md-row>
+                    <th md-column>Broj racuna</th>
+                    <th md-column><span>Datum racuna</span></th>
+                    <th md-column><span>Datum valute</span></th>
+                    <th md-column><span>Id poruke</span></th>
+                    <th md-column><span>Iznos za uplatu</span></th>
+                    <th md-column><span>Oznaka valute</span></th>
+                    <th md-column>Ukupan porez</th>
+                    <th md-column>Ukupan rabat</th>
+                    <th md-column><span>Ukupno roba i usluga</span></th>
+                    <th md-column><span>Vrednost robe</span></th>
+                    <th md-column><span>Vrednost usluga</span></th>
+                    <th md-column><span>Dobavljac</span></th>
+                    <th md-column><span>Kupac</span></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="faktura in fakture | limitTo: query.limit:(query.page-1) * query.limit"
+                    ng-click="null">
+                    <td md-cell>{{faktura.brojRacuna}}</td>
+                    <td md-cell>{{faktura.datumRacuna | date: 'dd-MM-yyyy'}}</td>
+                    <td md-cell>{{faktura.datumValute | date: 'dd-MM-yyyy'}}</td>
+                    <td md-cell>{{faktura.idPoruke}}</td>
+                    <td md-cell>{{faktura.iznosZaUplatu}}</td>
+                    <td md-cell>{{faktura.oznakaValute}}</td>
+                    <td md-cell>{{faktura.ukupanPorez}}</td>
+                    <td md-cell>{{faktura.ukupanRabat}}</td>
+                    <td md-cell>{{faktura.ukupnoRobaIUsluga}}</td>
+                    <td md-cell>{{faktura.vrednostRobe}}</td>
+                    <td md-cell>{{faktura.vrednostUsluga}}</td>
+                    <td md-cell>{{faktura.podaciODobavljacu.naziv}}</td>
+                    <td md-cell>{{faktura.podaciOKupcu.naziv}}</td>
+                    <td md-cell>
+                        <md-button class = "md-raised" ng-click = "showStavke(faktura)">
+                            Prikazi stavke
+                        </md-button>
+                    </td>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{fakture.length}}" md-page-select
+                             md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
+        </md-table-pagination>
+    </md-card>
+
+
+</md-dialog>
