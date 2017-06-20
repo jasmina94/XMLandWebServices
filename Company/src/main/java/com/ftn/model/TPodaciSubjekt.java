@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 
@@ -75,6 +76,7 @@ public class TPodaciSubjekt {
     protected String adresa;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false, length = 11)
+    @Pattern(regexp = "\\d{11}")
     protected String pib;
 
     public TPodaciSubjekt () {}
