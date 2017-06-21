@@ -38,7 +38,7 @@ public class TPodaciSubjektDTO {
     @NotNull
     private String mesto;
 
-    private List<PoslovniPartner> poslovniPartneri = new ArrayList<>();
+    private List<PoslovniPartnerDTO> poslovniPartneri = new ArrayList<>();
 
     private List<ZaposleniDTO> zaposleni = new ArrayList<>();
 
@@ -54,23 +54,21 @@ public class TPodaciSubjektDTO {
         this.pib = tPodaciSubjekt.getPib();
         this.mesto = tPodaciSubjekt.getMesto();
         if(cascade) {
-            //TODO: Izmeni ako se doda poslovniPartnerDTO
-            //this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri();
+            this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new PoslovniPartnerDTO(poslovniPartner, false)).collect(Collectors.toList());
             this.zaposleni = tPodaciSubjekt.getZaposleni().stream().map(zaposleni -> new ZaposleniDTO(zaposleni, false)).collect(Collectors.toList());
         }
     }
 
 
-    //TODO: Izmeni poslovne partnere ako se napravi PoslovniPartnerDTO
     public TPodaciSubjekt construct() {
         final TPodaciSubjekt tPodaciSubjekt = new TPodaciSubjekt();
         tPodaciSubjekt.setNaziv(naziv);
         tPodaciSubjekt.setAdresa(adresa);
         tPodaciSubjekt.setPib(pib);
         tPodaciSubjekt.setMesto(mesto);
-      /*  if(poslovniPartneri != null) {
-            tPodaciSubjekt.setPoslovniPartneri(poslovniPartneri);
-        }*/
+        if(poslovniPartneri != null) {
+            poslovniPartneri.forEach(poslovniPartnerDTO -> tPodaciSubjekt.getPoslovniPartneri().add(poslovniPartnerDTO.construct()));
+        }
         if(zaposleni != null) {
             zaposleni.forEach(zaposleniDTO -> tPodaciSubjekt.getZaposleni().add(zaposleniDTO.construct()));
         }

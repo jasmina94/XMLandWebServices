@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 
 /**
@@ -22,11 +23,14 @@ public class PoslovniPartner {
     @Column(nullable = false)
     private String naziv;
 
-    @Column(nullable = false, length = 9, unique = true)
-    private long pib;
+    @Column(nullable = false, length = 11, unique = true)
+    @Pattern(regexp = "\\d{11}")
+    protected String pib;
 
+    @Column(nullable = false)
     private String adresa;
 
+    @Column(nullable = false)
     private String mesto;
 
     @ManyToOne(optional = false)
