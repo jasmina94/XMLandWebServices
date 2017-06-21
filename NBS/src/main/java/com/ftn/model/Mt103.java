@@ -19,7 +19,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="mt103">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>

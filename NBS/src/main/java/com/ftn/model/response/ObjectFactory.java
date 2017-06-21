@@ -1,10 +1,10 @@
 
-package com.ftn.model;
+package com.ftn.model.response;
 
 
 
+import com.ftn.model.*;
 import com.ftn.model.request.GetMt103Request;
-import com.ftn.model.response.GetMt103Response;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

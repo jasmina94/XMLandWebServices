@@ -1,14 +1,8 @@
 package com.ftn;
 
 import com.ftn.model.*;
-import com.ftn.model.request.Mt102Request;
-import com.ftn.model.request.Mt103Request;
-import com.ftn.model.request.Mt900Request;
-import com.ftn.model.request.Mt910Request;
-import com.ftn.model.response.Mt102Response;
-import com.ftn.model.response.Mt103Response;
-import com.ftn.model.response.Mt900Response;
-import com.ftn.model.response.Mt910Response;
+import com.ftn.model.request.*;
+import com.ftn.model.response.*;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
@@ -29,15 +23,16 @@ public class Client extends WebServiceGatewaySupport {
 //        marshaller.setClassesToBeBound(Mt900Request.class, Mt900Response.class);
 //        marshaller.setClassesToBeBound(Mt910Request.class, Mt910Response.class);
 
-        marshaller.setClassesToBeBound(Mt102Request.class, Mt102Response.class);
+        marshaller.setClassesToBeBound(GetMt103Request.class, GetMt103Response.class);
+        marshaller.setContextPath("com.ftn.model:com.ftn.model.request:com.ftn.model.response");
 
         setMarshaller(marshaller);
         setUnmarshaller(marshaller);
 
-//        Mt103Request p = new Mt103Request();
-//        Mt103 m = new Mt103();
-//        m.setIdPoruke("testiram soap cb");
-//        p.setMt103(m);
+        GetMt103Request p = new GetMt103Request();
+        Mt103 m = new Mt103();
+        m.setIdPoruke("testiram soap cb");
+        p.setMt103(m);
 
 //        Mt900Request p = new Mt900Request();
 //        Mt900 model = new Mt900();
@@ -51,24 +46,24 @@ public class Client extends WebServiceGatewaySupport {
 //        model.setIdPoruke("testiram soap 910 cb");
 //        p.setMt910(model);
 
-        Mt102Request p = new Mt102Request();
-        Mt102 model = new Mt102();
-        Mt102Zaglavlje zag = new Mt102Zaglavlje();
-        model.setMt102Zaglavlje(zag);
-        model.getMt102Zaglavlje().setIdPoruke("poruka zaglavlja 102");
-        p.setMt102(model);
+//        GetMt103Request p = new GetMt103Request();
+//        Mt103 model = new Mt103();
+//        Mt103Zaglavlje zag = new Mt102Zaglavlje();
+//        model.setMt102Zaglavlje(zag);
+//        model.getMt102Zaglavlje().setIdPoruke("poruka zaglavlja 102");
+//        p.setMt102(model);
 
 
         String uri = "http://localhost:8094/ws";
         Object o = getWebServiceTemplate().marshalSendAndReceive(uri, p);
-        Mt102Response response = (Mt102Response) o;
+        GetMt103Response response = (GetMt103Response) o;
         System.out.println("**************************************");
-        System.out.println(p);
+        System.out.println(response);
 
         FileOutputStream os = null;
         try {
-            os = new FileOutputStream("/Users/Alex/Desktop/xml.xml");
-            getMarshaller().marshal(p, new StreamResult(os));
+            os = new FileOutputStream("/Users/Jasmina/Desktop/xml.xml");
+            getMarshaller().marshal(response, new StreamResult(os));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
