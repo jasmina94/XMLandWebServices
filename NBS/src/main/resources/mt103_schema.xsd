@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.ftn.uns.ac.rs/mt103" xmlns:mt103="http://www.ftn.uns.ac.rs/mt103"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt1033" xmlns:mt1033="http://www.ftn.uns.ac.rs/mt1033"
     xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
 
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
-    <xs:element name="mt103">
+    <xs:element name="mt1033">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="podaci_o_duzniku">
