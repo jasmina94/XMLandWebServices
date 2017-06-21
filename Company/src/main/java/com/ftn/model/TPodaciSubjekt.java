@@ -98,6 +98,7 @@ public class TPodaciSubjekt {
         this.naziv = tPodaciSubjektDTO.getNaziv();
         this.adresa = tPodaciSubjektDTO.getAdresa();
         this.pib = tPodaciSubjektDTO.getPib();
+        this.mesto = tPodaciSubjektDTO.getMesto();
     }
 
     public long getId() {

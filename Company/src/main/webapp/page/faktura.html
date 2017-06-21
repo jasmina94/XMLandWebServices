@@ -5,7 +5,7 @@
         </div>
         <md-divider></md-divider>
         <md-card ng-class="{'md-whiteframe-4dp':hovering}"
-                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "fakture.length > 0">
             <md-table-container>
                 <table md-table>
                     <thead md-head md-order="query.order">
@@ -53,6 +53,7 @@
                                  md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
             </md-table-pagination>
         </md-card>
+            <h3 class="text-center" ng-if = "fakture.length == 0">Trenutno ne postoji nijedna faktura.</h3>
     </div>
     <md-button class="md-primary md-fab md-fab-bottom-right"
                aria-label="Kreiraj fakturu" ng-click="addFaktura()">

@@ -69,8 +69,6 @@ public class FakturaDTO {
 
     public FakturaDTO(Faktura faktura, boolean cascade) {
         this.id = faktura.getId();
-        this.podaciODobavljacu = new TPodaciSubjektDTO(faktura.getPodaciODobavljacu());
-        this.podaciOKupcu = new TPodaciSubjektDTO(faktura.getPodaciOKupcu());
         this.vrednostRobe = faktura.getVrednostRobe();
         this.vrednostUsluga = faktura.getVrednostUsluga();
         this.ukupnoRobaIUsluga = faktura.getUkupnoRobaIUsluga();
@@ -84,10 +82,18 @@ public class FakturaDTO {
         this.brojRacuna = faktura.getBrojRacuna();
         this.datumRacuna = faktura.getDatumRacuna();
         this.datumValute = faktura.getDatumValute();
+
+        if(cascade) {
+            this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu()) : null;
+            this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu()) : null;
+
+        }
     }
 
     public Faktura construct() {
         final Faktura faktura = new Faktura();
+        faktura.setPodaciODobavljacu(podaciODobavljacu != null ? podaciODobavljacu.construct() : null);
+        faktura.setPodaciOKupcu(podaciOKupcu != null ? podaciOKupcu.construct() : null);
         faktura.setVrednostRobe(vrednostRobe);
         faktura.setVrednostUsluga(vrednostUsluga);
         faktura.setUkupnoRobaIUsluga(ukupnoRobaIUsluga);

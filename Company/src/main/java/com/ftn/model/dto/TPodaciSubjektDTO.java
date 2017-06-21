@@ -53,9 +53,9 @@ public class TPodaciSubjektDTO {
         this.adresa = tPodaciSubjekt.getAdresa();
         this.pib = tPodaciSubjekt.getPib();
         this.mesto = tPodaciSubjekt.getMesto();
-        //TODO: Izmeni ako se doda poslovniPartnerDTO
-        this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri();
         if(cascade) {
+            //TODO: Izmeni ako se doda poslovniPartnerDTO
+            //this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri();
             this.zaposleni = tPodaciSubjekt.getZaposleni().stream().map(zaposleni -> new ZaposleniDTO(zaposleni, false)).collect(Collectors.toList());
         }
     }
@@ -68,7 +68,9 @@ public class TPodaciSubjektDTO {
         tPodaciSubjekt.setAdresa(adresa);
         tPodaciSubjekt.setPib(pib);
         tPodaciSubjekt.setMesto(mesto);
-        tPodaciSubjekt.setPoslovniPartneri(poslovniPartneri);
+      /*  if(poslovniPartneri != null) {
+            tPodaciSubjekt.setPoslovniPartneri(poslovniPartneri);
+        }*/
         if(zaposleni != null) {
             zaposleni.forEach(zaposleniDTO -> tPodaciSubjekt.getZaposleni().add(zaposleniDTO.construct()));
         }

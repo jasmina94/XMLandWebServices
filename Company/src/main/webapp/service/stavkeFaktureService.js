@@ -8,7 +8,7 @@ app.service('stavkeFaktureService', function($http){
         },
         read: function (fakturaId, onSuccess, onError) {
             $http.get('api/stavkeFakture/fakture/' + fakturaId).then(onSuccess, onError);
-        },
+        }
     }
 });
 

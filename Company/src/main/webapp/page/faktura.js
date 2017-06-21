@@ -8,8 +8,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
 
     var loadData = function () {
         zaposleni = authenticationService.getUser();
-        //TODO: prosledi pib firme u kojoj je zaposlen.
-        fakturaService.read(function (response) {
+        fakturaService.read(zaposleni.tpodaciSubjektDTO.pib, function (response) {
             $scope.fakture = response.data;
         });
     };
