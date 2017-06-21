@@ -1,7 +1,7 @@
 package com.ftn.endpoint;
 
 import com.ftn.model.request.Mt103Request;
-import com.ftn.model.request.Mt103Response;
+import com.ftn.model.response.Mt103Response;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -19,7 +19,7 @@ public class Mt103Endpoint {
     @ResponsePayload
     public Mt103Response mt103(@RequestPayload Mt103Request request) {
         final Mt103Response response = new Mt103Response();
-        response.setMt1033(request.getMt103());
+        response.setMt103(request.getMt103());
         return response;
     }
 }
