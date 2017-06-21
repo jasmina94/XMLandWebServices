@@ -2,14 +2,14 @@
 package com.ftn.model;
 
 import com.ftn.model.dto.TPodaciSubjektDTO;
+import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -59,6 +59,7 @@ import javax.xml.bind.annotation.*;
     "pib"
 })
 @Entity
+@Data
 public class TPodaciSubjekt {
 
     @Id
@@ -78,6 +79,18 @@ public class TPodaciSubjekt {
     @Column(nullable = false, length = 11)
     @Pattern(regexp = "\\d{11}")
     protected String pib;
+
+    @XmlTransient
+    @Column(nullable = false)
+    private String  mesto;
+
+    @XmlTransient
+    @OneToMany(mappedBy = "tPodaciSubjekt", cascade = CascadeType.ALL)
+    private List<PoslovniPartner> poslovniPartneri = new ArrayList<>();
+
+    @XmlTransient
+    @OneToMany(mappedBy = "tPodaciSubjekt", cascade = CascadeType.ALL)
+    private List<Zaposleni> zaposleni = new ArrayList<>();
 
     public TPodaciSubjekt () {}
 

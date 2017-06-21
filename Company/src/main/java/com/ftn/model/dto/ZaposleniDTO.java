@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.Firma;
+import com.ftn.model.TPodaciSubjekt;
 import com.ftn.model.Zaposleni;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,9 +36,13 @@ public class ZaposleniDTO {
     @NotNull
     private String korisnickoIme;
 
-    private Firma firma;
+    private TPodaciSubjektDTO tPodaciSubjektDTO;
 
     public ZaposleniDTO(Zaposleni zaposleni) {
+        this(zaposleni, true);
+    }
+
+    public ZaposleniDTO(Zaposleni zaposleni, boolean cascade) {
         this.id = zaposleni.getId();
         this.jmbg = zaposleni.getJmbg();
         this.ime = zaposleni.getIme();
@@ -46,6 +50,24 @@ public class ZaposleniDTO {
         this.adresa = zaposleni.getAdresa();
         this.korisnickoIme = zaposleni.getKorisnickoIme();
         this.mesto = zaposleni.getMesto();
-        //this.firma = zaposleni.getFirma();
+        if(cascade) {
+            this.tPodaciSubjektDTO = zaposleni.getTPodaciSubjekt() != null ? new TPodaciSubjektDTO(zaposleni.getTPodaciSubjekt()) : null;
+        }
     }
+
+
+    public Zaposleni construct() {
+        final Zaposleni zaposleni = new Zaposleni();
+        zaposleni.setJmbg(jmbg);
+        zaposleni.setIme(ime);
+        zaposleni.setPrezime(prezime);
+        zaposleni.setAdresa(adresa);
+        zaposleni.setMesto(mesto);
+        zaposleni.setPrezime(prezime);
+        zaposleni.setTPodaciSubjekt(tPodaciSubjektDTO != null ? tPodaciSubjektDTO.construct() : null);
+
+        return zaposleni;
+    }
+
+
 }

@@ -39,6 +39,6 @@ public class Zaposleni {
 
     @ManyToOne
     //TODO: Da li je obavezno?
-    private Firma firma;
+    private TPodaciSubjekt tPodaciSubjekt;
 
 }

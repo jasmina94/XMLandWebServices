@@ -30,6 +30,6 @@ public class PoslovniPartner {
     private String mesto;
 
     @ManyToOne(optional = false)
-    private Firma firma;
+    private TPodaciSubjekt tPodaciSubjekt;
 
 }
