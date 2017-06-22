@@ -37,9 +37,15 @@ public class FakturaController {
     }
 
     @Transactional
-    @GetMapping(value = "/firma/{pib}")
-    public ResponseEntity read(@PathVariable String pib) {
-        return new ResponseEntity<>(fakturaService.read(pib), HttpStatus.OK);
+    @GetMapping(value = "/firmaDobavljac/{pib}")
+    public ResponseEntity readDobavljac(@PathVariable String pib) {
+        return new ResponseEntity<>(fakturaService.readDobavljac(pib), HttpStatus.OK);
+    }
+
+    @Transactional
+    @GetMapping(value = "/firmaKupac/{pib}")
+    public ResponseEntity readKupac(@PathVariable String pib) {
+        return new ResponseEntity<>(fakturaService.readKupac(pib), HttpStatus.OK);
     }
 
     @Transactional

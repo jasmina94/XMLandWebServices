@@ -1,7 +1,7 @@
 <div class="container">
     <div layout="column">
         <div layout="row">
-            <h3>Fakture</h3>
+            <h3>Fakture - {{uloga}}</h3>
         </div>
         <md-divider></md-divider>
         <md-card ng-class="{'md-whiteframe-4dp':hovering}"
@@ -44,6 +44,11 @@
                         <td md-cell>
                             <md-button class = "md-raised" ng-click = "showStavke(faktura)">
                                 Prikazi stavke
+                            </md-button>
+                        </td>
+                        <td md-cell ng-if = "uloga == 'kupac'">
+                            <md-button class = "md-raised">
+                                Kreiraj nalog
                             </md-button>
                         </td>
                     </tbody>

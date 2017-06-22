@@ -8,6 +8,7 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
     $scope.zaposleni = authenticationService.getUser();
     $scope.authService = authenticationService;
 
+
     $scope.logout = function () {
         authenticationService.logout(function () {
             $state.transitionTo('login');
@@ -24,4 +25,11 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
         $state.transitionTo('home.faktura');
     };
 
+    $scope.goToFaktureDobavljac = function () {
+        $state.transitionTo('home.fakturaDobavljac');
+    };
+
+    $scope.goToFaktureKupac = function () {
+        $state.transitionTo('home.fakturaKupac');
+    };
 });

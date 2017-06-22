@@ -37,10 +37,21 @@ public class FakturaServiceImplementation implements FakturaService {
     }
 
     @Override
-    public List<FakturaDTO> read(String pib) {
+    public List<FakturaDTO> readDobavljac(String pib) {
         List<Faktura> faktureFirme = new ArrayList<>();
         for(Faktura faktura : fakturaDao.findAll()) {
-            if(faktura.getPodaciODobavljacu().getPib().equals(pib) || faktura.getPodaciOKupcu().getPib().equals(pib)) {
+            if(faktura.getPodaciODobavljacu().getPib().equals(pib)) {
+                faktureFirme.add(faktura);
+            }
+        }
+        return faktureFirme.stream().map(FakturaDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FakturaDTO> readKupac(String pib) {
+        List<Faktura> faktureFirme = new ArrayList<>();
+        for(Faktura faktura : fakturaDao.findAll()) {
+            if(faktura.getPodaciOKupcu().getPib().equals(pib)) {
                 faktureFirme.add(faktura);
             }
         }
