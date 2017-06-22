@@ -53,7 +53,7 @@ public class Client extends WebServiceGatewaySupport {
 //        model.getMt102Zaglavlje().setIdPoruke("poruka zaglavlja 102");
 //        p.setMt102(model);
 
-
+/*
         String uri = "http://localhost:8094/ws";
         Object o = getWebServiceTemplate().marshalSendAndReceive(uri, p);
         GetMt103Response response = (GetMt103Response) o;
@@ -77,5 +77,6 @@ public class Client extends WebServiceGatewaySupport {
                 }
             }
         }
+    */
     }
 }
