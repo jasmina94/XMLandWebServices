@@ -40,14 +40,15 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'HomeController',
             templateUrl: 'page/home.html'
         })
-        .state('home.fakturaDobavljac', {
-            url: '/faktura',
-            controller: 'FakturaController',
-            templateUrl: 'page/faktura.html',
-        })
         .state('home.fakturaKupac', {
-            url: '/faktura',
+            url: '/fakturaKupac',
             controller: 'FakturaController',
             templateUrl: 'page/faktura.html',
         })
+        .state('home.fakturaDobavljac', {
+            url: '/fakturaDobavljac',
+            controller: 'FakturaController',
+            templateUrl: 'page/faktura.html',
+        })
+
 });

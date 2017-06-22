@@ -8,9 +8,8 @@ import java.util.List;
  * Created by JELENA on 19.6.2017.
  */
 public interface TPodaciSubjektService {
+
     List<TPodaciSubjektDTO> read();
 
     TPodaciSubjektDTO create(TPodaciSubjektDTO tPodaciSubjektDTO);
-
-
 }

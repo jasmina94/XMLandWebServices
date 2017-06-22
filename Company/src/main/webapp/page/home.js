@@ -21,10 +21,6 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
         return $scope.page.current === pageIndex;
     };
 
-    $scope.goToFakture = function () {
-        $state.transitionTo('home.faktura');
-    };
-
     $scope.goToFaktureDobavljac = function () {
         $state.transitionTo('home.fakturaDobavljac');
     };

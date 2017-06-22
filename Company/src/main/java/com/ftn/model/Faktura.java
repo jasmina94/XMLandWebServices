@@ -135,7 +135,7 @@ public class Faktura {
 
     @Id
     @GeneratedValue
-    //TODO: Vrati @XmlTransient
+    @XmlTransient
     private long id;
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @ManyToOne(optional = false, cascade = CascadeType.ALL)

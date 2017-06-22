@@ -11,12 +11,12 @@ import java.util.Date;
 
 
 /**
- * <p>Java class for anonymous complex type.
- * 
+ * <p>Java class for nalog_za_prenos complex type.
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="nalog_za_prenos">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -57,8 +57,8 @@ import java.util.Date;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {

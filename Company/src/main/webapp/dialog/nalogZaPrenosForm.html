@@ -1,0 +1,29 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <form novalidate name="nalogZaPrenosForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-checkbox
+                    ng-model="data.cb2"
+                    aria-label="Checkbox 2"
+                    ng-true-value="'yup'"
+                    ng-false-value="'nope'"
+                    class="md-warn md-align-top-left" flex>
+                Hitno
+            </md-checkbox>
+            <md-input-container class="md-block">
+                <label>Model zaduzenja</label>
+                <input id="modelZaduzenja" name="modelZaduzenja" type="number">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Poziv na broj zaduzenja</label>
+                <input id="pozivNaBrojZ" name="pozivNaBrojZ" type="number">
+            </md-input-container>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Nazad</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="businessPartnerForm.$invalid || faktura.podaciOKupcu == null || faktura.podaciODobavljacu == null">Sačuvaj
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
