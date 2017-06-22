@@ -44,8 +44,6 @@ app.controller('FakturaFormController', function ($scope, $http, $state, $mdDial
         fakturaService.create($scope.faktura, function () {
             $scope.close();
         });
-
-
     };
 
     $scope.close = function () {

@@ -7,6 +7,7 @@ import com.ftn.model.TPodaciOPrenosu;
 import com.ftn.model.TPrenosUcesnik;
 import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.dto.NalogZaPrenosDTO;
+import com.ftn.model.dto.PodaciZaNalogDTO;
 import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,9 +44,11 @@ public class NalogZaPrenosController {
 
     @Transactional
     @PostMapping(value = "/kreirajNalog")
-    public NalogZaPrenos kreirajNalog(@Valid @RequestBody FakturaDTO faktura, BindingResult bindingResult) {
+    public NalogZaPrenos kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
         System.out.print("Ovde sam kreiraj nalog kontrloer");
-        System.out.print(faktura);
+        System.out.print(podaciZaNalogDTO);
+        System.out.print(podaciZaNalogDTO.getFaktura());
+
          if (bindingResult.hasErrors())
             throw new BadRequestException();
 
@@ -54,7 +57,7 @@ public class NalogZaPrenosController {
         TPrenosUcesnik duznikUPrenosu = new TPrenosUcesnik();
         TPrenosUcesnik poverilacUPrenosu= new TPrenosUcesnik();
 
-        nalogZaPrenos.setIdPoruke(faktura.getIdPoruke());
+      /*  nalogZaPrenos.setIdPoruke(faktura.getIdPoruke());
         nalogZaPrenos.setDuznik(faktura.getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setPoverilac(faktura.getPodaciODobavljacu().getNaziv());
         nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + faktura.getBrojRacuna());
@@ -63,11 +66,15 @@ public class NalogZaPrenosController {
         podaciOPrenosu.setIznos(faktura.getIznosZaUplatu());
         podaciOPrenosu.setOznakaValute(faktura.getOznakaValute());
 
+
         //TODO: Popuni ostala polja
+        //poverilacUPrenosu.setRacunUcesnika(faktura.getUplataNaRacun());
+
         // podaciOPrenosu.setPoverilacUPrenosu();
         //podaciOPrenosu.setDuznikUPrenosu();
         return nalogZaPrenos;
-
+*/
+      return null;
         //TODO: sacuvaj u bazu
         // return new ResponseEntity<>(nalogZaPrenosService.create(nalogZaPrenos), HttpStatus.OK);
     }

@@ -7,9 +7,9 @@ app.service('nalogZaPrenosService', function($http){
         read: function(onSuccess, onError){
             $http.get('/api/naloziZaPrenos').then(onSuccess, onError);
         },
-        kreirajNalog: function (faktura, onSuccess, onError) {
-            alert("Bla")
-            $http.post('api/naloziZaPrenos/kreirajNalog', faktura).then(onSuccess, onError);
+        kreirajNalog: function (podaciZaNalog, onSuccess, onError) {
+            alert("Bla");
+            $http.post('api/naloziZaPrenos/kreirajNalog', podaciZaNalog).then(onSuccess, onError);
         }
     }
 });

@@ -46,12 +46,12 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         });
     }
 
-    $scope.kreirajNalog = function (faktura) {
-        alert("OVCEE")
-        nalogZaPrenosService.kreirajNalog(faktura.toString(),  function (response) {
-           alert("Uspeh");
-        }).finally(function () {
-            alert("Kraj")
+    $scope.popuniNalog = function (faktura) {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/nalogZaPrenosForm.html',
+            controller: 'NalogZaPrenosFormController',
+            locals: {faktura: faktura}
         });
 
     }
