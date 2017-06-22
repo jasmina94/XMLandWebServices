@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:mysql://localhost:3306/quatrofantasticoxmlcompany?useUnicode=yes&characterEncoding=UTF-8
+        url: jdbc:mysql://localhost:3306/quatrofantasticoxmlcompany2?useUnicode=yes&characterEncoding=UTF-8
         username: root
         password: root
 
