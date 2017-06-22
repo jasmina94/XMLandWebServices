@@ -5,20 +5,20 @@
             <md-autocomplete
                     md-selected-item="faktura.podaciOKupcu"
                     md-search-text="searchText"
-                    md-items="tPodaciSubjekt in queryTPodaciSubjekti(searchText)"
-                    md-item-text="tPodaciSubjekt.naziv"
+                    md-items="poslovniPartner in queryPoslovniPartneri(searchText)"
+                    md-item-text="poslovniPartner.naziv"
                     md-min-length="0"
                     placeholder="Traži kupca...">
                 <md-item-template>
                     <span class="item-title" style="display: block; line-height:1">
-                        <span><strong>{{tPodaciSubjekt.naziv}}</strong></span>
+                        <span><strong>{{poslovniPartner.naziv}}</strong></span>
                         </span>
                     <span class="item-metadata" style="display: block; padding-bottom: 3px;line-height: 2">
                         <span style="padding-right: 10px">
-                            Adresa: {{tPodaciSubjekt.adresa}}
+                            Adresa: {{poslovniPartner.adresa}}
                         </span>
                         <span style="padding-right: 10px">
-                            PIB: {{tPodaciSubjekt.pib}}
+                            PIB: {{poslovniPartner.pib}}
                         </span>
                     </span>
                 </md-item-template>
@@ -26,36 +26,11 @@
                     Nije pronađen kupac sa nazivom, adresom ili PIB-om "{{searchText}}".
                 </md-not-found>
             </md-autocomplete>
-            <label>Dobavljac</label>
-            <md-autocomplete
-                    md-selected-item="faktura.podaciODobavljacu"
-                    md-search-text="searchText1"
-                    md-items="tPodaciSubjekt in queryTPodaciSubjekti(searchText1)"
-                    md-item-text="tPodaciSubjekt.naziv"
-                    md-min-length="0"
-                    placeholder="Traži dobavljača...">
-                <md-item-template>
-                    <span class="item-title" style="display: block; line-height:1">
-                        <span><strong>{{tPodaciSubjekt.naziv}}</strong></span>
-                        </span>
-                    <span class="item-metadata" style="display: block; padding-bottom: 3px;line-height: 2">
-                        <span style="padding-right: 10px">
-                            Adresa: {{tPodaciSubjekt.adresa}}
-                        </span>
-                        <span style="padding-right: 10px">
-                            PIB: {{tPodaciSubjekt.pib}}
-                        </span>
-                    </span>
-                </md-item-template>
-                <md-not-found>
-                    Nije pronađen dobavljač sa nazivom, adresom ili PIB-om "{{searchText1}}".
-                </md-not-found>
-            </md-autocomplete>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">
             <md-button ng-click="close()">Nazad</md-button>
             <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
-                       ng-disabled="businessPartnerForm.$invalid || faktura.podaciOKupcu == null || faktura.podaciODobavljacu == null">Sačuvaj
+                       ng-disabled="businessPartnerForm.$invalid || faktura.podaciOKupcu == null">Sačuvaj
             </md-button>
         </md-dialog-actions>
     </form>

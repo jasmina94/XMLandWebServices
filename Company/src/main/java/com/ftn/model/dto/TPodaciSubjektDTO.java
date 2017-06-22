@@ -1,8 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.PoslovniPartner;
 import com.ftn.model.TPodaciSubjekt;
-import com.ftn.model.Zaposleni;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,7 +36,7 @@ public class TPodaciSubjektDTO {
     @NotNull
     private String mesto;
 
-    private List<PoslovniPartnerDTO> poslovniPartneri = new ArrayList<>();
+    private List<TPodaciSubjektDTO> poslovniPartneri = new ArrayList<>();
 
     private List<ZaposleniDTO> zaposleni = new ArrayList<>();
 
@@ -54,7 +52,7 @@ public class TPodaciSubjektDTO {
         this.pib = tPodaciSubjekt.getPib();
         this.mesto = tPodaciSubjekt.getMesto();
         if(cascade) {
-            this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new PoslovniPartnerDTO(poslovniPartner, false)).collect(Collectors.toList());
+            this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
             this.zaposleni = tPodaciSubjekt.getZaposleni().stream().map(zaposleni -> new ZaposleniDTO(zaposleni, false)).collect(Collectors.toList());
         }
     }

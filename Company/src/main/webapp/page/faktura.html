@@ -3,6 +3,11 @@
         <div layout="row">
             <h3>Fakture - {{uloga}}</h3>
         </div>
+        <div layout="row">
+            <md-button class = "md-raised" ng-click="addFaktura()" ng-if = "uloga == 'dobavljac'">
+                Kreiraj zaglavlje fakture
+            </md-button>
+        </div>
         <md-divider></md-divider>
         <md-card ng-class="{'md-whiteframe-4dp':hovering}"
                  ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "fakture.length > 0">
@@ -46,6 +51,17 @@
                                 Prikazi stavke
                             </md-button>
                         </td>
+                        <td md-cell>
+                            <md-button class = "md-raised" ng-click = "addStavke()" ng-if = "uloga == 'dobavljac' && !faktura.poslato">
+                                Dodaj stavke
+                            </md-button>
+                        </td>
+                        <td md-cell>
+                            <md-button class = "md-raised" ng-click = "sendFaktura()"
+                            nf-if = "uloga == 'dobavljac' && faktura.stavkafakture.length > 0 && !faktura.poslato">
+                                Posalji fakturu
+                            </md-button>
+                        </td>
                         <td md-cell ng-if = "uloga == 'kupac'">
                             <md-button class = "md-raised">
                                 Kreiraj nalog
@@ -61,7 +77,7 @@
             <h3 class="text-center" ng-if = "fakture.length == 0">Trenutno ne postoji nijedna faktura.</h3>
     </div>
     <md-button class="md-primary md-fab md-fab-bottom-right"
-               aria-label="Kreiraj fakturu" ng-click="addFaktura()">
+               aria-label="Kreiraj fakturu" ng-click="addFaktura()"  ng-if = "uloga == 'dobavljac'">
         <md-icon md-svg-src="image/ic_add_white_24px.svg"></md-icon>
     </md-button>
 </div>

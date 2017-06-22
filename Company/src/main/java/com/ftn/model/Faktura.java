@@ -135,7 +135,7 @@ public class Faktura {
 
     @Id
     @GeneratedValue
-    //TODO: Vrati @XmlTransient
+    @XmlTransient
     private long id;
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
@@ -193,7 +193,19 @@ public class Faktura {
     @XmlJavaTypeAdapter(DateAdapter.class)
     protected Date datumValute;
 
+    @XmlTransient
+    @Column(nullable = false)
+    private boolean poslato;
+
     public Faktura() {}
+
+    public boolean isPoslato() {
+        return poslato;
+    }
+
+    public void setPoslato(boolean poslato) {
+        this.poslato = poslato;
+    }
 
     public void merge(FakturaDTO fakturaDTO) {
         this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();

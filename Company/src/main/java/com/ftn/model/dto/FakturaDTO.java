@@ -52,7 +52,7 @@ public class FakturaDTO {
     private String uplataNaRacun;
 
     //TODO: zameniti sa DTO. Staviti NotNull?
-    private List<TStavkaFaktura> stavkaFaktura;
+    private List<TStavkaFakturaDTO> stavkaFakture;
 
     private String idPoruke;
 
@@ -61,6 +61,9 @@ public class FakturaDTO {
     private Date datumRacuna;
 
     private Date datumValute;
+
+    @NotNull
+    private boolean poslato;
 
 
     public FakturaDTO(Faktura faktura) {
@@ -77,15 +80,16 @@ public class FakturaDTO {
         this.oznakaValute = faktura.getOznakaValute();
         this.iznosZaUplatu = faktura.getIznosZaUplatu();
         this.uplataNaRacun = faktura.getUplataNaRacun();
-        //za listu stavki dodati kad bude DTO
         this.idPoruke = faktura.getIdPoruke();
         this.brojRacuna = faktura.getBrojRacuna();
         this.datumRacuna = faktura.getDatumRacuna();
         this.datumValute = faktura.getDatumValute();
+        this.poslato = faktura.isPoslato();
 
         if(cascade) {
             this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu()) : null;
             this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu()) : null;
+            this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka, false)).collect(Collectors.toList());
 
         }
     }
@@ -106,6 +110,11 @@ public class FakturaDTO {
         faktura.setBrojRacuna(brojRacuna);
         faktura.setDatumRacuna(datumRacuna);
         faktura.setDatumValute(datumValute);
+        faktura.setPoslato(poslato);
+
+        if(stavkaFakture != null) {
+            stavkaFakture.forEach(tStavkaFakturaDTO  -> faktura.getStavkaFakture().add(tStavkaFakturaDTO.construct()));
+        }
 
         return faktura;
     }

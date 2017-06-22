@@ -7,6 +7,7 @@ import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.TPodaciSubjektService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,17 @@ public class TPodaciSubjektServiceImplementation implements TPodaciSubjektServic
     @Override
     public List<TPodaciSubjektDTO> read() {
         return tPodaciSubjekatDao.findAll().stream().map(TPodaciSubjektDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TPodaciSubjektDTO> readPoslovniPartneri(Long id) {
+        List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
+        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
+            if (partner.getId() == id) {
+                    poslovniPartneri = partner.getPoslovniPartneri();
+            }
+        }
+        return poslovniPartneri.stream().map(TPodaciSubjektDTO::new).collect(Collectors.toList());
     }
 
     @Override

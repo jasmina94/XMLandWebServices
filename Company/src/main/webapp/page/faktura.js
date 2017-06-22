@@ -31,7 +31,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             controller: 'FakturaFormController',
             locals: { faktura: faktura}
         }).finally(function () {
-           // loadData();
+            loadData();
         });
     };
 

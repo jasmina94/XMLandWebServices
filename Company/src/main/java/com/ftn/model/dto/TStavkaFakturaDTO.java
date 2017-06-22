@@ -80,4 +80,21 @@ public class TStavkaFakturaDTO {
             this.faktura = new FakturaDTO(tStavkaFaktura.getFaktura(), false);
         }
     }
+
+    public TStavkaFaktura construct() {
+        final TStavkaFaktura tStavkaFaktura = new TStavkaFaktura();
+        tStavkaFaktura.setRedniBroj(redniBroj);
+        tStavkaFaktura.setNazivRobeUsluge(nazivRobeUsluge);
+        tStavkaFaktura.setKolicina(kolicina);
+        tStavkaFaktura.setJedinicaMere(jedinicaMere);
+        tStavkaFaktura.setJedinicnaCena(jedinicnaCena);
+        tStavkaFaktura.setVrednost(vrednost);
+        tStavkaFaktura.setProcenatRabata(procenatRabata);
+        tStavkaFaktura.setIznosRabata(iznosRabata);
+        tStavkaFaktura.setUmanjenoZaRabat(umanjenoZaRabat);
+        tStavkaFaktura.setUkupanPorez(ukupanPorez);
+        tStavkaFaktura.setFaktura(faktura != null ? faktura.construct() : null);
+
+        return tStavkaFaktura;
+    }
 }
