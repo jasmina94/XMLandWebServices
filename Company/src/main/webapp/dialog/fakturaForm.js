@@ -2,9 +2,12 @@
  * Created by JELENA on 20.6.2017.
  */
 
-app.controller('FakturaFormController', function ($scope, $http, $state, $mdDialog, fakturaService, tPodaciSubjektService, faktura) {
+app.controller('FakturaFormController', function ($scope, $http, $state, $mdDialog, fakturaService, tPodaciSubjektService, authenticationService, faktura) {
+
+    $scope.zaposleni = authenticationService.getUser();
 
     $scope.faktura = {
+        "podaciODobavljacu": zaposleni.tpodaciSubjektDTO,
         "vrednostRobe": 0.0,
         "vrednostUsluga": 0.0,
         "ukupnoRobaIUsluga": 0.0,
@@ -20,21 +23,21 @@ app.controller('FakturaFormController', function ($scope, $http, $state, $mdDial
         "datumValute": "2017-01-01"
     };
 
-    tPodaciSubjektService.read(function (response) {
-        $scope.tPodaciSubjekti = response.data;
+    tPodaciSubjektService.readPoslovniPartneri(zaposleni.tpodaciSubjektDTO.id,  function (response) {
+        $scope.poslovniPartneri = response.data;
     });
 
-    $scope.queryTPodaciSubjekti = function (searchText) {
+    $scope.queryPoslovniPartneri = function (searchText) {
         if (searchText === null) {
-            return $scope.tPodaciSubjekti;
+            return $scope.poslovniPartneri;
         }
 
         var queryResults = [];
-        for (var i = 0; i < $scope.tPodaciSubjekti.length; i++) {
-            if ($scope.tPodaciSubjekti[i].naziv.toLowerCase().match(searchText.toLowerCase())
-                || $scope.tPodaciSubjekti[i].adresa.toLowerCase().match(searchText.toLowerCase())
-            || $scope.tPodaciSubjekti[i].pib.match(searchText)) {
-                queryResults.push($scope.tPodaciSubjekti[i]);
+        for (var i = 0; i < $scope.poslovniPartneri.length; i++) {
+            if ($scope.poslovniPartneri[i].naziv.toLowerCase().match(searchText.toLowerCase())
+                || $scope.poslovniPartneri[i].adresa.toLowerCase().match(searchText.toLowerCase())
+            || $scope.poslovniPartneri[i].pib.match(searchText)) {
+                queryResults.push($scope.poslovniPartneri[i]);
             }
         }
         return queryResults;

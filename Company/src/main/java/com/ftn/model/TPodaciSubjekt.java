@@ -85,8 +85,8 @@ public class TPodaciSubjekt {
     private String  mesto;
 
     @XmlTransient
-    @OneToMany(mappedBy = "tPodaciSubjekt", cascade = CascadeType.ALL)
-    private List<PoslovniPartner> poslovniPartneri = new ArrayList<>();
+    @ManyToMany (cascade = CascadeType.ALL)
+    private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
 
     @XmlTransient
     @OneToMany(mappedBy = "tPodaciSubjekt", cascade = CascadeType.ALL)
