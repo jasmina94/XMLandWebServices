@@ -44,7 +44,7 @@ public class NalogZaPrenosController {
 
     @Transactional
     @PostMapping(value = "/kreirajNalog")
-    public NalogZaPrenos kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
+    public ResponseEntity kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
         System.out.print("Ovde sam kreiraj nalog kontrloer");
         System.out.print(podaciZaNalogDTO);
         System.out.print(podaciZaNalogDTO.getFaktura());
@@ -52,41 +52,16 @@ public class NalogZaPrenosController {
          if (bindingResult.hasErrors())
             throw new BadRequestException();
 
-        NalogZaPrenos nalogZaPrenos = new NalogZaPrenos();
-        TPodaciOPrenosu podaciOPrenosu = new TPodaciOPrenosu();
-        TPrenosUcesnik duznikUPrenosu = new TPrenosUcesnik();
-        TPrenosUcesnik poverilacUPrenosu= new TPrenosUcesnik();
-
-      /*  nalogZaPrenos.setIdPoruke(faktura.getIdPoruke());
-        nalogZaPrenos.setDuznik(faktura.getPodaciOKupcu().getNaziv());
-        nalogZaPrenos.setPoverilac(faktura.getPodaciODobavljacu().getNaziv());
-        nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + faktura.getBrojRacuna());
-        nalogZaPrenos.setDatumNaloga(faktura.getDatumRacuna());
-        nalogZaPrenos.setDatumValute(new Date());
-        podaciOPrenosu.setIznos(faktura.getIznosZaUplatu());
-        podaciOPrenosu.setOznakaValute(faktura.getOznakaValute());
-
-
-        //TODO: Popuni ostala polja
-        //poverilacUPrenosu.setRacunUcesnika(faktura.getUplataNaRacun());
-
-        // podaciOPrenosu.setPoverilacUPrenosu();
-        //podaciOPrenosu.setDuznikUPrenosu();
-        return nalogZaPrenos;
-*/
-      return null;
-        //TODO: sacuvaj u bazu
-        // return new ResponseEntity<>(nalogZaPrenosService.create(nalogZaPrenos), HttpStatus.OK);
+         return new ResponseEntity<>(nalogZaPrenosService.kreirajNalog(podaciZaNalogDTO), HttpStatus.OK);
     }
+
 
     @Transactional
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody NalogZaPrenosDTO nalogZaPrenosDTO, BindingResult bindingResult) {
-       System.out.print("Ovde sam kreate");
-        // if (bindingResult.hasErrors())
-        //    throw new BadRequestException();
+         if (bindingResult.hasErrors())
+            throw new BadRequestException();
 
-        return null;
-       // return new ResponseEntity<>(nalogZaPrenosService.create(nalogZaPrenos), HttpStatus.OK);
+        return new ResponseEntity<>(nalogZaPrenosService.create(nalogZaPrenosDTO), HttpStatus.OK);
     }
 }

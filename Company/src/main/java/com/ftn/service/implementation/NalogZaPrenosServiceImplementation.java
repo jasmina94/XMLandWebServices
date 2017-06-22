@@ -1,16 +1,16 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.Faktura;
-import com.ftn.model.NalogZaPrenos;
-import com.ftn.model.TPodaciSubjekt;
+import com.ftn.model.*;
 import com.ftn.model.dto.NalogZaPrenosDTO;
+import com.ftn.model.dto.PodaciZaNalogDTO;
 import com.ftn.model.dto.TPodaciSubjektDTO;
 import com.ftn.repository.NalogZaPrenosDao;
 import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +38,40 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
             throw new BadRequestException();
 
         final NalogZaPrenos nalogZaPrenos = nalogZaPrenosDTO.construct();
+        nalogZaPrenosDao.save(nalogZaPrenos);
+        return new NalogZaPrenosDTO(nalogZaPrenos);
+    }
+
+    @Override
+    public NalogZaPrenosDTO kreirajNalog(PodaciZaNalogDTO podaciZaNalogDTO) {
+        //TODO: Realizuj ovaj if nekako sutra
+       // if (nalogZaPrenosDao.findById(nalogZaPrenosDTO.getId()).isPresent())
+       //     throw new BadRequestException();
+
+        NalogZaPrenos nalogZaPrenos = new NalogZaPrenos();
+        TPodaciOPrenosu podaciOPrenosu = new TPodaciOPrenosu();
+        TPrenosUcesnik duznikUPrenosu = new TPrenosUcesnik();
+        TPrenosUcesnik poverilacUPrenosu= new TPrenosUcesnik();
+
+        poverilacUPrenosu.setRacunUcesnika(podaciZaNalogDTO.getFaktura().getUplataNaRacun());
+        poverilacUPrenosu.setPozivNaBroj(podaciZaNalogDTO.getPozivNaBrojOdobrenja());
+        poverilacUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelOdobrenja());
+        duznikUPrenosu.setRacunUcesnika(podaciZaNalogDTO.getRacunDuznika());
+        duznikUPrenosu.setPozivNaBroj(podaciZaNalogDTO.getPozivNaBrojZaduzenja());
+        duznikUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelZaduzenja());
+
+        nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
+        nalogZaPrenos.setDuznik(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
+        nalogZaPrenos.setPoverilac(podaciZaNalogDTO.getFaktura().getPodaciODobavljacu().getNaziv());
+        nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + podaciZaNalogDTO.getFaktura().getBrojRacuna());
+        nalogZaPrenos.setDatumNaloga(podaciZaNalogDTO.getFaktura().getDatumRacuna());
+        nalogZaPrenos.setDatumValute(new Date());
+        podaciOPrenosu.setIznos(podaciZaNalogDTO.getFaktura().getIznosZaUplatu());
+        podaciOPrenosu.setOznakaValute(podaciZaNalogDTO.getFaktura().getOznakaValute());
+        podaciOPrenosu.setPoverilacUPrenosu(poverilacUPrenosu);
+        podaciOPrenosu.setDuznikUPrenosu(duznikUPrenosu);
+        nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosu);
+
         nalogZaPrenosDao.save(nalogZaPrenos);
         return new NalogZaPrenosDTO(nalogZaPrenos);
     }

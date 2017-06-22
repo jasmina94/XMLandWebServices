@@ -1,6 +1,7 @@
 package com.ftn.service;
 
 import com.ftn.model.dto.NalogZaPrenosDTO;
+import com.ftn.model.dto.PodaciZaNalogDTO;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface NalogZaPrenosService {
     List<NalogZaPrenosDTO> read();
 
     NalogZaPrenosDTO create(NalogZaPrenosDTO nalogZaPrenosDTO);
+
+    NalogZaPrenosDTO kreirajNalog(PodaciZaNalogDTO podaciZaNalogDTO);
 }
