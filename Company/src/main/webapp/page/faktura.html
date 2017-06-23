@@ -17,35 +17,22 @@
                     <tr md-row>
                         <th md-column><span>Broj racuna</span></th>
                         <th md-column><span>Datum racuna</span></th>
-                        <th md-column><span>Datum valute</span></th>
                         <th md-column><span>Id poruke</span></th>
                         <th md-column><span>Iznos za uplatu</span></th>
                         <th md-column><span>Oznaka valute</span></th>
-                        <th md-column><span>Ukupan porez</span></th>
-                        <th md-column><span>Ukupan rabat</span></th>
-                        <th md-column><span>Ukupno roba i usluga</span></th>
-                        <th md-column><span>Vrednost robe</span></th>
-                        <th md-column><span>Vrednost usluga</span></th>
                         <th md-column><span>Dobavljac</span></th>
                         <th md-column><span>Kupac</span></th>
                     </tr>
                     </thead>
                     <tbody md-body>
-                    <tr md-row ng-repeat="faktura in fakture | limitTo: query.limit:(query.page-1) * query.limit"
-                        ng-click="null">
-                        <td md-cell>{{faktura.brojRacuna}}</td>
-                        <td md-cell>{{faktura.datumRacuna | date: 'dd-MM-yyyy'}}</td>
-                        <td md-cell>{{faktura.datumValute | date: 'dd-MM-yyyy'}}</td>
-                        <td md-cell>{{faktura.idPoruke}}</td>
-                        <td md-cell>{{faktura.iznosZaUplatu}}</td>
-                        <td md-cell>{{faktura.oznakaValute}}</td>
-                        <td md-cell>{{faktura.ukupanPorez}}</td>
-                        <td md-cell>{{faktura.ukupanRabat}}</td>
-                        <td md-cell>{{faktura.ukupnoRobaIUsluga}}</td>
-                        <td md-cell>{{faktura.vrednostRobe}}</td>
-                        <td md-cell>{{faktura.vrednostUsluga}}</td>
-                        <td md-cell>{{faktura.podaciODobavljacu.naziv}}</td>
-                        <td md-cell>{{faktura.podaciOKupcu.naziv}}</td>
+                    <tr md-row ng-repeat="faktura in fakture | limitTo: query.limit:(query.page-1) * query.limit">
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.brojRacuna}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.datumRacuna | date: 'dd-MM-yyyy'}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.idPoruke}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.iznosZaUplatu}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.oznakaValute}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.podaciODobavljacu.naziv}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.podaciOKupcu.naziv}}</td>
                         <td md-cell>
                             <md-button class = "md-raised" ng-click = "showStavke(faktura)">
                                 Prikazi stavke

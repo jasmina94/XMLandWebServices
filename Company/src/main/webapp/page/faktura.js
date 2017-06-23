@@ -65,7 +65,15 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         }).finally(function () {
             loadData();
         });
+    };
 
+    $scope.prikaziDetalje = function(faktura) {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/fakturaDetalji.html',
+            controller: 'FakturaDetaljiController',
+            locals: {faktura: faktura}
+        });
     }
 
     $scope.query = {
