@@ -28,4 +28,12 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
     $scope.goToFaktureKupac = function () {
         $state.transitionTo('home.fakturaKupac');
     };
+
+    $scope.goToNaloziPoverilac = function () {
+        $state.transitionTo('home.nalogPoverilac');
+    };
+
+    $scope.goToNaloziDuznik = function () {
+        $state.transitionTo('home.nalogDuznik');
+    };
 });

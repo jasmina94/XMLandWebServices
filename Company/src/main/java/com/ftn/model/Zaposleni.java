@@ -1,5 +1,6 @@
 package com.ftn.model;
 
+import com.ftn.model.dto.ZaposleniDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +35,7 @@ public class Zaposleni {
     @Column(unique = true)
     private String korisnickoIme;
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String lozinka;
 
     @ManyToOne

@@ -37,6 +37,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         openForm(null);
     };
 
+
     $scope.showStavke = function(faktura) {
         $mdDialog.show({
             parent: angular.element(document.body),
@@ -61,6 +62,8 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             templateUrl: 'dialog/nalogZaPrenosForm.html',
             controller: 'NalogZaPrenosFormController',
             locals: {faktura: faktura}
+        }).finally(function () {
+            loadData();
         });
 
     }

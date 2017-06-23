@@ -1,0 +1,97 @@
+<md-dialog class="md-padding card" style="width: 800px">
+    <md-toolbar ng-if = "nalog.hitno" style="background-color: darkred">
+        <div class="md-toolbar-tools" >
+            <h2>Id poruke: {{nalog.idPoruke}}</h2>
+        </div>
+    </md-toolbar>
+    <md-toolbar ng-if = "!nalog.hitno">
+        <div class="md-toolbar-tools" >
+            <h2>Id poruke: {{nalog.idPoruke}}</h2>
+        </div>
+    </md-toolbar>
+    <form novalidate name="nalogDetalji" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Duznik</label>
+                    <input ng-model="nalog.duznik" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Racun duznika</label>
+                    <input data-ng-model="nalog.podaciOPrenosuDTO.duznikUPrenosuDTO.racunUcesnika" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Model zaduzenja</label>
+                        <input ng-model="nalog.podaciOPrenosuDTO.duznikUPrenosuDTO.modelPrenosa" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Poziv na broj zaduzenja</label>
+                        <input ng-model="nalog.podaciOPrenosuDTO.duznikUPrenosuDTO.pozivNaBroj" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Poverilac</label>
+                    <input ng-model="nalog.poverilac" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Racun poverioca</label>
+                    <input data-ng-model="nalog.podaciOPrenosuDTO.poverilacUPrenosuDTO.racunUcesnika" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-content >
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Model odobrenja</label>
+                        <input ng-model="nalog.podaciOPrenosuDTO.poverilacUPrenosuDTO.modelPrenosa" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Poziv na broj odobrenja</label>
+                        <input ng-model="nalog.podaciOPrenosuDTO.poverilacUPrenosuDTO.pozivNaBroj" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Svrha placanja</label>
+                    <input ng-model="nalog.svrhaPlacanja" disabled>
+                </md-input-container>
+            </md-dialog-content>
+        <md-content >
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Iznos</label>
+                    <input ng-model="nalog.podaciOPrenosuDTO.iznos" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Valuta</label>
+                    <input ng-model="nalog.podaciOPrenosuDTO.oznakaValute" disabled>
+                </md-input-container>
+            </div>
+        </md-content>
+            <md-content >
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Datum naloga</label>
+                        <input ng-model="nalog.datumNaloga" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Datum valute</label>
+                        <input ng-model="nalog.datumValute" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+        </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="end center">
+        <md-button ng-click="close()">Zatvori</md-button>
+    </md-dialog-actions>
+    </form>
+</md-dialog>

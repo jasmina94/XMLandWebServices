@@ -137,11 +137,12 @@ public class Faktura {
     @GeneratedValue
     @XmlTransient
     private long id;
-    @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
+
+    @XmlElement(name = "podaci_o_kupcu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     protected TPodaciSubjekt podaciODobavljacu;
     @XmlElement(name = "podaci_o_kupcu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false,  cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
+    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
@@ -197,15 +198,11 @@ public class Faktura {
     @Column(nullable = false)
     private boolean poslato;
 
+    @XmlTransient
+    @Column(nullable = false)
+    private boolean kreiranNalog;
+
     public Faktura() {}
-
-    public boolean isPoslato() {
-        return poslato;
-    }
-
-    public void setPoslato(boolean poslato) {
-        this.poslato = poslato;
-    }
 
     public void merge(FakturaDTO fakturaDTO) {
         this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
@@ -222,6 +219,7 @@ public class Faktura {
         this.brojRacuna = fakturaDTO.getBrojRacuna();
         this.datumRacuna = fakturaDTO.getDatumRacuna();
         this.datumValute = fakturaDTO.getDatumValute();
+        this.kreiranNalog = fakturaDTO.isKreiranNalog();
     }
 
 
@@ -232,6 +230,23 @@ public class Faktura {
     public void setId(long id) {
         this.id = id;
     }
+
+    public boolean isPoslato() {
+        return poslato;
+    }
+
+    public void setPoslato(boolean poslato) {
+        this.poslato = poslato;
+    }
+
+    public boolean isKreiranNalog() {
+        return kreiranNalog;
+    }
+
+    public void setKreiranNalog(boolean kreiranNalog) {
+        this.kreiranNalog = kreiranNalog;
+    }
+
 
     /**
      * Gets the value of the podaciODobavljacu property.
