@@ -53,6 +53,8 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             templateUrl: 'dialog/nalogZaPrenosForm.html',
             controller: 'NalogZaPrenosFormController',
             locals: {faktura: faktura}
+        }).finally(function () {
+            loadData();
         });
 
     }

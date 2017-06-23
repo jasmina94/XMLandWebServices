@@ -138,10 +138,10 @@ public class Faktura {
     @XmlTransient
     private long id;
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     protected TPodaciSubjekt podaciODobavljacu;
     @XmlElement(name = "podaci_o_kupcu", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
@@ -218,6 +218,7 @@ public class Faktura {
         this.brojRacuna = fakturaDTO.getBrojRacuna();
         this.datumRacuna = fakturaDTO.getDatumRacuna();
         this.datumValute = fakturaDTO.getDatumValute();
+        this.kreiranNalog = fakturaDTO.isKreiranNalog();
     }
 
 

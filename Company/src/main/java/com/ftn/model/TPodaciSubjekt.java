@@ -89,7 +89,7 @@ public class TPodaciSubjekt {
     private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
 
     @XmlTransient
-    @OneToMany(mappedBy = "tPodaciSubjekt", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tPodaciSubjekt", cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Zaposleni> zaposleni = new ArrayList<>();
 
     public TPodaciSubjekt () {}

@@ -56,6 +56,9 @@
                                 Kreiraj nalog
                             </md-button>
                         </td>
+                        <td md-cell ng-if = "uloga == 'kupac' && faktura.kreiranNalog">
+                            <i>Kreiran nalog</i>
+                        </td>
                         <td md-cell>
                             <md-button class = "md-raised" ng-click = "addStavke()" ng-if = "uloga == 'dobavljac' && !faktura.poslato">
                                 Dodaj stavke

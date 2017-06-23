@@ -35,20 +35,11 @@ public class Zaposleni {
     @Column(unique = true)
     private String korisnickoIme;
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String lozinka;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     //TODO: Da li je obavezno?
     private TPodaciSubjekt tPodaciSubjekt;
 
-  /*  public void merge(ZaposleniDTO zaposleniDTO) {
-        this.jmbg = zaposleniDTO.getJmbg();
-        this.ime = zaposleniDTO.getIme();
-        this.prezime = zaposleniDTO.getPrezime();
-        this.adresa = zaposleniDTO.getAdresa();
-        this.mesto = zaposleniDTO.getMesto();
-        this.korisnickoIme = zaposleniDTO.getKorisnickoIme();
-    }
-*/
 }

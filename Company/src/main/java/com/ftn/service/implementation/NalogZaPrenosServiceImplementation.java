@@ -23,12 +23,12 @@ import java.util.stream.Collectors;
 public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService {
 
     private final NalogZaPrenosDao nalogZaPrenosDao;
-    private final FakturaService fakturaService;
+    private final FakturaDao fakturaDao;
 
     @Autowired
-    public NalogZaPrenosServiceImplementation(NalogZaPrenosDao nalogZaPrenosDao, FakturaService fakturaService) {
+    public NalogZaPrenosServiceImplementation(NalogZaPrenosDao nalogZaPrenosDao, FakturaDao fakturaDao) {
         this.nalogZaPrenosDao = nalogZaPrenosDao;
-        this.fakturaService = fakturaService;
+        this.fakturaDao = fakturaDao;
     }
 
     @Override
@@ -74,7 +74,8 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
         nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosu);
 
         NalogZaPrenosDTO kreiranNalogDTO = create(new NalogZaPrenosDTO(nalogZaPrenos));
-        fakturaService.update(podaciZaNalogDTO.getFaktura().getId(), new FakturaDTO(podaciZaNalogDTO.getFaktura()));
+        podaciZaNalogDTO.getFaktura().setKreiranNalog(true);
+        fakturaDao.save(podaciZaNalogDTO.getFaktura());
         return kreiranNalogDTO;
     }
 }

@@ -51,7 +51,6 @@ public class NalogZaPrenosController {
         return new ResponseEntity<>(nalogZaPrenosService.kreirajNalog(podaciZaNalogDTO), HttpStatus.OK);
     }
 
-
     @Transactional
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody NalogZaPrenosDTO nalogZaPrenosDTO, BindingResult bindingResult) {
