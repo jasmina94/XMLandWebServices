@@ -12,6 +12,7 @@ import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +35,28 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
     @Override
     public List<NalogZaPrenosDTO> read() {
         return nalogZaPrenosDao.findAll().stream().map(NalogZaPrenosDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NalogZaPrenosDTO> readPoverilac(String naziv) {
+        List<NalogZaPrenos> nalozi = new ArrayList<>();
+        for(NalogZaPrenos nalog : nalogZaPrenosDao.findAll()) {
+            if(nalog.getPoverilac().equals(naziv)) {
+                nalozi.add(nalog);
+            }
+        }
+        return nalozi.stream().map(NalogZaPrenosDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NalogZaPrenosDTO> readDuznik(String naziv) {
+        List<NalogZaPrenos> nalozi = new ArrayList<>();
+        for(NalogZaPrenos nalog : nalogZaPrenosDao.findAll()) {
+            if(nalog.getDuznik().equals(naziv)) {
+                nalozi.add(nalog);
+            }
+        }
+        return nalozi.stream().map(NalogZaPrenosDTO::new).collect(Collectors.toList());
     }
 
     @Override
