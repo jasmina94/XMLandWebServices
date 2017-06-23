@@ -20,6 +20,23 @@
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
+                <md-menu>
+                    <md-button class="md-raised" ng-click="$mdOpenMenu()">
+                        Nalozi
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click = "goToNaloziPoverilac()">
+                                Poverilac
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click = "goToNaloziDuznik()">
+                                Duznik
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
                 <span flex></span>
                 <h3 class="toolbar-item"><span>{{zaposleni.ime}} {{zaposleni.prezime}}</span></h3>
                 <md-button class="md-raised" ng-click="logout()">

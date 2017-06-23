@@ -48,10 +48,10 @@ public class TPodaciOPrenosu {
     @XmlTransient
     private long id;
     @XmlElement(name = "duznik_u_prenosu", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPrenosUcesnik duznikUPrenosu;
     @XmlElement(name = "poverilac_u_prenosu", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPrenosUcesnik poverilacUPrenosu;
     @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)

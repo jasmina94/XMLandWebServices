@@ -88,7 +88,7 @@ public class NalogZaPrenos {
     @Size(max = 255)
     protected String svrhaPlacanja;
     @XmlElement(name = "podaci_o_prenosu", namespace = "http://ftn.uns.ac.rs/nalog_za_prenos", required = true)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPodaciOPrenosu podaciOPrenosu;
     @XmlAttribute(name = "datum_naloga")
     @XmlJavaTypeAdapter(DateAdapter.class)

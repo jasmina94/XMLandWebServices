@@ -8,6 +8,7 @@ import com.ftn.model.TPrenosUcesnik;
 import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.dto.NalogZaPrenosDTO;
 import com.ftn.model.dto.PodaciZaNalogDTO;
+import com.ftn.model.dto.TPodaciSubjektDTO;
 import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import javax.print.attribute.standard.Media;
 import javax.print.attribute.standard.MediaTray;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.Date;
 
 /**
@@ -43,18 +45,26 @@ public class NalogZaPrenosController {
     }
 
     @Transactional
+    @GetMapping(value = "/firmaPoverilac/{naziv}/")
+    public ResponseEntity readPoverilac(@PathVariable String naziv) {
+        return new ResponseEntity<>(nalogZaPrenosService.readPoverilac(naziv), HttpStatus.OK);
+    }
+
+    @Transactional
+    @GetMapping(value = "/firmaDuznik/{naziv}/")
+    public ResponseEntity readDuznik(@PathVariable String naziv) {
+        return new ResponseEntity<>(nalogZaPrenosService.readDuznik(naziv), HttpStatus.OK);
+    }
+
+
+    @Transactional
     @PostMapping(value = "/kreirajNalog")
     public ResponseEntity kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
-        System.out.print("Ovde sam kreiraj nalog kontrloer");
-        System.out.print(podaciZaNalogDTO);
-        System.out.print(podaciZaNalogDTO.getFaktura());
-
          if (bindingResult.hasErrors())
             throw new BadRequestException();
 
-         return new ResponseEntity<>(nalogZaPrenosService.kreirajNalog(podaciZaNalogDTO), HttpStatus.OK);
+        return new ResponseEntity<>(nalogZaPrenosService.kreirajNalog(podaciZaNalogDTO), HttpStatus.OK);
     }
-
 
     @Transactional
     @PostMapping
