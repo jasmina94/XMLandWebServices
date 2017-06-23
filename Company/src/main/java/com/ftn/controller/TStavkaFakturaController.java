@@ -69,7 +69,11 @@ public class TStavkaFakturaController {
         tStavkaFakturaDTO.setUkupanPorez(BigDecimal.valueOf(0.0));
         tStavkaFakturaDTO.setFaktura(fakturaDTO);
 
-        return new ResponseEntity<>(tStavkaFakturaService.create(tStavkaFakturaDTO), HttpStatus.OK);
+        TStavkaFakturaDTO sacuvanaStavka = tStavkaFakturaService.create(tStavkaFakturaDTO);
+        fakturaDTO.getStavkaFakture().add(sacuvanaStavka);
+        fakturaService.update(fakturaDTO.getId(), fakturaDTO);
+
+        return new ResponseEntity<>(sacuvanaStavka, HttpStatus.OK);
 
 
     }
