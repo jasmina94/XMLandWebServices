@@ -51,7 +51,7 @@
                                 Prikazi stavke
                             </md-button>
                         </td>
-                        <td md-cell ng-if = "uloga == 'kupac'">
+                        <td md-cell ng-if = "uloga == 'kupac' && !faktura.kreiranNalog">
                             <md-button class = "md-raised" ng-click = "popuniNalog(faktura)">
                                 Kreiraj nalog
                             </md-button>

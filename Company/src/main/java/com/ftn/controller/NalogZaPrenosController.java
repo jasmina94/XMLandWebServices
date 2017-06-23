@@ -45,14 +45,10 @@ public class NalogZaPrenosController {
     @Transactional
     @PostMapping(value = "/kreirajNalog")
     public ResponseEntity kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
-        System.out.print("Ovde sam kreiraj nalog kontrloer");
-        System.out.print(podaciZaNalogDTO);
-        System.out.print(podaciZaNalogDTO.getFaktura());
-
          if (bindingResult.hasErrors())
             throw new BadRequestException();
 
-         return new ResponseEntity<>(nalogZaPrenosService.kreirajNalog(podaciZaNalogDTO), HttpStatus.OK);
+        return new ResponseEntity<>(nalogZaPrenosService.kreirajNalog(podaciZaNalogDTO), HttpStatus.OK);
     }
 
 

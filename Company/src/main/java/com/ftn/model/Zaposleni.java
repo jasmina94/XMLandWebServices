@@ -1,5 +1,6 @@
 package com.ftn.model;
 
+import com.ftn.model.dto.ZaposleniDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,8 +38,17 @@ public class Zaposleni {
     @Column(nullable = false)
     private String lozinka;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     //TODO: Da li je obavezno?
     private TPodaciSubjekt tPodaciSubjekt;
 
+  /*  public void merge(ZaposleniDTO zaposleniDTO) {
+        this.jmbg = zaposleniDTO.getJmbg();
+        this.ime = zaposleniDTO.getIme();
+        this.prezime = zaposleniDTO.getPrezime();
+        this.adresa = zaposleniDTO.getAdresa();
+        this.mesto = zaposleniDTO.getMesto();
+        this.korisnickoIme = zaposleniDTO.getKorisnickoIme();
+    }
+*/
 }

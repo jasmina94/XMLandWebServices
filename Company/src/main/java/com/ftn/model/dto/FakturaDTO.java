@@ -65,6 +65,9 @@ public class FakturaDTO {
     @NotNull
     private boolean poslato;
 
+    @NotNull
+    private boolean kreiranNalog;
+
 
     public FakturaDTO(Faktura faktura) {
         this(faktura, true);
@@ -85,6 +88,7 @@ public class FakturaDTO {
         this.datumRacuna = faktura.getDatumRacuna();
         this.datumValute = faktura.getDatumValute();
         this.poslato = faktura.isPoslato();
+        this.kreiranNalog = faktura.isKreiranNalog();
 
         if(cascade) {
             this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu()) : null;
@@ -111,6 +115,7 @@ public class FakturaDTO {
         faktura.setDatumRacuna(datumRacuna);
         faktura.setDatumValute(datumValute);
         faktura.setPoslato(poslato);
+        faktura.setKreiranNalog(kreiranNalog);
 
         if(stavkaFakture != null) {
             stavkaFakture.forEach(tStavkaFakturaDTO  -> faktura.getStavkaFakture().add(tStavkaFakturaDTO.construct()));

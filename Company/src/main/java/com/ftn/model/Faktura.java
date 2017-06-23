@@ -197,15 +197,11 @@ public class Faktura {
     @Column(nullable = false)
     private boolean poslato;
 
+    @XmlTransient
+    @Column(nullable = false)
+    private boolean kreiranNalog;
+
     public Faktura() {}
-
-    public boolean isPoslato() {
-        return poslato;
-    }
-
-    public void setPoslato(boolean poslato) {
-        this.poslato = poslato;
-    }
 
     public void merge(FakturaDTO fakturaDTO) {
         this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
@@ -232,6 +228,23 @@ public class Faktura {
     public void setId(long id) {
         this.id = id;
     }
+
+    public boolean isPoslato() {
+        return poslato;
+    }
+
+    public void setPoslato(boolean poslato) {
+        this.poslato = poslato;
+    }
+
+    public boolean isKreiranNalog() {
+        return kreiranNalog;
+    }
+
+    public void setKreiranNalog(boolean kreiranNalog) {
+        this.kreiranNalog = kreiranNalog;
+    }
+
 
     /**
      * Gets the value of the podaciODobavljacu property.

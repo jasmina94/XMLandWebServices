@@ -37,6 +37,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         openForm(null);
     };
 
+
     $scope.showStavke = function(faktura) {
         $mdDialog.show({
             parent: angular.element(document.body),
