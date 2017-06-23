@@ -61,4 +61,5 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             templateUrl: 'page/nalog.html',
         })
 
+
 });

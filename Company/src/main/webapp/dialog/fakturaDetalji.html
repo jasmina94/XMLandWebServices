@@ -1,0 +1,115 @@
+<md-dialog class="md-padding card" style="width: 800px">
+    <md-toolbar>
+        <div class="md-toolbar-tools" >
+            <h2>Racun broj {{faktura.brojRacuna}}</h2>
+        </div>
+    </md-toolbar>
+    <form novalidate name="fakturaDetalji" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Dobavljac</label>
+                        <input ng-model="faktura.podaciODobavljacu.naziv" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>PIB</label>
+                        <input ng-model="faktura.podaciODobavljacu.pib" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Adresa dobavljaca</label>
+                    <input ng-model="faktura.podaciODobavljacu.adresa" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-content>
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Kupac</label>
+                    <input ng-model="faktura.podaciOKupcu.naziv" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>PIB</label>
+                    <input ng-model="faktura.podaciOKupcu.pib" disabled>
+                </md-input-container>
+            </div>
+        </md-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Adresa kupca</label>
+                    <input ng-model="faktura.podaciOKupcu.adresa" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Vrednost robe</label>
+                        <input ng-model="faktura.vrednostRobe" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Vrednost usluga</label>
+                        <input ng-model="faktura.vrednostUsluga" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Vrednost roba i usluga</label>
+                        <input ng-model="faktura.ukupnoRobaIUsluga" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Ukupan rabat</label>
+                        <input ng-model="faktura.ukupanRabat" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Ukupan porez</label>
+                        <input ng-model="faktura.ukupanPorez" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Racun za uplatu</label>
+                    <input ng-model="faktura.uplataNaRacun" disabled>
+                </md-input-container>
+            </md-dialog-content>
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Iznos za uplatu</label>
+                        <input ng-model="faktura.iznosZaUplatu" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Valuta</label>
+                        <input ng-model="faktura.oznakaValute" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Datum racuna</label>
+                        <input ng-model="faktura.datumRacuna  | date: 'dd-MM-yyyy'" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Datum valute</label>
+                        <input ng-model="faktura.datumValute | date: 'dd-MM-yyyy'" disabled>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Id poruke</label>
+                    <input ng-model="faktura.idPoruke" disabled>
+                </md-input-container>
+            </md-dialog-content>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Zatvori</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

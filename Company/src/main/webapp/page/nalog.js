@@ -29,7 +29,7 @@ app.controller('NalogController', function ($scope, $state, $rootScope, $mdDialo
             controller: 'NalogDetaljiController',
             locals: {nalog: nalog}
         });
-    }
+    };
 
     $scope.query = {
         order: 'name',

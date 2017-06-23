@@ -1,7 +1,7 @@
 /**
  * Created by JELENA on 20.6.2017.
  */
-app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDialog, fakturaService, nalogZaPrenosService, authenticationService) {
+app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDialog, fakturaService, nalogZaPrenosService,robaUslugaService, authenticationService) {
 
     $scope.page.current = 3.2;
 
@@ -39,6 +39,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
 
 
     $scope.showStavke = function(faktura) {
+        loadData();
         $mdDialog.show({
             parent: angular.element(document.body),
             templateUrl: 'dialog/stavkeFakture.html',
@@ -46,6 +47,15 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             locals: {faktura: faktura}
         });
     }
+
+    $scope.addStavke = function (faktura) {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/robaUslugaForm.html',
+            controller: 'RobaUslugaFormController',
+            locals: {faktura: faktura}
+        });
+    };
 
     $scope.popuniNalog = function (faktura) {
         $mdDialog.show({
@@ -56,7 +66,15 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         }).finally(function () {
             loadData();
         });
+    };
 
+    $scope.prikaziDetalje = function(faktura) {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/fakturaDetalji.html',
+            controller: 'FakturaDetaljiController',
+            locals: {faktura: faktura}
+        });
     }
 
     $scope.query = {

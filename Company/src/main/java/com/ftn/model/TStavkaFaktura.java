@@ -4,6 +4,8 @@ package com.ftn.model;
 import java.math.BigDecimal;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 
@@ -127,7 +129,8 @@ public class TStavkaFaktura {
 
     @XmlElement(name = "redni_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi")
     @Column
-    @Size(min = 1, max = 999)
+    @Min(1)
+    @Max(999)
     protected int redniBroj;
     @XmlElement(name = "naziv_robe_usluge", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
     @Column(nullable = false)
@@ -166,7 +169,7 @@ public class TStavkaFaktura {
     @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     private Faktura faktura;
 
 

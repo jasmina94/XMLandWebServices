@@ -13,4 +13,7 @@ public interface TStavkaFakturaService {
 
     List<TStavkaFakturaDTO> read(Long fakturaID);
 
+    TStavkaFakturaDTO create(TStavkaFakturaDTO tStavkaFakturaDTO);
+
+
 }

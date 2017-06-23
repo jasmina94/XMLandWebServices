@@ -37,6 +37,11 @@ public class FakturaServiceImplementation implements FakturaService {
     }
 
     @Override
+    public FakturaDTO readFaktura(Long id) {
+        return new FakturaDTO(fakturaDao.findById(id).get());
+    }
+
+    @Override
     public List<FakturaDTO> readDobavljac(String pib) {
         List<Faktura> faktureFirme = new ArrayList<>();
         for(Faktura faktura : fakturaDao.findAll()) {
