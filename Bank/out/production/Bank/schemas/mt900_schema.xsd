@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt900" xmlns:mt900="http://www.ftn.uns.ac.rs/mt900"
+    xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+    <xs:element name="mt900">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="podaci_o_banci_duznika" type="tipovi:TPodaciBanka"/>
+                <xs:element name="podaci_o_nalogu">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="tipovi:TPodaciNalog">
+                                <xs:attribute name="id_poruke_naloga">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:maxLength value="50"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id_poruke">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

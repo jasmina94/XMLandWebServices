@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt102body"
+    xmlns:mt102body="http://www.ftn.uns.ac.rs/mt102body"
+    xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+    <xs:element name="mt102_telo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="podaci_o_duzniku" type="tipovi:TPravnoLice"/>
+                <xs:element name="podaci_o_poveriocu" type="tipovi:TPravnoLice"/>
+                <xs:element name="svrha_placanja">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="iznos">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="tipovi:TIznos">
+                                <xs:attribute name="valuta">
+                                    <xs:simpleType>
+                                        <xs:restriction base="tipovi:TOznakaValute">
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="podaci_o_zaduzenju" type="tipovi:TPodaciPlacanje"/>
+                <xs:element name="podaci_o_odobrenju" type="tipovi:TPodaciPlacanje"/>
+                <xs:element name="datum_naloga" type="xs:date"/>
+            </xs:sequence>
+            <xs:attribute name="id_naloga">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

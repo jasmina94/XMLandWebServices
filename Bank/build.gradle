@@ -25,6 +25,8 @@ dependencies {
 	// Spring
 	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
 	compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+	compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+	compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
 
 	// Test
 	testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
@@ -37,4 +39,7 @@ dependencies {
 
 	// Dev tools
 	runtime('org.springframework.boot:spring-boot-devtools')
+
+	// Lombok
+	compileOnly('org.projectlombok:lombok')
 }
