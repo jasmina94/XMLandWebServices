@@ -51,4 +51,5 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             templateUrl: 'page/faktura.html',
         })
 
+
 });

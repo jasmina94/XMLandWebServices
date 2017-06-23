@@ -1,7 +1,7 @@
 /**
  * Created by JELENA on 20.6.2017.
  */
-app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDialog, fakturaService, nalogZaPrenosService, authenticationService) {
+app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDialog, fakturaService, nalogZaPrenosService,robaUslugaService, authenticationService) {
 
     $scope.page.current = 3.2;
 
@@ -45,6 +45,15 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             locals: {faktura: faktura}
         });
     }
+
+    $scope.addStavke = function (faktura) {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/robaUslugaForm.html',
+            controller: 'RobaUslugaController',
+            locals: {faktura: faktura}
+        });
+    };
 
     $scope.popuniNalog = function (faktura) {
         $mdDialog.show({

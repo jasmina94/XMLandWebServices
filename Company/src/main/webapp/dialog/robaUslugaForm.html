@@ -1,0 +1,49 @@
+<md-dialog class="md-padding card" style="width: 1200px">
+    <md-divider></md-divider>
+    <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+             ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "robeUsluge.length > 0">
+        <md-table-container>
+            <table md-table>
+                <thead md-head md-order="query.order">
+                <tr md-row>
+                    <th md-column><span>Naziv robe/usluge</span></th>
+                    <th md-column><span>Cena</span></th>
+                    <th md-column><span>Jedinica mere</span></th>
+                    <th md-column><span>Procenat rabata</span></th>
+                    <th md-column><span>Kolicina</span></th>
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row ng-repeat="robaUsluga in robeUsluge | limitTo: query.limit:(query.page-1) * query.limit"
+                    ng-click="null">
+                    <td md-cell>{{robaUsluga.naziv}}</td>
+                    <td md-cell>{{robaUsluga.cena}}</td>
+                    <td md-cell>{{robaUsluga.jedinicaMere}}</td>
+                    <td md-cell>{{robaUsluga.procenatRabata}}</td>
+                    <td md-cell>
+                        <md-input-container>
+                            <input name="kolicina" ng-model="kolicina" ng-pattern="/^\d{1,10}([,.]\d{1,2})?$/;" required>
+                            <!-- <div ng-messages="colorForm.favoriteColor.$error">
+                                 <div ng-message="required">This is required!</div>
+                             </div>-->
+                        </md-input-container>
+                    </td>
+                    <td md-cell>
+                        <md-button class = "md-raised" ng-click = "addRobaUsluga(robaUsluga.id)">
+                            Dodaj
+                        </md-button>
+                    </td>
+
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{fakture.length}}" md-page-select
+                             md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
+        </md-table-pagination>
+    </md-card>
+    <h3 class="text-center" ng-if = "robeUsluge.length == 0">Ne postoje roba i usluge.</h3>
+    <md-dialog-actions layout="row" layout-align="end center">
+        <md-button ng-click="close()">Zatvori</md-button>
+        <md-button type="submit" class="md-primary md-raised" ng-click="close()">Završi dodavanje</md-button>
+    </md-dialog-actions>
+</md-dialog>
