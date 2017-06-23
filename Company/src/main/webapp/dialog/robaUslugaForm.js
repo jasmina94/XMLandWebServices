@@ -1,8 +1,7 @@
-app.controller('RobaUslugaFormController', function ($scope, $http, $state, $mdDialog, robaUslugaService) {
+app.controller('RobaUslugaFormController', function ($scope, $http, $state, $mdDialog, robaUslugaService,stavkeFaktureService, faktura) {
 
     //da saljem id fakture, id robe i kolicinu
     //prilikom dodavanja
-    $scope.kolicina = 0;
 
     var loadData = function () {
         robaUslugaService.read(function (response) {
@@ -12,9 +11,13 @@ app.controller('RobaUslugaFormController', function ($scope, $http, $state, $mdD
 
     loadData();
 
-    $scope.addRobaUsluga = function(robaUslugaId) {
-        console.log("dodaj robu");
-        $scope.kolicina = 0;
+    $scope.addRobaUsluga = function(robaUsluga) {
+        stavkeFaktureService.createStavka(robaUsluga, faktura.id, this.kolicina, function (response) {
+            console.log("uspesno dodata stavka");
+        });
+        /*console.log(this.kolicina);
+        console.log("dodaj robu " + robaUsluga.id + "za fakturu " + faktura.id + "kolicina " + this.kolicina);
+        this.kolicina = null ;*/
     };
 
     $scope.close = function () {

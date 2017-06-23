@@ -166,7 +166,7 @@ public class TStavkaFaktura {
     @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     private Faktura faktura;
 
 
