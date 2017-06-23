@@ -51,8 +51,12 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
     @Override
     public List<NalogZaPrenosDTO> readDuznik(String naziv) {
         List<NalogZaPrenos> nalozi = new ArrayList<>();
+        System.out.println(nalogZaPrenosDao.findAll());
+        System.out.println(naziv);
         for(NalogZaPrenos nalog : nalogZaPrenosDao.findAll()) {
+            System.out.println(nalog.getDuznik());
             if(nalog.getDuznik().equals(naziv)) {
+                System.out.println(nalog.getDuznik());
                 nalozi.add(nalog);
             }
         }
@@ -84,6 +88,7 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
         duznikUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelZaduzenja());
 
         nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
+        System.out.println(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setDuznik(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setPoverilac(podaciZaNalogDTO.getFaktura().getPodaciODobavljacu().getNaziv());
         nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + podaciZaNalogDTO.getFaktura().getBrojRacuna());

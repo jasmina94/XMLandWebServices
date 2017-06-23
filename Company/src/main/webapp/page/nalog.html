@@ -1,0 +1,49 @@
+<div class="container">
+    <div layout="column">
+        <div layout="row">
+            <h3>Nalozi - {{uloga}}</h3>
+        </div>
+        <md-divider></md-divider>
+        <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "nalozi.length > 0">
+            <md-table-container>
+                <table md-table>
+                    <thead md-head md-order="query.order">
+                    <tr md-row>
+                        <th md-column><span>Duznik</span></th>
+                        <th md-column><span>Poverilac</span></th>
+                        <th md-column><span>Svrha placanja</span></th>
+                        <th md-column><span>Iznos</span></th>
+                        <th md-column><span>Valuta</span></th>
+                        <th md-column><span>Datum naloga</span></th>
+                        <th md-column><span>Datum valute</span></th>
+                        <th md-column><span>Hitno</span></th>
+                        <th md-column><span>Id poruke</span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="nalog in nalozi | limitTo: query.limit:(query.page-1) * query.limit"
+                        ng-click="null">
+                        <td md-cell>{{nalog.duznik}}</td>
+                        <td md-cell>{{nalog.poverilac}}</td>
+                        <td md-cell>{{nalog.svrhaPlacanja}}</td>
+                        <td md-cell>{{nalog.podaciOPrenosu.iznos}}</td>
+                        <td md-cell>{{nalog.podaciOPrenosu.oznakaValute}}</td>
+                        <td md-cell>{{nalog.datumNaloga}}</td>
+                        <td md-cell>{{nalog.datumValute}}</td>
+                        <td md-cell>{{nalog.hitno}}</td>
+                        <td md-cell>{{nalog.idPoruke}}</td>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{nalozi.length}}" md-page-select
+                                 md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
+            </md-table-pagination>
+        </md-card>
+        <h3 class="text-center" ng-if = "nalozi.length == 0">Trenutno ne postoji nijedan nalog.</h3>
+    </div>
+    <md-button class="md-primary md-fab md-fab-bottom-right"
+               aria-label="Kreiraj nalog"   ng-if = "uloga == 'duznik'">
+        <md-icon md-svg-src="image/ic_add_white_24px.svg"></md-icon>
+    </md-button>
+</div>
