@@ -22,6 +22,15 @@ app.controller('NalogController', function ($scope, $state, $rootScope, $mdDialo
 
     loadData();
 
+    $scope.prikaziDetalje = function(nalog) {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/nalogDetalji.html',
+            controller: 'NalogDetaljiController',
+            locals: {nalog: nalog}
+        });
+    }
+
     $scope.query = {
         order: 'name',
         limit: 5,

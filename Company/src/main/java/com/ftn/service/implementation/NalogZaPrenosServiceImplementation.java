@@ -2,12 +2,10 @@ package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
 import com.ftn.model.*;
-import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.dto.NalogZaPrenosDTO;
 import com.ftn.model.dto.PodaciZaNalogDTO;
 import com.ftn.repository.FakturaDao;
 import com.ftn.repository.NalogZaPrenosDao;
-import com.ftn.service.FakturaService;
 import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,12 +49,8 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
     @Override
     public List<NalogZaPrenosDTO> readDuznik(String naziv) {
         List<NalogZaPrenos> nalozi = new ArrayList<>();
-        System.out.println(nalogZaPrenosDao.findAll());
-        System.out.println(naziv);
         for(NalogZaPrenos nalog : nalogZaPrenosDao.findAll()) {
-            System.out.println(nalog.getDuznik());
             if(nalog.getDuznik().equals(naziv)) {
-                System.out.println(nalog.getDuznik());
                 nalozi.add(nalog);
             }
         }

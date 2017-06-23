@@ -23,14 +23,14 @@
                     </thead>
                     <tbody md-body>
                     <tr md-row ng-repeat="nalog in nalozi | limitTo: query.limit:(query.page-1) * query.limit"
-                        ng-click="null">
+                        ng-click="prikaziDetalje(nalog)">
                         <td md-cell>{{nalog.duznik}}</td>
                         <td md-cell>{{nalog.poverilac}}</td>
                         <td md-cell>{{nalog.svrhaPlacanja}}</td>
-                        <td md-cell>{{nalog.podaciOPrenosu.iznos}}</td>
-                        <td md-cell>{{nalog.podaciOPrenosu.oznakaValute}}</td>
-                        <td md-cell>{{nalog.datumNaloga}}</td>
-                        <td md-cell>{{nalog.datumValute}}</td>
+                        <td md-cell>{{nalog.podaciOPrenosuDTO.iznos}}</td>
+                        <td md-cell>{{nalog.podaciOPrenosuDTO.oznakaValute}}</td>
+                        <td md-cell>{{nalog.datumNaloga | date: 'dd-MM-yyyy'}}</td>
+                        <td md-cell>{{nalog.datumValute | date: 'dd-MM-yyyy'}}</td>
                         <td md-cell>{{nalog.hitno}}</td>
                         <td md-cell>{{nalog.idPoruke}}</td>
                     </tbody>
