@@ -12,6 +12,8 @@ app.controller('RobaUslugaFormController', function ($scope, $http, $state, $mdD
     loadData();
 
     $scope.addRobaUsluga = function(robaUsluga) {
+        console.log("dodaj robu " + robaUsluga.id + "za fakturu " + faktura.id + "kolicina " + this.kolicina);
+
         stavkeFaktureService.createStavka(robaUsluga, faktura.id, this.kolicina, function (response) {
             console.log("uspesno dodata stavka");
         });

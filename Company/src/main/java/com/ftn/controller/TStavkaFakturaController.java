@@ -50,6 +50,7 @@ public class TStavkaFakturaController {
     @Transactional
     @PostMapping(value = "/{fakturaId}/{kolicina}")
     public ResponseEntity createTStavkaFaktura(@PathVariable Long fakturaId, @PathVariable BigDecimal kolicina, @Valid @RequestBody RobaUslugaDTO robaUslugaDTO, BindingResult bindingResult) {
+        System.out.println("faktura id " + fakturaId + "kolicina " + kolicina + "roba " + robaUslugaDTO.getNaziv());
         if (bindingResult.hasErrors())
             throw new BadRequestException();
 
@@ -69,11 +70,12 @@ public class TStavkaFakturaController {
         tStavkaFakturaDTO.setUkupanPorez(BigDecimal.valueOf(0.0));
         tStavkaFakturaDTO.setFaktura(fakturaDTO);
 
-        TStavkaFakturaDTO sacuvanaStavka = tStavkaFakturaService.create(tStavkaFakturaDTO);
-        fakturaDTO.getStavkaFakture().add(sacuvanaStavka);
-        fakturaService.update(fakturaDTO.getId(), fakturaDTO);
+        //TStavkaFakturaDTO sacuvanaStavka = tStavkaFakturaService.create(tStavkaFakturaDTO);
+        /*fakturaDTO.getStavkaFakture().add(sacuvanaStavka);
+        fakturaService.update(fakturaDTO.getId(), fakturaDTO);*/
+        //ResponseEntity<>(sacuvanaStavka, HttpStatus.OK);
 
-        return new ResponseEntity<>(sacuvanaStavka, HttpStatus.OK);
+        return new ResponseEntity<>(tStavkaFakturaService.create(tStavkaFakturaDTO), HttpStatus.OK);
 
 
     }

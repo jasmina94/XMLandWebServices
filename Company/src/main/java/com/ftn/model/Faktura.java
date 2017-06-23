@@ -177,7 +177,7 @@ public class Faktura {
     @Pattern(regexp = "\\d{3}-\\d{1,13}-\\d{2}")
     protected String uplataNaRacun;
     @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @OneToMany(mappedBy = "faktura")
+    @OneToMany(mappedBy = "faktura", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     //TODO: Razmisli o ovome @JoinColumn(nullable = false, name = "faktura_id")
     protected List<TStavkaFaktura> stavkaFakture;
     @XmlAttribute(name = "id_poruke")
@@ -219,6 +219,7 @@ public class Faktura {
         this.brojRacuna = fakturaDTO.getBrojRacuna();
         this.datumRacuna = fakturaDTO.getDatumRacuna();
         this.datumValute = fakturaDTO.getDatumValute();
+        this.poslato = fakturaDTO.isPoslato();
         this.kreiranNalog = fakturaDTO.isKreiranNalog();
     }
 
