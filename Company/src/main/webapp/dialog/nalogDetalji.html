@@ -44,7 +44,7 @@
             <md-dialog-content>
                 <md-input-container class="md-block">
                     <label>Racun poverioca</label>
-                    <input data-ng-model="nalog.podaciOPrenosuDTO.poverilacUPrenosuDTO.racunUcesnika" disabled>
+                    <input ng-model="nalog.podaciOPrenosuDTO.poverilacUPrenosuDTO.racunUcesnika" disabled>
                 </md-input-container>
             </md-dialog-content>
             <md-content >
@@ -81,11 +81,11 @@
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Datum naloga</label>
-                        <input ng-model="nalog.datumNaloga" disabled>
+                        <input ng-model="nalog.datumNaloga | date: 'dd-MM-yyyy'" disabled>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Datum valute</label>
-                        <input ng-model="nalog.datumValute" disabled>
+                        <input ng-model="nalog.datumValute | date: 'dd-MM-yyyy'" disabled>
                     </md-input-container>
                 </div>
             </md-content>

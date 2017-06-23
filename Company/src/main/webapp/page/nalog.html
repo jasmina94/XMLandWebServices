@@ -31,7 +31,8 @@
                         <td md-cell>{{nalog.podaciOPrenosuDTO.oznakaValute}}</td>
                         <td md-cell>{{nalog.datumNaloga | date: 'dd-MM-yyyy'}}</td>
                         <td md-cell>{{nalog.datumValute | date: 'dd-MM-yyyy'}}</td>
-                        <td md-cell>{{nalog.hitno}}</td>
+                        <td md-cell ng-if = "nalog.hitno">DA</td>
+                        <td md-cell ng-if = "!nalog.hitno">NE</td>
                         <td md-cell>{{nalog.idPoruke}}</td>
                     </tbody>
                 </table>
