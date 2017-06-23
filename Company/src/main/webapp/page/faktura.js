@@ -50,7 +50,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         $mdDialog.show({
             parent: angular.element(document.body),
             templateUrl: 'dialog/robaUslugaForm.html',
-            controller: 'RobaUslugaController',
+            controller: 'RobaUslugaFormController',
             locals: {faktura: faktura}
         });
     };

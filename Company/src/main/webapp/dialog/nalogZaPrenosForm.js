@@ -1,7 +1,6 @@
 app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $mdDialog, faktura, nalogZaPrenosService) {
 
     $scope.faktura = faktura;
-
     $scope.podaciZaNalog = {};
 
     $scope.posaljiNalog = function () {

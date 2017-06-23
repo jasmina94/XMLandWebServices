@@ -1,8 +1,4 @@
-/**
- * Created by JELENA on 23.6.2017.
- */
-
-app.controller('RobaUslugaController', function ($scope, $http, $state, $mdDialog, robaUslugaService, faktura) {
+app.controller('RobaUslugaFormController', function ($scope, $http, $state, $mdDialog, robaUslugaService) {
 
     //da saljem id fakture, id robe i kolicinu
     //prilikom dodavanja
