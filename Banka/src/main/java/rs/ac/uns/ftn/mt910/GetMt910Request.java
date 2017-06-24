@@ -36,13 +36,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "presek"
+    "mt910"
 })
 @XmlRootElement(name = "getMt910Request")
 public class GetMt910Request {
 
     @XmlElement(required = true)
-    protected Mt910 presek;
+    protected Mt910 mt910;
 
     /**
      * Gets the value of the presek property.
@@ -52,8 +52,8 @@ public class GetMt910Request {
      *     {@link Mt910 }
      *     
      */
-    public Mt910 getPresek() {
-        return presek;
+    public Mt910 getMt910() {
+        return mt910;
     }
 
     /**
@@ -64,8 +64,8 @@ public class GetMt910Request {
      *     {@link Mt910 }
      *     
      */
-    public void setPresek(Mt910 value) {
-        this.presek = value;
+    public void setMt910(Mt910 value) {
+        this.mt910 = value;
     }
 
 }

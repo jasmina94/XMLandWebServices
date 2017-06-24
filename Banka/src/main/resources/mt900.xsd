@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.ftn.uns.ac.rs/mt910" xmlns:mt910="http://www.ftn.uns.ac.rs/mt910"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt900" xmlns:mt900="http://www.ftn.uns.ac.rs/mt900"
     xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
-    <xs:element name="getMt910Request">
+    <xs:element name="getMt900Request">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="mt910" type="mt910:mt910"/>
+                <xs:element name="mt900" type="mt900:mt900"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="getMt910Response">
+    <xs:element name="getMt900Response">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="mt910" type="xs:string"/>
+                <xs:element name="mt900" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>    
-    <xs:complexType name="mt910">
+    </xs:element>
+    <xs:complexType name="mt900">
         <xs:sequence>
-            <xs:element name="podaci_o_banci_poverioca" type="tipovi:TPodaciBanka"/>
+            <xs:element name="podaci_o_banci_duznika" type="tipovi:TPodaciBanka"/>
             <xs:element name="podaci_o_nalogu">
                 <xs:complexType>
                     <xs:complexContent>
@@ -44,5 +44,4 @@
             </xs:simpleType>
         </xs:attribute>
     </xs:complexType>
-    
 </xs:schema>
