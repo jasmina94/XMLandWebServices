@@ -3,6 +3,7 @@ package com.ftn.service.implementation;
 import com.ftn.exception.ServiceFaultException;
 import com.ftn.model.database.Bank;
 import com.ftn.model.dto.error.ServiceFault;
+import com.ftn.model.dto.mt102.Mt102;
 import com.ftn.model.dto.mt103.Mt103;
 import com.ftn.model.dto.mt910.GetMt910Request;
 import com.ftn.model.dto.mt910.GetMt910Response;
@@ -31,11 +32,7 @@ public class Mt910ServiceImpl extends WebServiceGatewaySupport implements Mt910S
 
         final Mt910 mt910 = new Mt910();
 
-        final TPodaciBanka creditorsBank = new TPodaciBanka();
-        creditorsBank.setObracunskiRacun(mt103.getPodaciOPoveriocu().getPodaciOBanci().getObracunskiRacun());
-        creditorsBank.setSwiftKod(mt103.getPodaciOPoveriocu().getPodaciOBanci().getSwiftKod());
-
-        mt910.setPodaciOBanciPoverioca(creditorsBank);
+        mt910.setPodaciOBanciPoverioca(mt103.getPodaciOPoveriocu().getPodaciOBanci());
         mt910.setIdPoruke(mt103.getIdPoruke());
 
         final TPodaciNalog.Iznos amount = new TPodaciNalog.Iznos();
@@ -45,6 +42,28 @@ public class Mt910ServiceImpl extends WebServiceGatewaySupport implements Mt910S
         final Mt910.PodaciONalogu paymentRequest = new Mt910.PodaciONalogu();
         paymentRequest.setIdPorukeNaloga(mt103.getIdPoruke());
         paymentRequest.setDatumValute(mt103.getPodaciOUplati().getDatumValute());
+        paymentRequest.setIznos(amount);
+
+        mt910.setPodaciONalogu(paymentRequest);
+
+        send(mt910);
+    }
+
+    @Override
+    public void send(Mt102 mt102) {
+
+        final Mt910 mt910 = new Mt910();
+
+        mt910.setPodaciOBanciPoverioca(mt102.getMt102Zaglavlje().getPodaciOBanciPoverioca());
+        mt910.setIdPoruke(mt102.getMt102Zaglavlje().getIdPoruke());
+
+        final TPodaciNalog.Iznos amount = new TPodaciNalog.Iznos();
+        amount.setValue(mt102.getMt102Zaglavlje().getUkupanIznos());
+        amount.setValuta(mt102.getMt102Zaglavlje().getSifraValute());
+
+        final Mt910.PodaciONalogu paymentRequest = new Mt910.PodaciONalogu();
+        paymentRequest.setIdPorukeNaloga(mt102.getMt102Zaglavlje().getIdPoruke());
+        paymentRequest.setDatumValute(mt102.getMt102Zaglavlje().getDatumValute());
         paymentRequest.setIznos(amount);
 
         mt910.setPodaciONalogu(paymentRequest);

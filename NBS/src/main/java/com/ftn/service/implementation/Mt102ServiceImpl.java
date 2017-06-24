@@ -130,6 +130,9 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
             // Forward Mt102
             send(mt102);
+
+            // Send Mt910
+            mt910Service.send(mt102);
         });
     }
 
