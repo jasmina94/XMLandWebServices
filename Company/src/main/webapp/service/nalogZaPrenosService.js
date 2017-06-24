@@ -14,7 +14,6 @@ app.service('nalogZaPrenosService', function($http){
             $http.get('/api/naloziZaPrenos/firmaDuznik/' + naziv + '/').then(onSuccess, onError);
         },
         kreirajNalog: function (podaciZaNalog, onSuccess, onError) {
-            alert("Bla");
             $http.post('api/naloziZaPrenos/kreirajNalog', podaciZaNalog).then(onSuccess, onError);
         }
     }
