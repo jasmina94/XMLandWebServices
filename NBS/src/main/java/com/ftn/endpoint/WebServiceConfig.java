@@ -24,13 +24,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 	@Bean
 	public SoapFaultMappingExceptionResolver exceptionResolver(){
-		SoapFaultMappingExceptionResolver exceptionResolver = new DetailSoapFaultDefinitionExceptionResolver();
 
-		SoapFaultDefinition faultDefinition = new SoapFaultDefinition();
+		final SoapFaultMappingExceptionResolver exceptionResolver = new DetailSoapFaultDefinitionExceptionResolver();
+
+		final SoapFaultDefinition faultDefinition = new SoapFaultDefinition();
 		faultDefinition.setFaultCode(SoapFaultDefinition.SERVER);
 		exceptionResolver.setDefaultFault(faultDefinition);
 
-		Properties errorMappings = new Properties();
+		final Properties errorMappings = new Properties();
 		errorMappings.setProperty(Exception.class.getName(), SoapFaultDefinition.SERVER.toString());
 		errorMappings.setProperty(ServiceFaultException.class.getName(), SoapFaultDefinition.SERVER.toString());
 		exceptionResolver.setExceptionMappings(errorMappings);
@@ -45,20 +46,5 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		servlet.setApplicationContext(applicationContext);
 		servlet.setTransformWsdlLocations(true);
 		return new ServletRegistrationBean(servlet, "/ws/*");
-	}
-
-	@Bean(name = "mt103")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema mt103schema) {
-		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("mt103");
-		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/mt103");
-		wsdl11Definition.setSchema(mt103schema);
-		return wsdl11Definition;
-	}
-
-	@Bean
-	public XsdSchema mt103schema() {
-		return new SimpleXsdSchema(new ClassPathResource("mt103_schema1.xsd"));
 	}
 }
