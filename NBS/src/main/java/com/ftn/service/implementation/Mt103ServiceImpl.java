@@ -60,8 +60,7 @@ public class Mt103ServiceImpl extends WebServiceGatewaySupport implements Mt103S
         mt910Service.send(mt103);
     }
 
-    @Override
-    public void send(Mt103 mt103) {
+    private void send(Mt103 mt103) {
 
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetMt103Request.class, GetMt103Response.class);
