@@ -1,6 +1,6 @@
 package com.ftn.exception;
 
-import com.ftn.model.error.ServiceFault;
+import com.ftn.model.dto.error.ServiceFault;
 
 /**
  * Created by Alex on 6/22/17.

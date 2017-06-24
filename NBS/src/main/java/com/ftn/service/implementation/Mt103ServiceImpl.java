@@ -3,7 +3,7 @@ package com.ftn.service.implementation;
 import com.ftn.exception.ServiceFaultException;
 import com.ftn.model.database.Bank;
 import com.ftn.model.dto.mt103.Mt103;
-import com.ftn.model.error.ServiceFault;
+import com.ftn.model.dto.error.ServiceFault;
 import com.ftn.repository.BankDao;
 import com.ftn.service.Mt103Service;
 import org.springframework.beans.factory.annotation.Autowired;

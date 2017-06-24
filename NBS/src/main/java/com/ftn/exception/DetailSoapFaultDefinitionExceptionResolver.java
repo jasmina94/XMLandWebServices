@@ -1,6 +1,6 @@
 package com.ftn.exception;
 
-import com.ftn.model.error.ServiceFault;
+import com.ftn.model.dto.error.ServiceFault;
 import org.springframework.ws.soap.SoapFault;
 import org.springframework.ws.soap.SoapFaultDetail;
 import org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver;
@@ -19,7 +19,7 @@ public class DetailSoapFaultDefinitionExceptionResolver extends SoapFaultMapping
     protected void customizeFault(Object endpoint, Exception ex, SoapFault fault) {
         logger.warn("Exception processed ", ex);
         if (ex instanceof ServiceFaultException) {
-            ServiceFault serviceFault = ((ServiceFaultException) ex).getServiceFault();
+            final ServiceFault serviceFault = ((ServiceFaultException) ex).getServiceFault();
             SoapFaultDetail detail = fault.addFaultDetail();
             detail.addFaultDetailElement(CODE).addText(serviceFault.getCode());
             detail.addFaultDetailElement(DESCRIPTION).addText(serviceFault.getDescription());
