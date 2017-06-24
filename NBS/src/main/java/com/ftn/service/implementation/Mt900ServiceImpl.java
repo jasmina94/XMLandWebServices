@@ -10,6 +10,7 @@ import com.ftn.model.dto.mt900.Mt900;
 import com.ftn.model.dto.types.TOznakaValute;
 import com.ftn.model.dto.types.TPodaciBanka;
 import com.ftn.model.dto.types.TPodaciNalog;
+import com.ftn.model.dto.types.TPodaciOPrenosu;
 import com.ftn.repository.BankDao;
 import com.ftn.service.Mt900Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,12 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
         amount.setValue(mt103.getPodaciOUplati().getIznos().getValue());
         amount.setValuta(TOznakaValute.valueOf(mt103.getPodaciOUplati().getIznos().getValuta()));
 
-        final TPodaciNalog paymentRequest = new TPodaciNalog();
+        final Mt900.PodaciONalogu paymentRequest = new Mt900.PodaciONalogu();
+        paymentRequest.setIdPorukeNaloga(mt103.getIdPoruke());
         paymentRequest.setDatumValute(mt103.getPodaciOUplati().getDatumValute());
         paymentRequest.setIznos(amount);
+
+        mt900.setPodaciONalogu(paymentRequest);
 
         send(mt900);
     }
