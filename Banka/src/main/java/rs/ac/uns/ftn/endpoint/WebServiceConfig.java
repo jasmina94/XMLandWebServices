@@ -111,5 +111,50 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new SimpleXsdSchema(new ClassPathResource("mt910.xsd"));
     }
 
+    @Bean(name = "nalog_za_prenos")
+    public DefaultWsdl11Definition NalogZaPrenosSchemaDefinition(XsdSchema nalogzaprenos) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("NalogPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/nalog_za_prenos");
+        wsdl11Definition.setSchema(nalogzaprenos);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema nalogzaprenos() {
+        return new SimpleXsdSchema(new ClassPathResource("nalog_za_prenos.xsd"));
+    }
+
+    @Bean(name = "presek")
+    public DefaultWsdl11Definition PresekSchemaDefinition(XsdSchema presekSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("PresekPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/presek");
+        wsdl11Definition.setSchema(presekSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema presekSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("presek.xsd"));
+    }
+
+    @Bean(name = "zahtevZaIzvod")
+    public DefaultWsdl11Definition ZahtevZaIzvodSchemaDefinition(XsdSchema zahtevSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ZahtevZaIzvodPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/zahtevZaIzvod");
+        wsdl11Definition.setSchema(zahtevSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema zahtevSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("zahtev_za_izvod.xsd"));
+    }
+
 
 }

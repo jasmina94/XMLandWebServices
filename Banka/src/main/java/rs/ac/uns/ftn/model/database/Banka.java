@@ -24,7 +24,7 @@ public class Banka {
     @Column(length = 8)
     private String SWIFTkod;
 
-    @Column(name = "racun_banke", length = 18)
+    @Column(name = "racun_banke", length = 20)
     private String obracunskiRacun;
 
     @Column

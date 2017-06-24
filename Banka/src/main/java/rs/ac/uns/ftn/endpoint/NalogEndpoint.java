@@ -21,7 +21,7 @@ public class NalogEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getNalogZaPrenosRequest")
     @ResponsePayload
-    public GetNalogZaPrenosResponse nalogZaPrenos(@RequestPayload GetNalogZaPrenosRequest request) {
+    public GetNalogZaPrenosResponse nalog(@RequestPayload GetNalogZaPrenosRequest request) {
         final GetNalogZaPrenosResponse response = new GetNalogZaPrenosResponse();
         response.setNalogZaPrenos("Ok");
         return response;
