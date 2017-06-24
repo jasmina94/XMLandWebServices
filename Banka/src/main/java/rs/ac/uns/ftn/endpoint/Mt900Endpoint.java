@@ -5,7 +5,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import rs.ac.uns.ftn.model.dto.mt103.GetMt103Response;
 import rs.ac.uns.ftn.model.dto.mt900.GetMt900Request;
 import rs.ac.uns.ftn.model.dto.mt900.GetMt900Response;
 import rs.ac.uns.ftn.model.environment.EnvironmentProperties;

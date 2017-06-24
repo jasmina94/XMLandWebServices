@@ -10,7 +10,6 @@ import com.ftn.model.dto.mt900.Mt900;
 import com.ftn.model.dto.types.TOznakaValute;
 import com.ftn.model.dto.types.TPodaciBanka;
 import com.ftn.model.dto.types.TPodaciNalog;
-import com.ftn.model.dto.types.TPodaciOPrenosu;
 import com.ftn.repository.BankDao;
 import com.ftn.service.Mt900Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +66,5 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
                 new ServiceFaultException("Not found.", new ServiceFault("404", "No bank with swift code " + swiftCode + ".")));
         final Object o = getWebServiceTemplate().marshalSendAndReceive(debtorBank.getUrl(), getMt900Request);
         GetMt900Response response = (GetMt900Response) o;
-
     }
 }
