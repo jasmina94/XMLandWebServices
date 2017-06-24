@@ -24,7 +24,7 @@ configurations{
 task genJaxb {
 	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
 	ext.classesDir = "${buildDir}/classes/jaxb"
-	ext.schema = "src/main/resources/mt102.xsd"
+	ext.schema = "src/main/resources/mt910.xsd"
 
 	outputs.dir classesDir
 

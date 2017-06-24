@@ -18,7 +18,7 @@ public class Mt103Endpoint {
     private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt103";
 
     @Autowired
-    Mt103Service mt103Service;
+    private Mt103Service mt103Service;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMt103Request")
     @ResponsePayload
