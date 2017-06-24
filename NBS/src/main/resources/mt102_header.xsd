@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt102header"
+    xmlns:mt102header="http://www.ftn.uns.ac.rs/mt102header"
+    xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+    <xs:element name="mt102_zaglavlje">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="podaci_o_banci_duznika" type="tipovi:TPodaciBanka"/>
+                <xs:element name="podaci_o_banci_poverioca" type="tipovi:TPodaciBanka"/>
+                <xs:element name="ukupan_iznos">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                            <xs:totalDigits value="15"/>
+                            <xs:fractionDigits value="2"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="datum_valute" type="xs:date"/>
+                <xs:element name="datum" type="xs:date"/>
+                <xs:element name="sifra_valute" type="tipovi:TOznakaValute"/>
+            </xs:sequence>
+            <xs:attribute name="id_poruke">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
