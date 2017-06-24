@@ -3,6 +3,7 @@ package com.ftn.service.implementation;
 import com.ftn.exception.ServiceFaultException;
 import com.ftn.model.database.Bank;
 import com.ftn.model.dto.error.ServiceFault;
+import com.ftn.model.dto.mt102.Mt102;
 import com.ftn.model.dto.mt103.Mt103;
 import com.ftn.model.dto.mt900.GetMt900Request;
 import com.ftn.model.dto.mt900.GetMt900Response;
@@ -50,6 +51,11 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
         mt900.setPodaciONalogu(paymentRequest);
 
         send(mt900);
+    }
+
+    @Override
+    public void send(Mt102 mt102) {
+
     }
 
     private void send(Mt900 mt900) {
