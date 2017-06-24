@@ -27,8 +27,8 @@ public class Banka {
     @Column(name = "racun_banke", length = 18)
     private String obracunskiRacun;
 
-    @Column()
-    private int sifra;
+    @Column
+    private int sifra; //sifra banke prva tri broja
 
     @OneToMany(mappedBy = "banka")
     private List<Racun> racuni;
