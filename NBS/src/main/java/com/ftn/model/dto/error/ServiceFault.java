@@ -1,4 +1,4 @@
-package com.ftn.model.error;
+package com.ftn.model.dto.error;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -1,0 +1,2 @@
+INSERT INTO bank (created, updated, account_balance, account_number, code, name, swift_code, url) VALUES (NOW(), null, 0, "124456789018765432", 124, "Kontinental Banka", "CONARS22", "http://localhost:8092/ws");
+INSERT INTO bank (created, updated, account_balance, account_number, code, name, swift_code, url) VALUES (NOW(), null, 0, "123456789098765432", 123, "Vojvodjanska Banka", "VBUBRS22", "http://localhost:8093/ws");
