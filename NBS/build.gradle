@@ -42,4 +42,7 @@ dependencies {
 
 	// Wsdl
 	compile("wsdl4j:wsdl4j:1.6.1")
+
+	// Lombok
+	compileOnly('org.projectlombok:lombok')
 }

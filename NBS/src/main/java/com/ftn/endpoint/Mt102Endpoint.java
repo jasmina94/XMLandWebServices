@@ -1,7 +1,5 @@
 package com.ftn.endpoint;
 
-import com.ftn.model.request.Mt102Request;
-import com.ftn.model.response.Mt102Response;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -14,7 +12,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class Mt102Endpoint {
 
     private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt102";
-
+/*
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMt102Request")
     @ResponsePayload
     public Mt102Response mt103(@RequestPayload Mt102Request request) {
@@ -22,4 +20,5 @@ public class Mt102Endpoint {
         response.setMt102(request.getMt102());
         return response;
     }
+    */
 }
