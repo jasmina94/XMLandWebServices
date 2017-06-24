@@ -33,7 +33,7 @@ public class PojedinacniNalogZaPlacanje {
     @Column
     private Date datumNaloga;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunDuznika;
 
     @Column
@@ -42,7 +42,7 @@ public class PojedinacniNalogZaPlacanje {
     @Column
     private String pozivNaBrojZaduzenja;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunPoverioca;
 
     @Column

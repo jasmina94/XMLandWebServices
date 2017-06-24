@@ -28,10 +28,10 @@ public class Mt102Model {
     @Column(length = 8)
     private String SWIFTBankePoverioca;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunBankeDuznika;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunBankePoverioca;
 
     @Column

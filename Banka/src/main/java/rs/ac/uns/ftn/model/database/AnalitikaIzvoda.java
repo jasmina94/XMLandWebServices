@@ -30,10 +30,10 @@ public class AnalitikaIzvoda {
     @Column(length = 8)
     private String SWIFTBankePoverioca;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunBankeDuznika;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunBankePoverioca;
 
     @Column
@@ -48,7 +48,7 @@ public class AnalitikaIzvoda {
     @Column
     private Date datumValute;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunDuznika;
 
     @Column
@@ -57,7 +57,7 @@ public class AnalitikaIzvoda {
     @Column
     private String pozivNaBrojZaduzenja;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunPoverioca;
 
     @Column
