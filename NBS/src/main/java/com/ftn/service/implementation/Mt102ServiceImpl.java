@@ -5,6 +5,8 @@ import com.ftn.model.database.Bank;
 import com.ftn.model.database.Payment;
 import com.ftn.model.database.PaymentBatch;
 import com.ftn.model.dto.error.ServiceFault;
+import com.ftn.model.dto.mt102.GetMt102Request;
+import com.ftn.model.dto.mt102.GetMt102Response;
 import com.ftn.model.dto.mt102.Mt102;
 import com.ftn.repository.BankDao;
 import com.ftn.repository.PaymentBatchDao;
@@ -16,6 +18,7 @@ import com.ftn.util.XMLGregorianCalendarConverter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
@@ -124,6 +127,25 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
             // Send Mt900
             mt900Service.send(mt102);
+
+            // Forward Mt102
+            send(mt102);
         });
+    }
+
+    private void send(Mt102 mt102) {
+
+        final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setClassesToBeBound(GetMt102Request.class, GetMt102Response.class);
+        setMarshaller(marshaller);
+        setUnmarshaller(marshaller);
+
+        final GetMt102Request getMt102Request = new GetMt102Request();
+        getMt102Request.setMt102(mt102);
+        final String swiftCode = mt102.getMt102Zaglavlje().getPodaciOBanciPoverioca().getSwiftKod();
+        final Bank creditorBank = bankDao.findBySwiftCode(swiftCode).orElseThrow(() ->
+                new ServiceFaultException("Not found.", new ServiceFault("404", "No bank with swift code " + swiftCode + ".")));
+        final GetMt102Response response = (GetMt102Response) getWebServiceTemplate().marshalSendAndReceive(creditorBank.getUrl(), getMt102Request);
+        // TODO: Based on response throw an exception maybe?
     }
 }
