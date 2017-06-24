@@ -9,7 +9,6 @@ import com.ftn.model.dto.mt900.GetMt900Request;
 import com.ftn.model.dto.mt900.GetMt900Response;
 import com.ftn.model.dto.mt900.Mt900;
 import com.ftn.model.dto.types.TOznakaValute;
-import com.ftn.model.dto.types.TPodaciBanka;
 import com.ftn.model.dto.types.TPodaciNalog;
 import com.ftn.repository.BankDao;
 import com.ftn.service.Mt900Service;
@@ -32,11 +31,7 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
 
         final Mt900 mt900 = new Mt900();
 
-        final TPodaciBanka debtorsBank = new TPodaciBanka();
-        debtorsBank.setObracunskiRacun(mt103.getPodaciODuzniku().getBrojRacuna());
-        debtorsBank.setSwiftKod(mt103.getPodaciODuzniku().getPodaciOBanci().getSwiftKod());
-
-        mt900.setPodaciOBanciDuznika(debtorsBank);
+        mt900.setPodaciOBanciDuznika(mt103.getPodaciODuzniku().getPodaciOBanci());
         mt900.setIdPoruke(mt103.getIdPoruke());
 
         final TPodaciNalog.Iznos amount = new TPodaciNalog.Iznos();
@@ -56,6 +51,23 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
     @Override
     public void send(Mt102 mt102) {
 
+        final Mt900 mt900 = new Mt900();
+
+        mt900.setIdPoruke(mt102.getMt102Zaglavlje().getIdPoruke());
+        mt900.setPodaciOBanciDuznika(mt102.getMt102Zaglavlje().getPodaciOBanciDuznika());
+
+        final TPodaciNalog.Iznos amount = new TPodaciNalog.Iznos();
+        amount.setValue(mt102.getMt102Zaglavlje().getUkupanIznos());
+        amount.setValuta(mt102.getMt102Zaglavlje().getSifraValute());
+
+        final Mt900.PodaciONalogu paymentRequest = new Mt900.PodaciONalogu();
+        paymentRequest.setIdPorukeNaloga(mt102.getMt102Zaglavlje().getIdPoruke());
+        paymentRequest.setDatumValute(mt102.getMt102Zaglavlje().getDatumValute());
+        paymentRequest.setIznos(amount);
+
+        mt900.setPodaciONalogu(paymentRequest);
+
+        send(mt900);
     }
 
     private void send(Mt900 mt900) {

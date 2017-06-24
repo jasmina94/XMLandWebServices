@@ -38,6 +38,8 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
     private final Mt910Service mt910Service;
 
+    private final Gson gson;
+
     @Autowired
     public Mt102ServiceImpl(BankDao bankDao, PaymentBatchDao paymentBatchDao, PaymentDao paymentDao, Mt900Service mt900Service, Mt910Service mt910Service) {
         this.bankDao = bankDao;
@@ -45,6 +47,13 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
         this.paymentDao = paymentDao;
         this.mt900Service = mt900Service;
         this.mt910Service = mt910Service;
+
+        final GsonBuilder gson_builder = new GsonBuilder();
+        gson_builder.registerTypeAdapter(XMLGregorianCalendar.class,
+                new XMLGregorianCalendarConverter.Serializer());
+        gson_builder.registerTypeAdapter(XMLGregorianCalendar.class,
+                new XMLGregorianCalendarConverter.Deserializer());
+        this.gson = gson_builder.create();
     }
 
     @Override
@@ -72,7 +81,7 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
         paymentBatch.setDateOfValue(mt102.getMt102Zaglavlje().getDatumValute().toGregorianCalendar().getTime());
         paymentBatch.setDateOfPayment(mt102.getMt102Zaglavlje().getDatum().toGregorianCalendar().getTime());
         paymentBatch.setTotal(mt102.getMt102Zaglavlje().getUkupanIznos().doubleValue());
-        paymentBatch.setMt102Model(new Gson().toJson(mt102));
+        paymentBatch.setMt102Model(gson.toJson(mt102));
         paymentBatch.setCleared(false);
         paymentBatchDao.save(paymentBatch);
 
@@ -98,13 +107,6 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
     private void clear(List<PaymentBatch> clearingCandidates) {
 
-        final GsonBuilder gson_builder = new GsonBuilder();
-        gson_builder.registerTypeAdapter(XMLGregorianCalendar.class,
-                new XMLGregorianCalendarConverter.Serializer());
-        gson_builder.registerTypeAdapter(XMLGregorianCalendar.class,
-                new XMLGregorianCalendarConverter.Deserializer());
-        final Gson gson = gson_builder.create();
-
         clearingCandidates.forEach(paymentBatch -> {
 
             final Bank creditorBank = bankDao.findBySwiftCode(paymentBatch.getCreditorSwift()).orElseThrow(() ->
@@ -120,6 +122,7 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
             final Mt102 mt102 = gson.fromJson(paymentBatch.getMt102Model(), Mt102.class);
 
+            // Send Mt900
             mt900Service.send(mt102);
         });
     }
