@@ -24,8 +24,8 @@ public class Mt103Endpoint {
     @ResponsePayload
     public GetMt103Response mt103(@RequestPayload GetMt103Request request) {
         final GetMt103Response response = new GetMt103Response();
-        response.setMt103("Ok");
         mt103Service.process(request.getMt103());
+        response.setMt103("Ok");
         return response;
     }
 }
