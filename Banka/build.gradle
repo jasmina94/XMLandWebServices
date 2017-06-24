@@ -70,9 +70,30 @@ repositories {
 
 
 dependencies {
+
 	compile("org.springframework.boot:spring-boot-starter-web-services")
+	compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 	compile("wsdl4j:wsdl4j:1.6.1")
 	jaxb("org.glassfish.jaxb:jaxb-xjc:2.2.11")
 	compile(files(genJaxb.classesDir).builtBy(genJaxb))
+
+	// Test
+	testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+
+	// Database
+	compile 'mysql:mysql-connector-java:5.1.36'
+
+	// Util
+	compile 'com.google.guava:guava:20.0'
+
+	// Dev tools
+	runtime('org.springframework.boot:spring-boot-devtools')
+
+	// Wsdl
+	compile("wsdl4j:wsdl4j:1.6.1")
+
+	// Lombok
+	compileOnly('org.projectlombok:lombok')
 }
