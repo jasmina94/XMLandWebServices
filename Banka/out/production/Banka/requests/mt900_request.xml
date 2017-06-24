@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:mt900="http://www.ftn.uns.ac.rs/mt900" xmlns="http://www.ftn.uns.ac.rs/tipovi">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <mt900:getMt900Request>
+            <mt900 id_poruke="001" xmlns="http://www.ftn.uns.ac.rs/mt900"
+                   xsi:schemaLocation="http://www.ftn.uns.ac.rs/mt900 mt900_schema.xsd"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                <podaci_o_banci_duznika>
+                    <tipovi:swift_kod>12365498</tipovi:swift_kod>
+                    <tipovi:obracunski_racun>854-3698521475698-56</tipovi:obracunski_racun>
+                </podaci_o_banci_duznika>
+                <podaci_o_nalogu id_poruke_naloga="1">
+                    <tipovi:datum_valute>2016-06-26</tipovi:datum_valute>
+                    <tipovi:iznos valuta="RSD">965</tipovi:iznos>
+                </podaci_o_nalogu>
+            </mt900>
+        </mt900:getMt900Request>
+    </soapenv:Body>
+</soapenv:Envelope>
+
