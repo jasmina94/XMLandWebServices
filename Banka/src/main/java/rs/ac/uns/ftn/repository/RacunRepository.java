@@ -10,6 +10,6 @@ import java.util.Optional;
  */
 public interface RacunRepository extends JpaRepository<Racun, Long> {
 
-    Optional<Racun> findByAll(Long id);
+    Optional<Racun> findById(Long id);
 
 }
