@@ -22,7 +22,7 @@ public class Mt102Endpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMt102Request")
     @ResponsePayload
-    public GetMt102Response mt103(@RequestPayload GetMt102Request request) {
+    public GetMt102Response mt102(@RequestPayload GetMt102Request request) {
         final GetMt102Response response = new GetMt102Response();
         response.setMt102("Ok");
         return response;

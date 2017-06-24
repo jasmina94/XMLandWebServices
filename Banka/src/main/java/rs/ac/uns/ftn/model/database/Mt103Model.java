@@ -31,10 +31,10 @@ public class Mt103Model {
     @Column(length = 8)
     private String SWIFTBankePoverioca;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunBankeDuznika;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunBankePoverioca;
 
     @Column
@@ -52,7 +52,7 @@ public class Mt103Model {
     @Column
     private Date datumNaloga;
 
-    @Column(length = 18)
+    @Column(length = 20)
     private String racunDuznika;
 
     @Column
