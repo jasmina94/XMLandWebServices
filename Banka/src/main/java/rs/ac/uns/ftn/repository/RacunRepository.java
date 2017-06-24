@@ -12,4 +12,6 @@ public interface RacunRepository extends JpaRepository<Racun, Long> {
 
     Optional<Racun> findById(Long id);
 
+    Optional<Racun> findByBrojRacuna(String brojracuna);
+
 }

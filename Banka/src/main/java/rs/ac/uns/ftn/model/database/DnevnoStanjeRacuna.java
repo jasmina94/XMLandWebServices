@@ -27,10 +27,10 @@ public class DnevnoStanjeRacuna {
     private Double predhodnoStanje;
 
     @Column
-    private Double prometNaTeret;
+    private int prometNaTeret;
 
     @Column
-    private Double prometuKorist;
+    private int prometuKorist;
 
     @Column
     private Double novoStanje;
@@ -39,6 +39,6 @@ public class DnevnoStanjeRacuna {
     private Racun racun;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna")
-    private List<AnalitikaIzvoda> analitikaIzvoda;
+    private List<AnalitikaIzvoda> analitikeIzvoda;
 
 }
