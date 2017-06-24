@@ -8,9 +8,6 @@
 
 package rs.ac.uns.ftn.model.dto.zahtev_za_izvod;
 
-import rs.ac.uns.ftn.zahtevzaizvod.GetZahtevZaIzvodRequest;
-import rs.ac.uns.ftn.zahtevzaizvod.GetZahtevZaIzvodResponse;
-import rs.ac.uns.ftn.zahtevzaizvod.ZahtevZaIzvod;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
