@@ -3,7 +3,6 @@
     targetNamespace="http://www.ftn.uns.ac.rs/zaglavljePreseka"
     xmlns:zaglavljePreseka="http://www.ftn.uns.ac.rs/zaglavljePreseka"
     xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
-
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
     <xs:element name="zaglavlje_preseka">
         <xs:complexType>
