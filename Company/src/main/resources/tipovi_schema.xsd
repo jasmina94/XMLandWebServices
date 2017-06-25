@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.ftn.uns.ac.rs/tipovi"
-    xmlns:ns1="http://ftn.uns.ac.rs/nalog_za_prenos" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    xmlns:ns1="http://www.ftn.uns.ac.rs/nalog_za_prenos" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
     <xs:complexType name="TStavkaFaktura">
         <xs:sequence>
             <xs:element name="redni_broj">
