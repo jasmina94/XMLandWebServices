@@ -1,10 +1,10 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:nzp="http://ftn.uns.ac.rs/nalog_za_prenos" xmlns="http://ftn.uns.ac.rs/tipovi">
+                  xmlns:nzp="http://www.ftn.uns.ac.rs/nalog_za_prenos" xmlns="http://www.ftn.uns.ac.rs/tipovi">
     <soapenv:Header/>
     <soapenv:Body>
         <nzp:getNalogZaPrenosRequest>
             <nalog_za_prenos datum_naloga="2017-06-09" datum_valute="2017-06-09" hitno="false" id_poruke="001"
-                             xmlns="http://ftn.uns.ac.rs/nalog_za_prenos" xsi:schemaLocation="http://ftn.uns.ac.rs/nalog_za_prenos nalog_za_prenos.xsd"
+                             xmlns="http://www.ftn.uns.ac.rs/nalog_za_prenos" xsi:schemaLocation="http://www.ftn.uns.ac.rs/nalog_za_prenos nalog_za_prenos.xsd"
                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
                 <duznik>Petar Petrovic, Jovana Subotica 12, 21000 Novi Sad</duznik>
                 <poverilac>TELEKOM SRBIJA, Petra Drapsina 2, 21000 Novi Sad</poverilac>
@@ -20,7 +20,7 @@
                         <tipovi:model_prenosa>97</tipovi:model_prenosa>
                         <tipovi:poziv_na_broj>100018999</tipovi:poziv_na_broj>
                     </tipovi:poverilac_u_prenosu>
-                    <tipovi:iznos>12333.99</tipovi:iznos>
+                    <tipovi:iznos>1000.00</tipovi:iznos>
                 </podaci_o_prenosu>
             </nalog_za_prenos>
         </nzp:getNalogZaPrenosRequest>

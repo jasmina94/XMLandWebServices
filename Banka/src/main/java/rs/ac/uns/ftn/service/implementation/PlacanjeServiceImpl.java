@@ -104,9 +104,11 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         analitikaDuznika.setRacunPoverioca(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getRacunUcesnika());
         analitikaDuznika.setModelOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getModelPrenosa());
         analitikaDuznika.setPozivNaBrojZaduzenja(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getPozivNaBroj());
+        analitikaDuznika.setPozivNaBrojOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getPozivNaBroj());
         analitikaDuznika.setIznos(nalog.getPodaciOPrenosu().getIznos());
         analitikaDuznika.setSifraValute(nalog.getPodaciOPrenosu().getOznakaValute().value());
-        analitikaDuznika.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunDuznika));
+        analitikaDuznika.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
+        //analitikaDuznika.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunDuznika));
 
         repozitorijumAnalitika.save(analitikaDuznika);
 
@@ -120,10 +122,11 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         analitikaPoverioca.setPozivNaBrojZaduzenja(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getPozivNaBroj());
         analitikaPoverioca.setRacunPoverioca(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getRacunUcesnika());
         analitikaPoverioca.setModelOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getModelPrenosa());
-        analitikaPoverioca.setPozivNaBrojZaduzenja(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getPozivNaBroj());
+        analitikaPoverioca.setPozivNaBrojOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getPozivNaBroj());
         analitikaPoverioca.setIznos(nalog.getPodaciOPrenosu().getIznos());
         analitikaPoverioca.setSifraValute(nalog.getPodaciOPrenosu().getOznakaValute().value());
-        analitikaPoverioca.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunPoverioca));
+        analitikaPoverioca.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
+        //analitikaPoverioca.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunPoverioca));
 
         repozitorijumAnalitika.save(analitikaPoverioca);
 
@@ -179,13 +182,14 @@ public class PlacanjeServiceImpl implements PlacanjeService {
             DnevnoStanjeRacuna dnevnoStanjeRacuna = new DnevnoStanjeRacuna();
             dnevnoStanjeRacuna.setDatum(datumAnalitike);
             dnevnoStanjeRacuna.setRacun(racun);
-            dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo());
 
             if(isDuzan) {
-                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
+                dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
+                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
                 dnevnoStanjeRacuna.setPrometNaTeret(1);
             }else{
-                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
+                dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
+                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
                 dnevnoStanjeRacuna.setPrometuKorist(1);
             }
 
