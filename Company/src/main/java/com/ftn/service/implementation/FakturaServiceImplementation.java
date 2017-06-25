@@ -2,16 +2,14 @@ package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
 import com.ftn.exception.NotFoundException;
-import com.ftn.model.Faktura;
-import com.ftn.model.TPodaciSubjekt;
 import com.ftn.model.dto.FakturaDTO;
+import com.ftn.model.generated.faktura.Faktura;
 import com.ftn.repository.FakturaDao;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.FakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,8 +17,10 @@ import java.util.stream.Collectors;
 /**
  * Created by JELENA on 19.6.2017.
  */
+
 @Service
 public class FakturaServiceImplementation implements FakturaService {
+
 
     private final FakturaDao fakturaDao;
     private final TPodaciSubjekatDao tPodaciSubjekatDao;

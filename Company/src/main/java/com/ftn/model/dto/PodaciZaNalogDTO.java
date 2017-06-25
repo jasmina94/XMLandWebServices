@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.Faktura;
+import com.ftn.model.generated.faktura.Faktura;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
