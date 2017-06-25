@@ -21,10 +21,10 @@ configurations{
 	jaxb
 }
 
-Task genJaxb {
+task genJaxb {
 	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
 	ext.classesDir = "${buildDir}/classes/jaxb"
-	ext.schema = "src/main/resources/mt910.xsd"
+	ext.schema = "src/main/resources/faktura.xsd"
 
 	outputs.dir classesDir
 
@@ -48,7 +48,7 @@ Task genJaxb {
 				include(name: "*.java")
 			}
 
-			Copy(todir: classesDir) {
+			copy(todir: classesDir) {
 				fileset(dir: sourcesDir, erroronmissingdir: false) {
 					exclude(name: "**/*.java")
 				}
@@ -84,6 +84,8 @@ dependencies {
 	// Lombok
 	compileOnly('org.projectlombok:lombok')
 
+	// Wsdl
+	compile("wsdl4j:wsdl4j:1.6.1")
 
 	// Jaxb
 	jaxb("org.glassfish.jaxb:jaxb-xjc:2.2.11")

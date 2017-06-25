@@ -22,23 +22,23 @@ public class TPrenosUcesnikDTO {
     @NotNull
     protected String pozivNaBroj;
 
-    public TPrenosUcesnikDTO(TPrenosUcesnik tPrenosUcesnik) {
-        this(tPrenosUcesnik, true);
-    }
-
-    public TPrenosUcesnikDTO(TPrenosUcesnik tPrenosUcesnik, boolean cascade) {
-        this.id = tPrenosUcesnik.getId();
-        this.racunUcesnika = tPrenosUcesnik.getRacunUcesnika();
-        this.modelPrenosa = tPrenosUcesnik.getModelPrenosa();
-        this.pozivNaBroj = tPrenosUcesnik.getPozivNaBroj();
-    }
-
-    public TPrenosUcesnik construct() {
-        final TPrenosUcesnik tPrenosUcesnik = new TPrenosUcesnik();
-        tPrenosUcesnik.setRacunUcesnika(racunUcesnika);
-        tPrenosUcesnik.setModelPrenosa(modelPrenosa);
-        tPrenosUcesnik.setPozivNaBroj(pozivNaBroj);
-
-        return tPrenosUcesnik;
-    }
+//    public TPrenosUcesnikDTO(TPrenosUcesnik tPrenosUcesnik) {
+//        this(tPrenosUcesnik, true);
+//    }
+//
+//    public TPrenosUcesnikDTO(TPrenosUcesnik tPrenosUcesnik, boolean cascade) {
+//        this.id = tPrenosUcesnik.getId();
+//        this.racunUcesnika = tPrenosUcesnik.getRacunUcesnika();
+//        this.modelPrenosa = tPrenosUcesnik.getModelPrenosa();
+//        this.pozivNaBroj = tPrenosUcesnik.getPozivNaBroj();
+//    }
+//
+//    public TPrenosUcesnik construct() {
+//        final TPrenosUcesnik tPrenosUcesnik = new TPrenosUcesnik();
+//        tPrenosUcesnik.setRacunUcesnika(racunUcesnika);
+//        tPrenosUcesnik.setModelPrenosa(modelPrenosa);
+//        tPrenosUcesnik.setPozivNaBroj(pozivNaBroj);
+//
+//        return tPrenosUcesnik;
+//    }
 }

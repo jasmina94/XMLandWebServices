@@ -7,9 +7,10 @@ import java.util.Optional;
 /**
  * Created by JELENA on 19.6.2017.
  */
+/*
 public interface TPodaciSubjekatDao extends JpaRepository<TPodaciSubjekt, Long> {
 
     Optional<TPodaciSubjekt> findById(Long id);
 
 
-}
+}*/

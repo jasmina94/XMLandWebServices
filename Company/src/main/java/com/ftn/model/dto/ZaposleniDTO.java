@@ -50,7 +50,7 @@ public class ZaposleniDTO {
         this.korisnickoIme = zaposleni.getKorisnickoIme();
         this.mesto = zaposleni.getMesto();
         if(cascade) {
-            this.tPodaciSubjektDTO = zaposleni.getTPodaciSubjekt() != null ? new TPodaciSubjektDTO(zaposleni.getTPodaciSubjekt()) : null;
+           // this.tPodaciSubjektDTO = zaposleni.getTPodaciSubjekt() != null ? new TPodaciSubjektDTO(zaposleni.getTPodaciSubjekt()) : null;
         }
     }
 
@@ -63,7 +63,7 @@ public class ZaposleniDTO {
         zaposleni.setAdresa(adresa);
         zaposleni.setMesto(mesto);
         zaposleni.setPrezime(prezime);
-        zaposleni.setTPodaciSubjekt(tPodaciSubjektDTO != null ? tPodaciSubjektDTO.construct() : null);
+       // zaposleni.setTPodaciSubjekt(tPodaciSubjektDTO != null ? tPodaciSubjektDTO.construct() : null);
 
         return zaposleni;
     }

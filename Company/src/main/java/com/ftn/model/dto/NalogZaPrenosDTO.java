@@ -40,36 +40,36 @@ public class NalogZaPrenosDTO {
     @Size(max = 50)
     private String idPoruke;
 
-    public NalogZaPrenosDTO(NalogZaPrenos nalogZaPrenos) {
-        this(nalogZaPrenos, true);
-    }
-
-    public NalogZaPrenosDTO(NalogZaPrenos nalogZaPrenos, boolean cascade) {
-        this.id = nalogZaPrenos.getId();
-        this.duznik = nalogZaPrenos.getDuznik();
-        this.poverilac = nalogZaPrenos.getPoverilac();
-        this.svrhaPlacanja = nalogZaPrenos.getSvrhaPlacanja();
-        this.datumNaloga = nalogZaPrenos.getDatumNaloga();
-        this.datumValute = nalogZaPrenos.getDatumValute();
-        this.hitno = nalogZaPrenos.isHitno();
-        this.idPoruke = nalogZaPrenos.getIdPoruke();
-        if(cascade) {
-            this.podaciOPrenosuDTO = nalogZaPrenos.getPodaciOPrenosu() != null ? new TPodaciOPrenosuDTO(nalogZaPrenos.getPodaciOPrenosu()) : null;
-        }
-    }
-
-
-    public NalogZaPrenos construct() {
-        final NalogZaPrenos nalogZaPrenos = new NalogZaPrenos();
-        nalogZaPrenos.setDuznik(duznik);
-        nalogZaPrenos.setPoverilac(poverilac);
-        nalogZaPrenos.setSvrhaPlacanja(svrhaPlacanja);
-        nalogZaPrenos.setDatumNaloga(datumNaloga);
-        nalogZaPrenos.setDatumValute(datumValute);
-        nalogZaPrenos.setHitno(hitno);
-        nalogZaPrenos.setIdPoruke(idPoruke);
-        nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosuDTO != null ? podaciOPrenosuDTO.construct() : null);
-
-        return nalogZaPrenos;
-    }
+//    public NalogZaPrenosDTO(NalogZaPrenos nalogZaPrenos) {
+//        this(nalogZaPrenos, true);
+//    }
+//
+//    public NalogZaPrenosDTO(NalogZaPrenos nalogZaPrenos, boolean cascade) {
+//        this.id = nalogZaPrenos.getId();
+//        this.duznik = nalogZaPrenos.getDuznik();
+//        this.poverilac = nalogZaPrenos.getPoverilac();
+//        this.svrhaPlacanja = nalogZaPrenos.getSvrhaPlacanja();
+//        this.datumNaloga = nalogZaPrenos.getDatumNaloga();
+//        this.datumValute = nalogZaPrenos.getDatumValute();
+//        this.hitno = nalogZaPrenos.isHitno();
+//        this.idPoruke = nalogZaPrenos.getIdPoruke();
+//        if(cascade) {
+//            this.podaciOPrenosuDTO = nalogZaPrenos.getPodaciOPrenosu() != null ? new TPodaciOPrenosuDTO(nalogZaPrenos.getPodaciOPrenosu()) : null;
+//        }
+//    }
+//
+//
+//    public NalogZaPrenos construct() {
+//        final NalogZaPrenos nalogZaPrenos = new NalogZaPrenos();
+//        nalogZaPrenos.setDuznik(duznik);
+//        nalogZaPrenos.setPoverilac(poverilac);
+//        nalogZaPrenos.setSvrhaPlacanja(svrhaPlacanja);
+//        nalogZaPrenos.setDatumNaloga(datumNaloga);
+//        nalogZaPrenos.setDatumValute(datumValute);
+//        nalogZaPrenos.setHitno(hitno);
+//        nalogZaPrenos.setIdPoruke(idPoruke);
+//        nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosuDTO != null ? podaciOPrenosuDTO.construct() : null);
+//
+//        return nalogZaPrenos;
+//    }
 }

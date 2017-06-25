@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Created by Olivera on 22.6.2017..
  */
-public interface NalogZaPrenosDao extends JpaRepository<NalogZaPrenos, Long> {
+/*public interface NalogZaPrenosDao extends JpaRepository<NalogZaPrenos, Long> {
 
-    Optional<NalogZaPrenos> findById(Long id);
-}
+    //Optional<NalogZaPrenos> findById(Long id);
+}*/

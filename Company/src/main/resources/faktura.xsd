@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="httl://www.ftn.uns.ac.rs/faktura" xmlns:fakt="httl://www.ftn.uns.ac.rs/faktura"
+    targetNamespace="http://www.ftn.uns.ac.rs/faktura" xmlns:fakt="http://www.ftn.uns.ac.rs/faktura"
     xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
     <xs:element name="getFakturaRequest">

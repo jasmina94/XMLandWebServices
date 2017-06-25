@@ -8,9 +8,10 @@ import java.util.Optional;
 /**
  * Created by Olivera on 20.6.2017..
  */
+/*
 public interface TStavkaFakturaDao extends JpaRepository<TStavkaFaktura, Long> {
 
     Optional<TStavkaFaktura> findById(Long id);
 
     List<TStavkaFaktura> findByFakturaId(Long id);
-}
+}*/
