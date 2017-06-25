@@ -42,22 +42,22 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return exceptionResolver;
 	}
 
-	@Override
-	public void addInterceptors(List<EndpointInterceptor> interceptors) {
-
-		final PayloadValidatingInterceptor mt103ValidatingInterceptor = new PayloadValidatingInterceptor();
-		mt103ValidatingInterceptor.setValidateRequest(true);
-		mt103ValidatingInterceptor.setValidateResponse(true);
-		mt103ValidatingInterceptor.setXsdSchema(mt103schema());
-
-		final PayloadValidatingInterceptor mt102ValidatingInterceptor = new PayloadValidatingInterceptor();
-		mt102ValidatingInterceptor.setValidateRequest(true);
-		mt102ValidatingInterceptor.setValidateResponse(true);
-		mt102ValidatingInterceptor.setXsdSchema(mt102schema());
-
-		interceptors.add(mt103ValidatingInterceptor);
-		interceptors.add(mt102ValidatingInterceptor);
-	}
+//	@Override
+//	public void addInterceptors(List<EndpointInterceptor> interceptors) {
+//
+//		final PayloadValidatingInterceptor mt103ValidatingInterceptor = new PayloadValidatingInterceptor();
+//		mt103ValidatingInterceptor.setValidateRequest(true);
+//		mt103ValidatingInterceptor.setValidateResponse(true);
+//		mt103ValidatingInterceptor.setXsdSchema(mt103schema());
+//
+//		final PayloadValidatingInterceptor mt102ValidatingInterceptor = new PayloadValidatingInterceptor();
+//		mt102ValidatingInterceptor.setValidateRequest(true);
+//		mt102ValidatingInterceptor.setValidateResponse(true);
+//		mt102ValidatingInterceptor.setXsdSchema(mt102schema());
+//
+//		interceptors.add(mt103ValidatingInterceptor);
+//		interceptors.add(mt102ValidatingInterceptor);
+//	}
 
 	@Bean
 	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
