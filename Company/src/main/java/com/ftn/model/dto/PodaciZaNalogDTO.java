@@ -43,7 +43,7 @@ public class PodaciZaNalogDTO {
         this.pozivNaBrojOdobrenja = podaciZaNalogDTO.getPozivNaBrojOdobrenja();
         this.hitno = podaciZaNalogDTO.isHitno();
         if(cascade) {
-            this.faktura = podaciZaNalogDTO.getFaktura() != null ? podaciZaNalogDTO.getFaktura() : null;
+            this.faktura = podaciZaNalogDTO.getFaktura();
         }
     }
 

@@ -11,6 +11,7 @@ package com.ftn.model.generated.nalog_za_prenos;
 import com.ftn.model.generated.tipovi.TPodaciOPrenosu;
 import com.ftn.util.DateAdapter;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -78,6 +79,7 @@ import java.util.Date;
     "podaciOPrenosu"
 })
 @Entity
+@NoArgsConstructor
 @Data
 public class NalogZaPrenos {
 
@@ -98,7 +100,7 @@ public class NalogZaPrenos {
     @Size(max = 255)
     protected String svrhaPlacanja;
     @XmlElement(name = "podaci_o_prenosu", required = true)
-    @OneToOne(optional = false)
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
     protected TPodaciOPrenosu podaciOPrenosu;
     @XmlAttribute(name = "datum_naloga")
     @XmlJavaTypeAdapter(DateAdapter.class)

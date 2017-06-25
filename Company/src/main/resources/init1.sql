@@ -1,4 +1,4 @@
-INSERT INTO `quatrofantasticoxmlcompany1`.`tpodaci_subjekt` (`adresa`,`naziv`,`pib`) VALUES ("Pozeska BB", "Pionir d.o.o.", "11111111111"), ("Zrenjaninski put 100", "Imlek", "22222222222"), ("Jovana Cvijica 13", "Dijamant d.o.o.", "33333333333"), ("Bulevar Oslobodjenja 112", "3G Shop d.o-o.", "44444444444");
+INSERT INTO `quatrofantasticoxmlcompany1`.`tpodaci_subjekt` (`adresa`,`naziv`,`pib`,`racun_firme`) VALUES ("Pozeska BB", "Pionir d.o.o.", "11111111111", "265-2234522100014-72"), ("Zrenjaninski put 100", "Imlek", "22222222222", "265-2234522100015-72"), ("Jovana Cvijica 13", "Dijamant d.o.o.", "33333333333", "205-2200148916622-71"), ("Bulevar Oslobodjenja 112", "3G Shop d.o-o.", "44444444444", "265-2234522100016-72");
 
 INSERT INTO `quatrofantasticoxmlcompany1`.`tpodaci_subjekt_poslovni_partneri`(`tpodaci_subjekt_id`,`poslovni_partneri_id`)VALUES(1,2);
 
