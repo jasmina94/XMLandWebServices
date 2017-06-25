@@ -8,8 +8,5 @@ public class NbsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NbsApplication.class, args);
-
-		final Client client = new Client();
-		client.mock();
 	}
 }

@@ -1,0 +1,42 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:mt103="http://www.ftn.uns.ac.rs/mt103" xmlns="http://www.ftn.uns.ac.rs/tipovi">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <mt103:getMt103Request>
+            <mt103 id_poruke="001" xmlns="http://www.ftn.uns.ac.rs/mt103"
+                   xsi:schemaLocation="http://www.ftn.uns.ac.rs/mt103 mt103_schema.xsd"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                <podaci_o_duzniku>
+                    <tipovi:naziv>Maxi D.O.O</tipovi:naziv>
+                    <tipovi:broj_racuna>968-3216547896521-48</tipovi:broj_racuna>
+                    <podaci_o_banci>
+                        <tipovi:swift_kod>CONARS22</tipovi:swift_kod>
+                        <tipovi:obracunski_racun>847-1234567891123-56</tipovi:obracunski_racun>
+                    </podaci_o_banci>
+                </podaci_o_duzniku>
+                <podaci_o_poveriocu>
+                    <tipovi:naziv>Pionir D.O.O</tipovi:naziv>
+                    <tipovi:broj_racuna>869-3216547896521-58</tipovi:broj_racuna>
+                    <podaci_o_banci>
+                        <tipovi:swift_kod>VBUBRS22</tipovi:swift_kod>
+                        <tipovi:obracunski_racun>837-1274567891123-56</tipovi:obracunski_racun>
+                    </podaci_o_banci>
+                </podaci_o_poveriocu>
+                <podaci_o_uplati>
+                    <svrha_placanja>Uplata po fakturi br.1</svrha_placanja>
+                    <iznos valuta="RSD">965</iznos>
+                    <podaci_o_zaduzenju>
+                        <tipovi:model>97</tipovi:model>
+                        <tipovi:poziv_na_broj>65</tipovi:poziv_na_broj>
+                    </podaci_o_zaduzenju>
+                    <podaci_o_odobrenju>
+                        <tipovi:model>97</tipovi:model>
+                        <tipovi:poziv_na_broj>75</tipovi:poziv_na_broj>
+                    </podaci_o_odobrenju>
+                    <datum_naloga>2002-09-24</datum_naloga>
+                    <datum_valute>2002-09-24</datum_valute>
+                </podaci_o_uplati>
+            </mt103>
+        </mt103:getMt103Request>
+    </soapenv:Body>
+</soapenv:Envelope>

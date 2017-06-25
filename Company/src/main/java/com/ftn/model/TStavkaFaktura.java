@@ -170,6 +170,7 @@ public class TStavkaFaktura {
     protected BigDecimal ukupanPorez;
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
+    @XmlTransient
     private Faktura faktura;
 
 

@@ -1,0 +1,102 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations{
+	jaxb
+}
+
+task genJaxb {
+	ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+	ext.classesDir = "${buildDir}/classes/jaxb"
+	ext.schema = "src/main/resources/mt102.xsd"
+
+	outputs.dir classesDir
+
+	doLast() {
+		project.ant {
+			taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+					classpath: configurations.jaxb.asPath
+			mkdir(dir: sourcesDir)
+			mkdir(dir: classesDir)
+
+			xjc(destdir: sourcesDir, schema: schema) {
+				arg(value: "-wsdl")
+				produces(dir: sourcesDir, includes: "**/*.java")
+			}
+
+			javac(destdir: classesDir, source: 1.6, target: 1.6, debug: true,
+					debugLevel: "lines,vars,source",
+					classpath: configurations.jaxb.asPath) {
+				src(path: sourcesDir)
+				include(name: "**/*.java")
+				include(name: "*.java")
+			}
+
+			copy(todir: classesDir) {
+				fileset(dir: sourcesDir, erroronmissingdir: false) {
+					exclude(name: "**/*.java")
+				}
+			}
+		}
+	}
+}
+
+jar {
+	baseName = 'gs-producing-web-service'
+	version =  '0.1.0'
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+    //Spring
+	compile("org.springframework.boot:spring-boot-starter-web-services")
+	compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	compile("wsdl4j:wsdl4j:1.6.1")
+	jaxb("org.glassfish.jaxb:jaxb-xjc:2.2.11")
+	compile(files(genJaxb.classesDir).builtBy(genJaxb))
+
+	// Test
+	testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+
+	// Database
+	compile 'mysql:mysql-connector-java:5.1.36'
+
+	// Util
+	compile 'com.google.guava:guava:20.0'
+
+	// Dev tools
+	runtime('org.springframework.boot:spring-boot-devtools')
+
+	// Wsdl
+	compile("wsdl4j:wsdl4j:1.6.1")
+
+	// Lombok
+	compileOnly('org.projectlombok:lombok')
+
+
+}
