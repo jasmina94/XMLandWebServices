@@ -4,6 +4,11 @@ import com.ftn.exception.BadRequestException;
 import com.ftn.model.*;
 import com.ftn.model.dto.NalogZaPrenosDTO;
 import com.ftn.model.dto.PodaciZaNalogDTO;
+
+import com.ftn.model.generated.faktura.Faktura;
+import com.ftn.model.generated.nalog_za_prenos.NalogZaPrenos;
+import com.ftn.model.generated.tipovi.TPodaciOPrenosu;
+import com.ftn.model.generated.tipovi.TPrenosUcesnik;
 import com.ftn.repository.FakturaDao;
 import com.ftn.repository.NalogZaPrenosDao;
 import com.ftn.service.NalogZaPrenosService;
@@ -28,8 +33,34 @@ import java.util.stream.Collectors;
 /**
  * Created by Olivera on 22.6.2017..
  */
+
 @Service
 public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService {
+//    @Override
+//    public List<NalogZaPrenosDTO> read() {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<NalogZaPrenosDTO> readPoverilac(String naziv) {
+//        return null;
+//    }
+//
+//    @Override
+//    public List<NalogZaPrenosDTO> readDuznik(String naziv) {
+//        return null;
+//    }
+//
+//    @Override
+//    public NalogZaPrenosDTO create(NalogZaPrenosDTO nalogZaPrenosDTO) {
+//        return null;
+//    }
+//
+//    @Override
+//    public NalogZaPrenosDTO kreirajNalog(PodaciZaNalogDTO podaciZaNalogDTO) {
+//        return null;
+//    }
+
 
     private final NalogZaPrenosDao nalogZaPrenosDao;
     private final FakturaDao fakturaDao;

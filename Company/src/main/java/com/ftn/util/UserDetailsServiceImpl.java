@@ -1,6 +1,6 @@
 package com.ftn.util;
 
-import com.ftn.model.Zaposleni;
+import com.ftn.model.database.Zaposleni;
 import com.ftn.repository.ZaposleniDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

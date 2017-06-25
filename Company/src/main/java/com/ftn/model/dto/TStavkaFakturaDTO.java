@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.TStavkaFaktura;
+import com.ftn.model.generated.tipovi.TStavkaFaktura;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,8 +1,7 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.Faktura;
-import com.ftn.model.TOznakaValute;
-import com.ftn.model.TStavkaFaktura;
+import com.ftn.model.generated.faktura.Faktura;
+import com.ftn.model.generated.tipovi.TOznakaValute;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -91,8 +90,8 @@ public class FakturaDTO {
         this.kreiranNalog = faktura.isKreiranNalog();
 
         if(cascade) {
-            this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu()) : null;
-            this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu()) : null;
+            this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu(), false) : null;
+            this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu(), false) : null;
             this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka, false)).collect(Collectors.toList());
 
         }

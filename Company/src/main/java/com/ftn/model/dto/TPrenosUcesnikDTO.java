@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.TPrenosUcesnik;
+import com.ftn.model.generated.tipovi.TPrenosUcesnik;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
