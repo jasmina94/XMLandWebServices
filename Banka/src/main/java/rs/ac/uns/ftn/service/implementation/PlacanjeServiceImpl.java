@@ -13,6 +13,7 @@ import rs.ac.uns.ftn.model.dto.nalog_za_prenos.NalogZaPrenos;
 import rs.ac.uns.ftn.model.dto.tipovi.TPodaciBanka;
 import rs.ac.uns.ftn.model.dto.tipovi.TPodaciPlacanje;
 import rs.ac.uns.ftn.model.dto.tipovi.TPrenosUcesnik;
+import rs.ac.uns.ftn.model.environment.EnvironmentProperties;
 import rs.ac.uns.ftn.repository.AnalitikaIzvodaRepository;
 import rs.ac.uns.ftn.repository.BankaRepository;
 import rs.ac.uns.ftn.repository.DnevnoStanjeRacunaRepository;
@@ -51,13 +52,14 @@ public class PlacanjeServiceImpl implements PlacanjeService {
     @Autowired
     private ClearingService ClearingService;
 
+    @Autowired
+    private EnvironmentProperties environmentProperties;
+
 
     @Override
     public void process(NalogZaPrenos nalogZaPrenos) {
-
         boolean duznikKodNas = proveriFirmu(nalogZaPrenos.getPodaciOPrenosu().getDuznikUPrenosu().getRacunUcesnika());
         boolean poverilacKodNas = proveriFirmu(nalogZaPrenos.getPodaciOPrenosu().getPoverilacUPrenosu().getRacunUcesnika());
-
 
         if(!duznikKodNas) {
             throw new ServiceFaultException("Nije pronadjen", new ServiceFault("404", "Racun duznika nije pronadjen!"));
@@ -66,9 +68,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         } else if(duznikKodNas && !poverilacKodNas) {
             medjubankarskiPromet(nalogZaPrenos);
         }
-
-
-
     }
 
     @Override
@@ -77,31 +76,27 @@ public class PlacanjeServiceImpl implements PlacanjeService {
     }
 
     private boolean proveriFirmu(String brojRacuna) {
-        return repozitorijumRacuna.findByBrojRacuna(brojRacuna).isPresent();
+        Racun racun = repozitorijumRacuna.findByBrojRacuna(brojRacuna).get();
+        String swiftCode = racun.getBanka().getSWIFTkod();
+
+        if(swiftCode.equals(environmentProperties.getSwiftCode())){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     private void unutrasnjiPromet(NalogZaPrenos nalog) {
-        //uzmi duznika
         TPrenosUcesnik duznik = nalog.getPodaciOPrenosu().getDuznikUPrenosu();
         TPrenosUcesnik poverilac = nalog.getPodaciOPrenosu().getPoverilacUPrenosu();
 
         Racun racunDuznika = repozitorijumRacuna.findByBrojRacuna(duznik.getRacunUcesnika()).get();
         Racun racunPoverioca = repozitorijumRacuna.findByBrojRacuna(poverilac.getRacunUcesnika()).get();
-
         racunDuznika.setSaldo(racunDuznika.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
         racunPoverioca.setSaldo(racunPoverioca.getSaldo() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
-
-        //sacuvaj racune
-
         repozitorijumRacuna.save(racunDuznika);
         repozitorijumRacuna.save(racunPoverioca);
-
-
-        //napravi analitiku duznika
-
         napraviAnalitike(nalog, racunDuznika, racunPoverioca);
-
-        //poverilaca uvecaj
     }
 
     private void medjubankarskiPromet(NalogZaPrenos nalog) {
@@ -113,6 +108,7 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
         if(nalog.isHitno() || nalog.getPodaciOPrenosu().getIznos().doubleValue() >= 250000.00){
            Mt103 mt103 = createMt103(nalog, racunDuznika, racunPoverioca);
+            System.out.println("PRAVI RTGS");
            RTGSService.processMT103(mt103);
         }else{
         //    Clearing();
