@@ -1,5 +1,6 @@
 package com.ftn.model.database;
 
+import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,16 +30,14 @@ public class Zaposleni {
 
     private String adresa;
 
-    private String mesto;
-
     @Column(unique = true)
     private String korisnickoIme;
 
     @Column(unique = true)
     private String lozinka;
 
-//    @ManyToOne
+    @ManyToOne
     //TODO: Da li je obavezno?
-//    private TPodaciSubjekt tPodaciSubjekt;
+   private TPodaciSubjekt tPodaciSubjekt;
 
 }

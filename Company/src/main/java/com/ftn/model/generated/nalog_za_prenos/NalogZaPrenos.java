@@ -9,14 +9,15 @@
 package com.ftn.model.generated.nalog_za_prenos;
 
 import com.ftn.model.generated.tipovi.TPodaciOPrenosu;
+import com.ftn.util.DateAdapter;
+import lombok.Data;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.Date;
 
 
 /**
@@ -76,25 +77,39 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "svrhaPlacanja",
     "podaciOPrenosu"
 })
+@Entity
+@Data
 public class NalogZaPrenos {
 
-    @XmlElement(required = true)
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    public long id;
+    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String duznik;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String poverilac;
-    @XmlElement(name = "svrha_placanja", required = true)
+    @XmlElement(name = "svrha_placanja", namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String svrhaPlacanja;
-    @XmlElement(name = "podaci_o_prenosu", required = true)
+    @XmlElement(name = "podaci_o_prenosu", namespace = "http://wwww.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @OneToOne(optional = false)
     protected TPodaciOPrenosu podaciOPrenosu;
     @XmlAttribute(name = "datum_naloga")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumNaloga;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumNaloga;
     @XmlAttribute(name = "datum_valute")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumValute;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumValute;
     @XmlAttribute(name = "hitno")
     protected Boolean hitno;
     @XmlAttribute(name = "id_poruke")
+    @Size(max = 50)
     protected String idPoruke;
 
     /**
@@ -201,7 +216,7 @@ public class NalogZaPrenos {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumNaloga() {
+    public Date getDatumNaloga() {
         return datumNaloga;
     }
 
@@ -210,10 +225,10 @@ public class NalogZaPrenos {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumNaloga(XMLGregorianCalendar value) {
+    public void setDatumNaloga(Date value) {
         this.datumNaloga = value;
     }
 
@@ -222,10 +237,10 @@ public class NalogZaPrenos {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatumValute() {
+    public Date getDatumValute() {
         return datumValute;
     }
 
@@ -237,7 +252,7 @@ public class NalogZaPrenos {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumValute(XMLGregorianCalendar value) {
+    public void setDatumValute(Date value) {
         this.datumValute = value;
     }
 

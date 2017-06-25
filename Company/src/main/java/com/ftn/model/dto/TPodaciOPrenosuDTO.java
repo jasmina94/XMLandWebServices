@@ -1,5 +1,7 @@
 package com.ftn.model.dto;
 
+import com.ftn.model.generated.tipovi.TOznakaValute;
+import com.ftn.model.generated.tipovi.TPodaciOPrenosu;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,30 +28,30 @@ public class TPodaciOPrenosuDTO {
     @Digits(integer=15, fraction=2)
     protected BigDecimal iznos;
 
-//    protected TOznakaValute oznakaValute;
-//
-//    public TPodaciOPrenosuDTO(TPodaciOPrenosu tPodaciOPrenosu) {
-//        this(tPodaciOPrenosu, true);
-//    }
-//
-//    public TPodaciOPrenosuDTO(TPodaciOPrenosu tPodaciOPrenosu, boolean cascade) {
-//        this.id = tPodaciOPrenosu.getId();
-//        this.iznos = tPodaciOPrenosu.getIznos();
-//        this.oznakaValute = tPodaciOPrenosu.getOznakaValute();
-//        if(cascade) {
-//            this.duznikUPrenosuDTO = tPodaciOPrenosu.getDuznikUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getDuznikUPrenosu()) : null;
-//            this.poverilacUPrenosuDTO = tPodaciOPrenosu.getPoverilacUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getPoverilacUPrenosu()) : null;
-//        }
-//    }
-//
-//    public TPodaciOPrenosu construct() {
-//        final TPodaciOPrenosu tPodaciOPrenosu = new TPodaciOPrenosu();
-//        tPodaciOPrenosu.setId(id);
-//        tPodaciOPrenosu.setDuznikUPrenosu(duznikUPrenosuDTO != null ? duznikUPrenosuDTO.construct() : null);
-//        tPodaciOPrenosu.setPoverilacUPrenosu(poverilacUPrenosuDTO != null ? poverilacUPrenosuDTO.construct() : null);
-//        tPodaciOPrenosu.setIznos(iznos);
-//        tPodaciOPrenosu.setOznakaValute(oznakaValute);
-//
-//        return tPodaciOPrenosu;
-//    }
+    protected TOznakaValute oznakaValute;
+
+    public TPodaciOPrenosuDTO(TPodaciOPrenosu tPodaciOPrenosu) {
+        this(tPodaciOPrenosu, true);
+    }
+
+    public TPodaciOPrenosuDTO(TPodaciOPrenosu tPodaciOPrenosu, boolean cascade) {
+        this.id = tPodaciOPrenosu.getId();
+        this.iznos = tPodaciOPrenosu.getIznos();
+        this.oznakaValute = tPodaciOPrenosu.getOznakaValute();
+        if(cascade) {
+            this.duznikUPrenosuDTO = tPodaciOPrenosu.getDuznikUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getDuznikUPrenosu(), false) : null;
+            this.poverilacUPrenosuDTO = tPodaciOPrenosu.getPoverilacUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getPoverilacUPrenosu(), false) : null;
+        }
+    }
+
+    public TPodaciOPrenosu construct() {
+        final TPodaciOPrenosu tPodaciOPrenosu = new TPodaciOPrenosu();
+        tPodaciOPrenosu.setId(id);
+        tPodaciOPrenosu.setDuznikUPrenosu(duznikUPrenosuDTO != null ? duznikUPrenosuDTO.construct() : null);
+        tPodaciOPrenosu.setPoverilacUPrenosu(poverilacUPrenosuDTO != null ? poverilacUPrenosuDTO.construct() : null);
+        tPodaciOPrenosu.setIznos(iznos);
+        tPodaciOPrenosu.setOznakaValute(oznakaValute);
+
+        return tPodaciOPrenosu;
+    }
 }

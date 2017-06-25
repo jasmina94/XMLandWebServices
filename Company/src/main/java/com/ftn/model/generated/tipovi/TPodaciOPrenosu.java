@@ -8,12 +8,12 @@
 
 package com.ftn.model.generated.tipovi;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -49,17 +49,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TPodaciOPrenosu", propOrder = {
 
 })
+@Entity
+@Data
 public class TPodaciOPrenosu {
 
-    @XmlElement(name = "duznik_u_prenosu", required = true)
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+    @XmlElement(name = "duznik_u_prenosu", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     protected TPrenosUcesnik duznikUPrenosu;
-    @XmlElement(name = "poverilac_u_prenosu", required = true)
+    @XmlElement(name = "poverilac_u_prenosu", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @OneToOne(optional = false)
     protected TPrenosUcesnik poverilacUPrenosu;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=15, fraction=2)
     protected BigDecimal iznos;
     @XmlAttribute(name = "oznaka_valute")
+    @Enumerated(EnumType.STRING)
     protected TOznakaValute oznakaValute;
-
     /**
      * Gets the value of the duznikUPrenosu property.
      * 

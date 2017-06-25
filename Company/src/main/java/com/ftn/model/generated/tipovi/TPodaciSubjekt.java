@@ -8,10 +8,12 @@
 
 package com.ftn.model.generated.tipovi;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -60,7 +62,14 @@ import javax.xml.bind.annotation.XmlType;
     "adresa",
     "pib"
 })
+@Entity
+@Data
 public class TPodaciSubjekt {
+
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
 
     @XmlElement(required = true)
     protected String naziv;

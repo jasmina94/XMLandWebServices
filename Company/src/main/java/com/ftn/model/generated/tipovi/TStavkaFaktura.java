@@ -8,11 +8,16 @@
 
 package com.ftn.model.generated.tipovi;
 
+import com.ftn.model.generated.faktura.Faktura;
+import lombok.Data;
+
 import java.math.BigDecimal;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -124,28 +129,60 @@ import javax.xml.bind.annotation.XmlType;
     "umanjenoZaRabat",
     "ukupanPorez"
 })
+@Entity
+@Data
 public class TStavkaFaktura {
 
-    @XmlElement(name = "redni_broj")
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+
+    @XmlElement(name = "redni_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi")
+    @Column
+    @Min(1)
+    @Max(999)
     protected int redniBroj;
-    @XmlElement(name = "naziv_robe_usluge", required = true)
+    @XmlElement(name = "naziv_robe_usluge", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 120)
     protected String nazivRobeUsluge;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=10, fraction=2)
     protected BigDecimal kolicina;
-    @XmlElement(name = "jedinica_mere", required = true)
+    @XmlElement(name = "jedinica_mere", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Size(max = 6)
     protected String jedinicaMere;
-    @XmlElement(name = "jedinicna_cena", required = true)
+    @XmlElement(name = "jedinicna_cena", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=10, fraction=2)
     protected BigDecimal jedinicnaCena;
-    @XmlElement(required = true)
+    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal vrednost;
-    @XmlElement(name = "procenat_rabata", required = true)
+    @XmlElement(name = "procenat_rabata", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=5, fraction=2)
     protected BigDecimal procenatRabata;
-    @XmlElement(name = "iznos_rabata", required = true)
+    @XmlElement(name = "iznos_rabata", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal iznosRabata;
-    @XmlElement(name = "umanjeno_za_rabat", required = true)
+    @XmlElement(name = "umanjeno_za_rabat", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal umanjenoZaRabat;
-    @XmlElement(name = "ukupan_porez", required = true)
+    @XmlElement(name = "ukupan_porez", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
+    @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
+
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
+    @XmlTransient
+    private Faktura faktura;
 
     /**
      * Gets the value of the redniBroj property.

@@ -1,5 +1,6 @@
 package com.ftn.model.dto;
 
+import com.ftn.model.generated.tipovi.TStavkaFaktura;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -59,41 +60,41 @@ public class TStavkaFakturaDTO {
     @NotNull
     private FakturaDTO faktura;
 
-//    public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura) {
-//        this(tStavkaFaktura, true);
-//    }
-//
-//    public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura, boolean cascade) {
-//        this.id = tStavkaFaktura.getId();
-//        this.redniBroj = tStavkaFaktura.getRedniBroj();
-//        this.nazivRobeUsluge = tStavkaFaktura.getNazivRobeUsluge();
-//        this.kolicina = tStavkaFaktura.getKolicina();
-//        this.jedinicaMere = tStavkaFaktura.getJedinicaMere();
-//        this.jedinicnaCena = tStavkaFaktura.getJedinicnaCena();
-//        this.vrednost = tStavkaFaktura.getVrednost();
-//        this.procenatRabata = tStavkaFaktura.getProcenatRabata();
-//        this.iznosRabata = tStavkaFaktura.getIznosRabata();
-//        this.umanjenoZaRabat = tStavkaFaktura.getUmanjenoZaRabat();
-//        this.ukupanPorez = tStavkaFaktura.getUkupanPorez();
-//        if(cascade) {
-//            this.faktura = new FakturaDTO(tStavkaFaktura.getFaktura(), false);
-//        }
-//    }
-//
-//    public TStavkaFaktura construct() {
-//        final TStavkaFaktura tStavkaFaktura = new TStavkaFaktura();
-//        tStavkaFaktura.setRedniBroj(redniBroj);
-//        tStavkaFaktura.setNazivRobeUsluge(nazivRobeUsluge);
-//        tStavkaFaktura.setKolicina(kolicina);
-//        tStavkaFaktura.setJedinicaMere(jedinicaMere);
-//        tStavkaFaktura.setJedinicnaCena(jedinicnaCena);
-//        tStavkaFaktura.setVrednost(vrednost);
-//        tStavkaFaktura.setProcenatRabata(procenatRabata);
-//        tStavkaFaktura.setIznosRabata(iznosRabata);
-//        tStavkaFaktura.setUmanjenoZaRabat(umanjenoZaRabat);
-//        tStavkaFaktura.setUkupanPorez(ukupanPorez);
-//        tStavkaFaktura.setFaktura(faktura != null ? faktura.construct() : null);
-//
-//        return tStavkaFaktura;
-//    }
+    public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura) {
+        this(tStavkaFaktura, true);
+    }
+
+    public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura, boolean cascade) {
+        this.id = tStavkaFaktura.getId();
+        this.redniBroj = tStavkaFaktura.getRedniBroj();
+        this.nazivRobeUsluge = tStavkaFaktura.getNazivRobeUsluge();
+        this.kolicina = tStavkaFaktura.getKolicina();
+        this.jedinicaMere = tStavkaFaktura.getJedinicaMere();
+        this.jedinicnaCena = tStavkaFaktura.getJedinicnaCena();
+        this.vrednost = tStavkaFaktura.getVrednost();
+        this.procenatRabata = tStavkaFaktura.getProcenatRabata();
+        this.iznosRabata = tStavkaFaktura.getIznosRabata();
+        this.umanjenoZaRabat = tStavkaFaktura.getUmanjenoZaRabat();
+        this.ukupanPorez = tStavkaFaktura.getUkupanPorez();
+        if(cascade) {
+            this.faktura = new FakturaDTO(tStavkaFaktura.getFaktura(), false);
+        }
+    }
+
+    public TStavkaFaktura construct() {
+        final TStavkaFaktura tStavkaFaktura = new TStavkaFaktura();
+        tStavkaFaktura.setRedniBroj(redniBroj);
+        tStavkaFaktura.setNazivRobeUsluge(nazivRobeUsluge);
+        tStavkaFaktura.setKolicina(kolicina);
+        tStavkaFaktura.setJedinicaMere(jedinicaMere);
+        tStavkaFaktura.setJedinicnaCena(jedinicnaCena);
+        tStavkaFaktura.setVrednost(vrednost);
+        tStavkaFaktura.setProcenatRabata(procenatRabata);
+        tStavkaFaktura.setIznosRabata(iznosRabata);
+        tStavkaFaktura.setUmanjenoZaRabat(umanjenoZaRabat);
+        tStavkaFaktura.setUkupanPorez(ukupanPorez);
+        tStavkaFaktura.setFaktura(faktura != null ? faktura.construct() : null);
+
+        return tStavkaFaktura;
+    }
 }

@@ -8,11 +8,13 @@
 
 package com.ftn.model.generated.tipovi;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -40,14 +42,22 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TPrenosUcesnik", propOrder = {
 
 })
+@Entity
+@Data
 public class TPrenosUcesnik {
 
-    @XmlElement(name = "racun_ucesnika", required = true)
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+    @XmlElement(name = "racun_ucesnika", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
     protected String racunUcesnika;
-    @XmlElement(name = "model_prenosa")
+    @XmlElement(name = "model_prenosa", namespace = "http://www.ftn.uns.ac.rs/tipovi")
     @XmlSchemaType(name = "unsignedInt")
     protected long modelPrenosa;
-    @XmlElement(name = "poziv_na_broj", required = true)
+    @XmlElement(name = "poziv_na_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @Column(nullable = false)
     protected String pozivNaBroj;
 
     /**

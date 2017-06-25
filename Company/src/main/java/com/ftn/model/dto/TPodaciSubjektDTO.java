@@ -1,5 +1,6 @@
 package com.ftn.model.dto;
 
+import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,43 +33,38 @@ public class TPodaciSubjektDTO {
     @Pattern(regexp = "[0-9]*")
     private String pib;
 
-    @NotNull
-    private String mesto;
-
     private List<TPodaciSubjektDTO> poslovniPartneri = new ArrayList<>();
 
     private List<ZaposleniDTO> zaposleni = new ArrayList<>();
 
-//    public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt) {
-//        this(tPodaciSubjekt, true);
-//    }
-//
-//
-//    public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt, boolean cascade) {
-//        this.id = tPodaciSubjekt.getId();
-//        this.naziv = tPodaciSubjekt.getNaziv();
-//        this.adresa = tPodaciSubjekt.getAdresa();
-//        this.pib = tPodaciSubjekt.getPib();
-//        this.mesto = tPodaciSubjekt.getMesto();
+    public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt) {
+        this(tPodaciSubjekt, true);
+    }
+
+
+    public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt, boolean cascade) {
+        this.id = tPodaciSubjekt.getId();
+        this.naziv = tPodaciSubjekt.getNaziv();
+        this.adresa = tPodaciSubjekt.getAdresa();
+        this.pib = tPodaciSubjekt.getPib();
 //        if(cascade) {
 //            this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
 //            this.zaposleni = tPodaciSubjekt.getZaposleni().stream().map(zaposleni -> new ZaposleniDTO(zaposleni, false)).collect(Collectors.toList());
 //        }
-//    }
-//
-//
-//    public TPodaciSubjekt construct() {
-//        final TPodaciSubjekt tPodaciSubjekt = new TPodaciSubjekt();
-//        tPodaciSubjekt.setNaziv(naziv);
-//        tPodaciSubjekt.setAdresa(adresa);
-//        tPodaciSubjekt.setPib(pib);
-//        tPodaciSubjekt.setMesto(mesto);
+    }
+
+
+    public TPodaciSubjekt construct() {
+        final TPodaciSubjekt tPodaciSubjekt = new TPodaciSubjekt();
+        tPodaciSubjekt.setNaziv(naziv);
+        tPodaciSubjekt.setAdresa(adresa);
+        tPodaciSubjekt.setPib(pib);
 //        if(poslovniPartneri != null) {
 //            poslovniPartneri.forEach(poslovniPartnerDTO -> tPodaciSubjekt.getPoslovniPartneri().add(poslovniPartnerDTO.construct()));
 //        }
 //        if(zaposleni != null) {
 //            zaposleni.forEach(zaposleniDTO -> tPodaciSubjekt.getZaposleni().add(zaposleniDTO.construct()));
 //        }
-//        return tPodaciSubjekt;
-//    }
+        return tPodaciSubjekt;
+    }
 }

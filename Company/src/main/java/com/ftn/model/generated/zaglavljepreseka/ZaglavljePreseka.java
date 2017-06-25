@@ -8,6 +8,8 @@
 
 package com.ftn.model.generated.zaglavljepreseka;
 
+import com.ftn.model.generated.tipovi.TPromene;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -18,7 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-import rs.ac.uns.ftn.tipovi.TPromene;
 
 
 /**

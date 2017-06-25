@@ -8,6 +8,9 @@
 
 package com.ftn.model.generated.stavkapreseka;
 
+import com.ftn.model.generated.tipovi.TPodaciPlacanje;
+import com.ftn.model.generated.tipovi.TPravnoLice;
+
 import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,8 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-import rs.ac.uns.ftn.tipovi.TPodaciPlacanje;
-import rs.ac.uns.ftn.tipovi.TPravnoLice;
 
 
 /**

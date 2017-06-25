@@ -8,19 +8,21 @@
 
 package com.ftn.model.generated.faktura;
 
+import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.generated.tipovi.TOznakaValute;
 import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import com.ftn.model.generated.tipovi.TStavkaFaktura;
+import com.ftn.util.DateAdapter;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -137,40 +139,99 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "uplataNaRacun",
     "stavkaFakture"
 })
+@Entity
+@Data
 public class Faktura {
 
-    @XmlElement(name = "podaci_o_dobavljacu", required = true)
+    @Id
+    @GeneratedValue
+    @XmlTransient
+    private long id;
+
+    @XmlElement(name = "podaci_o_dobavljacu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     protected TPodaciSubjekt podaciODobavljacu;
-    @XmlElement(name = "podaci_o_kupcu", required = true)
+    @XmlElement(name = "podaci_o_kupcu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     protected TPodaciSubjekt podaciOKupcu;
-    @XmlElement(name = "vrednost_robe", required = true)
+    @XmlElement(name = "vrednost_robe", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal vrednostRobe;
-    @XmlElement(name = "vrednost_usluga", required = true)
+    @XmlElement(name = "vrednost_usluga", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal vrednostUsluga;
-    @XmlElement(name = "ukupno_roba_i_usluga", required = true)
+    @XmlElement(name = "ukupno_roba_i_usluga", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false, name = "ukupno_roba_i_usluga")
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupnoRobaIUsluga;
-    @XmlElement(name = "ukupan_rabat", required = true)
+    @XmlElement(name = "ukupan_rabat", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupanRabat;
-    @XmlElement(name = "ukupan_porez", required = true)
+    @XmlElement(name = "ukupan_porez", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupanPorez;
-    @XmlElement(name = "oznaka_valute", required = true)
+    @XmlElement(name = "oznaka_valute", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     protected TOznakaValute oznakaValute;
-    @XmlElement(name = "Iznos_za_uplatu", required = true)
+    @XmlElement(name = "Iznos_za_uplatu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false)
+    @Digits(integer = 15, fraction = 2)
     protected BigDecimal iznosZaUplatu;
-    @XmlElement(name = "uplata_na_racun", required = true)
+    @XmlElement(name = "uplata_na_racun", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @Column(nullable = false, length = 20)
+    @Pattern(regexp = "\\d{3}-\\d{1,13}-\\d{2}")
     protected String uplataNaRacun;
-    @XmlElement(name = "stavka_fakture", required = true)
+    @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
+    @OneToMany( cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
+    //TODO: Razmisli o ovome @JoinColumn(nullable = false, name = "faktura_id")
     protected List<TStavkaFaktura> stavkaFakture;
     @XmlAttribute(name = "id_poruke")
+    @Size(max = 50)
     protected String idPoruke;
     @XmlAttribute(name = "broj_racuna")
+    @Min(100000)
+    @Max(999999)
     protected Long brojRacuna;
     @XmlAttribute(name = "datum_racuna")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumRacuna;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumRacuna;
     @XmlAttribute(name = "datum_valute")
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumValute;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumValute;
+
+    @XmlTransient
+    @Column(nullable = false)
+    private boolean poslato;
+
+    @XmlTransient
+    @Column(nullable = false)
+    private boolean kreiranNalog;
+
+    public Faktura() {}
+
+    public void merge(FakturaDTO fakturaDTO) {
+        this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
+        this.podaciOKupcu = fakturaDTO.getPodaciOKupcu().construct();
+        this.vrednostRobe = fakturaDTO.getVrednostRobe();
+        this.vrednostUsluga = fakturaDTO.getVrednostUsluga();
+        this.ukupnoRobaIUsluga = fakturaDTO.getUkupnoRobaIUsluga();
+        this.ukupanRabat = fakturaDTO.getUkupanRabat();
+        this.ukupanPorez = fakturaDTO.getUkupanPorez();
+        this.oznakaValute = fakturaDTO.getOznakaValute();
+        this.iznosZaUplatu = fakturaDTO.getIznosZaUplatu();
+        this.uplataNaRacun = fakturaDTO.getUplataNaRacun();
+        this.idPoruke = fakturaDTO.getIdPoruke();
+        this.brojRacuna = fakturaDTO.getBrojRacuna();
+        this.datumRacuna = fakturaDTO.getDatumRacuna();
+        this.datumValute = fakturaDTO.getDatumValute();
+        this.poslato = fakturaDTO.isPoslato();
+        this.kreiranNalog = fakturaDTO.isKreiranNalog();
+    }
 
     /**
      * Gets the value of the podaciODobavljacu property.
@@ -497,7 +558,7 @@ public class Faktura {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumRacuna() {
+    public Date getDatumRacuna() {
         return datumRacuna;
     }
 
@@ -509,7 +570,7 @@ public class Faktura {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumRacuna(XMLGregorianCalendar value) {
+    public void setDatumRacuna(Date value) {
         this.datumRacuna = value;
     }
 
@@ -521,7 +582,7 @@ public class Faktura {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumValute() {
+    public Date getDatumValute() {
         return datumValute;
     }
 
@@ -533,7 +594,7 @@ public class Faktura {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumValute(XMLGregorianCalendar value) {
+    public void setDatumValute(Date value) {
         this.datumValute = value;
     }
 
