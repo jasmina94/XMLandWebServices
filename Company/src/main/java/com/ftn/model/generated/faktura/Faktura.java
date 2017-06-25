@@ -149,10 +149,10 @@ public class Faktura {
     private long id;
 
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     protected TPodaciSubjekt podaciODobavljacu;
     @XmlElement(name = "podaci_o_kupcu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
@@ -190,7 +190,7 @@ public class Faktura {
     protected String uplataNaRacun;
 
     @XmlElement(name = "stavka_fakture", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
-    @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<TStavkaFaktura> stavkaFakture;
 
     @XmlAttribute(name = "id_poruke")
@@ -499,6 +499,9 @@ public class Faktura {
      * 
      */
     public List<TStavkaFaktura> getStavkaFakture() {
+        if (stavkaFakture == null) {
+            stavkaFakture = new ArrayList<TStavkaFaktura>();
+        }
         return this.stavkaFakture;
     }
 
@@ -571,7 +574,7 @@ public class Faktura {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumRacuna(Date value) {
@@ -583,7 +586,7 @@ public class Faktura {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumValute() {
@@ -595,7 +598,7 @@ public class Faktura {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumValute(Date value) {

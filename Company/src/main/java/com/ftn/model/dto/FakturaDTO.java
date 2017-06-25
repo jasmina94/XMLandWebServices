@@ -50,7 +50,7 @@ public class FakturaDTO {
     @NotNull
     private String uplataNaRacun;
 
-    //TODO: zameniti sa DTO. Staviti NotNull?
+    //TODO:Staviti NotNull?
     private List<TStavkaFakturaDTO> stavkaFakture;
 
     private String idPoruke;
@@ -90,6 +90,8 @@ public class FakturaDTO {
         this.kreiranNalog = faktura.isKreiranNalog();
 
         if (cascade) {
+//            this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu()) : null;
+//            this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu()) : null;
             this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu(), false) : null;
             this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu(), false) : null;
             this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka)).collect(Collectors.toList());
@@ -115,7 +117,6 @@ public class FakturaDTO {
         faktura.setDatumValute(datumValute);
         faktura.setPoslato(poslato);
         faktura.setKreiranNalog(kreiranNalog);
-
         if (stavkaFakture != null) {
             stavkaFakture.forEach(tStavkaFakturaDTO -> faktura.getStavkaFakture().add(tStavkaFakturaDTO.construct()));
         }

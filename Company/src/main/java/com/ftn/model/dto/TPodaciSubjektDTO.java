@@ -49,6 +49,8 @@ public class TPodaciSubjektDTO {
         this.pib = tPodaciSubjekt.getPib();
         if(cascade) {
             this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
+           // this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner)).collect(Collectors.toList());
+
         }
     }
 

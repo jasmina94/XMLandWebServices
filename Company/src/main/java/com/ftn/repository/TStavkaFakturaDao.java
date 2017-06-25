@@ -14,5 +14,5 @@ public interface TStavkaFakturaDao extends JpaRepository<TStavkaFaktura, Long> {
 
     Optional<TStavkaFaktura> findById(Long id);
 
-    List<TStavkaFaktura> findByFakturaId(Long id);
+    //List<TStavkaFaktura> findByFakturaId(Long id);
 }

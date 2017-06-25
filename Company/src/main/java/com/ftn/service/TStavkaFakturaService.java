@@ -1,7 +1,10 @@
 package com.ftn.service;
 
+import com.ftn.model.dto.FakturaDTO;
+import com.ftn.model.dto.RobaUslugaDTO;
 import com.ftn.model.dto.TStavkaFakturaDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,5 +18,5 @@ public interface TStavkaFakturaService {
 
     TStavkaFakturaDTO create(TStavkaFakturaDTO tStavkaFakturaDTO);
 
-
+    TStavkaFakturaDTO kreirajStavku(FakturaDTO fakturaDTO, BigDecimal kolicina, RobaUslugaDTO robaUslugaDTO);
 }

@@ -92,7 +92,7 @@ public class TPodaciSubjekt {
 
 
     @XmlTransient
-    @ManyToMany( cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
 
 
