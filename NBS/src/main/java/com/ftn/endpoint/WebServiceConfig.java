@@ -44,11 +44,19 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(List<EndpointInterceptor> interceptors) {
-		final PayloadValidatingInterceptor validatingInterceptor = new PayloadValidatingInterceptor();
-		validatingInterceptor.setValidateRequest(true);
-		validatingInterceptor.setValidateResponse(true);
-		validatingInterceptor.setXsdSchema(mt103schema());
-		interceptors.add(validatingInterceptor);
+
+		final PayloadValidatingInterceptor mt103ValidatingInterceptor = new PayloadValidatingInterceptor();
+		mt103ValidatingInterceptor.setValidateRequest(true);
+		mt103ValidatingInterceptor.setValidateResponse(true);
+		mt103ValidatingInterceptor.setXsdSchema(mt103schema());
+
+		final PayloadValidatingInterceptor mt102ValidatingInterceptor = new PayloadValidatingInterceptor();
+		mt102ValidatingInterceptor.setValidateRequest(true);
+		mt102ValidatingInterceptor.setValidateResponse(true);
+		mt102ValidatingInterceptor.setXsdSchema(mt102schema());
+
+		interceptors.add(mt103ValidatingInterceptor);
+		interceptors.add(mt102ValidatingInterceptor);
 	}
 
 	@Bean
@@ -59,18 +67,33 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		return new ServletRegistrationBean(servlet, "/ws/*");
 	}
 
-	@Bean(name = "mt103")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema mt103schema) {
-		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("mt103");
-		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/mt103");
-		wsdl11Definition.setSchema(mt103schema);
-		return wsdl11Definition;
-	}
-
-	@Bean
-	public XsdSchema mt103schema() {
-		return new SimpleXsdSchema(new ClassPathResource("mt103.xsd"));
-	}
+//	@Bean(name = "mt103")
+//	public DefaultWsdl11Definition mt103Wsdl11Definition(XsdSchema mt103schema) {
+//		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+//		wsdl11Definition.setPortTypeName("mt103");
+//		wsdl11Definition.setLocationUri("/ws");
+//		wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/mt103");
+//		wsdl11Definition.setSchema(mt103schema);
+//		return wsdl11Definition;
+//	}
+//
+//	@Bean
+//	public XsdSchema mt103schema() {
+//		return new SimpleXsdSchema(new ClassPathResource("mt103.xsd"));
+//	}
+//
+//	@Bean(name = "mt102")
+//	public DefaultWsdl11Definition mt102Wsdl11Definition(XsdSchema mt102schema) {
+//		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+//		wsdl11Definition.setPortTypeName("mt102");
+//		wsdl11Definition.setLocationUri("/ws");
+//		wsdl11Definition.setTargetNamespace("http://www.ftn.uns.ac.rs/mt102");
+//		wsdl11Definition.setSchema(mt102schema);
+//		return wsdl11Definition;
+//	}
+//
+//	@Bean
+//	public XsdSchema mt102schema() {
+//		return new SimpleXsdSchema(new ClassPathResource("mt102.xsd"));
+//	}
 }

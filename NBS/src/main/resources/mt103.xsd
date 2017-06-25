@@ -11,7 +11,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
 	<xs:element name="getMt103Response">
         <xs:complexType>
             <xs:sequence>
