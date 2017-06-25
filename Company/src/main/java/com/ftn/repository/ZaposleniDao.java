@@ -1,6 +1,6 @@
 package com.ftn.repository;
 
-import com.ftn.model.Zaposleni;
+import com.ftn.model.database.Zaposleni;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

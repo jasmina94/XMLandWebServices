@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface Mt103Repository extends JpaRepository<Mt103Model, Long> {
 
     Optional<Mt103Model> findById(Long id);
+
+    Optional<Mt103Model> findByIdPoruke(String idPoruke);
 }

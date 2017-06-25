@@ -1,8 +1,8 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.TPodaciSubjekt;
 import com.ftn.model.dto.TPodaciSubjektDTO;
+import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.TPodaciSubjektService;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TPodaciSubjektServiceImplementation implements TPodaciSubjektService {
+
 
     private final TPodaciSubjekatDao tPodaciSubjekatDao;
 

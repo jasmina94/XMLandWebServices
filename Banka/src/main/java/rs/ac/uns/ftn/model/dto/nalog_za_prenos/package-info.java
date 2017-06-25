@@ -5,5 +5,5 @@
 // Generated on: 2017.06.24 at 12:58:02 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://ftn.uns.ac.rs/nalog_za_prenos", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package rs.ac.uns.ftn.model.dto.nalog_za_prenos;

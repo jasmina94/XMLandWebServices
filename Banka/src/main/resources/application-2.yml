@@ -18,3 +18,4 @@ spring:
 
 environment:
     swiftCode: VBUBRS22
+    nbsUrl: http://localhost:8094/ws

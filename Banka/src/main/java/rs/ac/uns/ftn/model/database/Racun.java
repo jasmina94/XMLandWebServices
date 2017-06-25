@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by zlatan on 6/24/17.
@@ -26,7 +27,8 @@ public class Racun {
     @ManyToOne
     private Banka banka;
 
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "racun")
+    private List<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
 
 }

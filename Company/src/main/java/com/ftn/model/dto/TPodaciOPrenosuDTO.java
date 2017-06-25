@@ -1,19 +1,12 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.TOznakaValute;
-import com.ftn.model.TPodaciOPrenosu;
-import com.ftn.model.TPrenosUcesnik;
+import com.ftn.model.generated.tipovi.TOznakaValute;
+import com.ftn.model.generated.tipovi.TPodaciOPrenosu;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 
 /**

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/stavkaPreseka"
+    xmlns:stavkaPreseka="http://www.ftn.uns.ac.rs/stavkaPreseka"
+    xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+    <xs:element name="stavka_preseka">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="podaci_o_duzniku" type="tipovi:TPravnoLice"/>
+                <xs:element name="podaci_o_poveriocu" type="tipovi:TPravnoLice"/>
+                <xs:element name="podaci_o_uplati">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="svrha_placanja">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="iznos" type="tipovi:TIznos"/>
+                            <xs:element name="podaci_o_zaduzenju" type="tipovi:TPodaciPlacanje"/>
+                            <xs:element name="podaci_o_odobrenju" type="tipovi:TPodaciPlacanje"/>
+                            <xs:element name="datum_naloga" type="xs:date"/>
+                            <xs:element name="datum_valute" type="xs:date"/>
+                        </xs:sequence>
+                        <xs:attribute name="smer">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="K"/>
+                                    <xs:enumeration value="T"/>
+                                    <xs:length value="1"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -6,14 +6,14 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
     $scope.page.current = 3.2;
 
     var loadData = function () {
-        zaposleni = authenticationService.getUser();
+        //zaposleni = authenticationService.getUser();
         if($state.current.name === "home.fakturaDobavljac") {
-            fakturaService.readDobavljac(zaposleni.tpodaciSubjektDTO.pib,  function (response) {
+            fakturaService.readDobavljac(function (response) {
                 $scope.uloga = "dobavljac";
                 $scope.fakture = response.data;
             });
         } else if ($state.current.name === "home.fakturaKupac") {
-            fakturaService.readKupac(zaposleni.tpodaciSubjektDTO.pib, function (response) {
+            fakturaService.readKupac(function (response) {
                 $scope.uloga = "kupac";
                 $scope.fakture = response.data;
             });

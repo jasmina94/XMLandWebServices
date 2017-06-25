@@ -10,7 +10,7 @@
                     <tipovi:naziv>Maxi D.O.O</tipovi:naziv>
                     <tipovi:broj_racuna>968-3216547896521-48</tipovi:broj_racuna>
                     <podaci_o_banci>
-                        <tipovi:swift_kod>12345678</tipovi:swift_kod>
+                        <tipovi:swift_kod>CONARS22</tipovi:swift_kod>
                         <tipovi:obracunski_racun>847-1234567891123-56</tipovi:obracunski_racun>
                     </podaci_o_banci>
                 </podaci_o_duzniku>
@@ -18,7 +18,7 @@
                     <tipovi:naziv>Pionir D.O.O</tipovi:naziv>
                     <tipovi:broj_racuna>869-3216547896521-58</tipovi:broj_racuna>
                     <podaci_o_banci>
-                        <tipovi:swift_kod>12398678</tipovi:swift_kod>
+                        <tipovi:swift_kod>VBUBRS22</tipovi:swift_kod>
                         <tipovi:obracunski_racun>837-1274567891123-56</tipovi:obracunski_racun>
                     </podaci_o_banci>
                 </podaci_o_poveriocu>
