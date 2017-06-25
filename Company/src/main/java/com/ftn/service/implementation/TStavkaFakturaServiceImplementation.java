@@ -86,12 +86,6 @@ public class TStavkaFakturaServiceImplementation implements TStavkaFakturaServic
         System.out.println("posle update");
 
 
-
-        //TStavkaFakturaDTO sacuvanaStavka = tStavkaFakturaService.create(tStavkaFakturaDTO);
-        /*fakturaDTO.getStavkaFakture().add(sacuvanaStavka);
-        fakturaService.update(fakturaDTO.getId(), fakturaDTO);*/
-        //ResponseEntity<>(sacuvanaStavka, HttpStatus.OK);
-
         return kreiranaStavkaFakturaDTO;
     }
 }

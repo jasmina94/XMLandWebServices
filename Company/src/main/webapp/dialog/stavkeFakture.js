@@ -1,12 +1,13 @@
 /**
  * Created by Olivera on 20.6.2017..
  */
-app.controller('StavkeFaktureController', function ($scope, $http, $state, $mdDialog, stavkeFaktureService, faktura) {
+app.controller('StavkeFaktureController', function ($scope, $http, $state, $mdDialog, fakturaService, faktura) {
 
     var loadData = function () {
-        stavkeFaktureService.read(faktura.id, function (response) {
-            $scope.stavkeFakture = response.data;
-        });
+        $scope.stavkeFakture = faktura.stavkaFakture;
+        // stavkeFaktureService.read(faktura.id, function (response) {
+        //     $scope.stavkeFakture = response.data;
+        // });
     };
 
     loadData();

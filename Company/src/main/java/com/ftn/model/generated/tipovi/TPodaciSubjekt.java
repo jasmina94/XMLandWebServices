@@ -8,11 +8,7 @@
 
 package com.ftn.model.generated.tipovi;
 
-import com.ftn.model.database.Zaposleni;
-import com.ftn.model.dto.TPodaciSubjektDTO;
-import com.ftn.model.dto.ZaposleniDTO;
 import lombok.Data;
-import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;

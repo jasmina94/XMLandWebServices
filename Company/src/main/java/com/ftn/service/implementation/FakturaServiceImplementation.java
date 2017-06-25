@@ -90,9 +90,9 @@ public class FakturaServiceImplementation implements FakturaService {
     @Override
     public FakturaDTO update(Long id, FakturaDTO fakturaDTO) {
         final Faktura faktura = fakturaDao.findById(id).orElseThrow(NotFoundException::new);
-        System.out.println("pre merge");
+        System.out.println("pre merge" + fakturaDTO.getStavkaFakture().size());
         faktura.merge(fakturaDTO);
-        System.out.println("posle merge");
+        System.out.println("posle merge" + faktura.getStavkaFakture().size());
         fakturaDao.save(faktura);
         return new FakturaDTO(faktura);
     }

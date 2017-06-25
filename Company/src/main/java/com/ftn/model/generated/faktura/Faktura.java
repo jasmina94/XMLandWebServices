@@ -9,6 +9,7 @@
 package com.ftn.model.generated.faktura;
 
 import com.ftn.model.dto.FakturaDTO;
+import com.ftn.model.dto.TStavkaFakturaDTO;
 import com.ftn.model.generated.tipovi.TOznakaValute;
 import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import com.ftn.model.generated.tipovi.TStavkaFaktura;
@@ -218,8 +219,8 @@ public class Faktura {
     public Faktura() {}
 
     public void merge(FakturaDTO fakturaDTO) {
-        this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
-        this.podaciOKupcu = fakturaDTO.getPodaciOKupcu().construct();
+       // this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
+       // this.podaciOKupcu = fakturaDTO.getPodaciOKupcu().construct();
         this.vrednostRobe = fakturaDTO.getVrednostRobe();
         this.vrednostUsluga = fakturaDTO.getVrednostUsluga();
         this.ukupnoRobaIUsluga = fakturaDTO.getUkupnoRobaIUsluga();
@@ -234,6 +235,19 @@ public class Faktura {
         this.datumValute = fakturaDTO.getDatumValute();
         this.poslato = fakturaDTO.isPoslato();
         this.kreiranNalog = fakturaDTO.isKreiranNalog();
+
+
+        List<TStavkaFaktura> stavke = new ArrayList<>();
+        int brojac = 0;
+        for (TStavkaFakturaDTO tStavkaFakturaDTO: fakturaDTO.getStavkaFakture()) {
+            stavke.add(tStavkaFakturaDTO.construct());
+            stavke.get(brojac).setId(tStavkaFakturaDTO.getId());
+            brojac++;
+
+        }
+
+        this.stavkaFakture.clear();
+        this.stavkaFakture = stavke;
     }
 
     /**
@@ -562,7 +576,7 @@ public class Faktura {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumRacuna() {
