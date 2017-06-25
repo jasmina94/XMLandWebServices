@@ -12,6 +12,7 @@ import com.ftn.model.database.Zaposleni;
 import com.ftn.model.dto.TPodaciSubjektDTO;
 import com.ftn.model.dto.ZaposleniDTO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
@@ -69,6 +70,7 @@ import java.util.List;
     "pib"
 })
 @Entity
+@NoArgsConstructor
 @Data
 public class TPodaciSubjekt {
 
@@ -76,7 +78,6 @@ public class TPodaciSubjekt {
     @GeneratedValue
     @XmlTransient
     private long id;
-
     @XmlElement(required = true)
     @Column(nullable = false)
     @Size(max = 255)
@@ -90,9 +91,11 @@ public class TPodaciSubjekt {
     @Pattern(regexp = "\\d{11}")
     protected String pib;
 
-
     @XmlTransient
-    @ManyToMany( cascade = CascadeType.ALL)
+    @Column(nullable = false)
+    protected String racunFirme;
+    @XmlTransient
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
 
 

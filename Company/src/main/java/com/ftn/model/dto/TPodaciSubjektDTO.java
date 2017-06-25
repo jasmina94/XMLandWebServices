@@ -33,9 +33,11 @@ public class TPodaciSubjektDTO {
     @Pattern(regexp = "[0-9]*")
     private String pib;
 
+    @NotNull
+    protected String racunFirme;
+
     private List<TPodaciSubjektDTO> poslovniPartneri = new ArrayList<>();
 
-    private List<ZaposleniDTO> zaposleni = new ArrayList<>();
 
     public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt) {
         this(tPodaciSubjekt, true);
@@ -47,6 +49,7 @@ public class TPodaciSubjektDTO {
         this.naziv = tPodaciSubjekt.getNaziv();
         this.adresa = tPodaciSubjekt.getAdresa();
         this.pib = tPodaciSubjekt.getPib();
+        this.racunFirme = tPodaciSubjekt.getRacunFirme();
         if(cascade) {
             this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
         }
@@ -58,6 +61,7 @@ public class TPodaciSubjektDTO {
         tPodaciSubjekt.setNaziv(naziv);
         tPodaciSubjekt.setAdresa(adresa);
         tPodaciSubjekt.setPib(pib);
+        tPodaciSubjekt.setRacunFirme(racunFirme);
         if(poslovniPartneri != null) {
             poslovniPartneri.forEach(poslovniPartnerDTO -> tPodaciSubjekt.getPoslovniPartneri().add(poslovniPartnerDTO.construct()));
         }
