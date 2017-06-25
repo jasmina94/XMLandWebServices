@@ -47,10 +47,9 @@ public class TPodaciSubjektDTO {
         this.naziv = tPodaciSubjekt.getNaziv();
         this.adresa = tPodaciSubjekt.getAdresa();
         this.pib = tPodaciSubjekt.getPib();
-//        if(cascade) {
-//            this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
-//            this.zaposleni = tPodaciSubjekt.getZaposleni().stream().map(zaposleni -> new ZaposleniDTO(zaposleni, false)).collect(Collectors.toList());
-//        }
+        if(cascade) {
+            this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
+        }
     }
 
 
@@ -59,12 +58,10 @@ public class TPodaciSubjektDTO {
         tPodaciSubjekt.setNaziv(naziv);
         tPodaciSubjekt.setAdresa(adresa);
         tPodaciSubjekt.setPib(pib);
-//        if(poslovniPartneri != null) {
-//            poslovniPartneri.forEach(poslovniPartnerDTO -> tPodaciSubjekt.getPoslovniPartneri().add(poslovniPartnerDTO.construct()));
-//        }
-//        if(zaposleni != null) {
-//            zaposleni.forEach(zaposleniDTO -> tPodaciSubjekt.getZaposleni().add(zaposleniDTO.construct()));
-//        }
+        if(poslovniPartneri != null) {
+            poslovniPartneri.forEach(poslovniPartnerDTO -> tPodaciSubjekt.getPoslovniPartneri().add(poslovniPartnerDTO.construct()));
+        }
+
         return tPodaciSubjekt;
     }
 }

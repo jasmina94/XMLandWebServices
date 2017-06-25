@@ -8,12 +8,18 @@
 
 package com.ftn.model.generated.tipovi;
 
+import com.ftn.model.database.Zaposleni;
+import com.ftn.model.dto.TPodaciSubjektDTO;
+import com.ftn.model.dto.ZaposleniDTO;
 import lombok.Data;
+import org.hibernate.engine.internal.Cascade;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -72,11 +78,23 @@ public class TPodaciSubjekt {
     private long id;
 
     @XmlElement(required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String naziv;
     @XmlElement(required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String adresa;
     @XmlElement(required = true)
+    @Column(nullable = false, length = 11)
+    @Pattern(regexp = "\\d{11}")
     protected String pib;
+
+
+    @XmlTransient
+    @ManyToMany( cascade = CascadeType.ALL)
+    private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
+
 
     /**
      * Gets the value of the naziv property.

@@ -141,7 +141,7 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         //send(nalogZaPrenos);
         NalogZaPrenosDTO kreiranNalogDTO = create(new NalogZaPrenosDTO(nalogZaPrenos));
         podaciZaNalogDTO.getFaktura().setKreiranNalog(true);
-        //fakturaDao.save(podaciZaNalogDTO.getFaktura());
+        fakturaDao.save(podaciZaNalogDTO.getFaktura());
         return kreiranNalogDTO;
     }
 
