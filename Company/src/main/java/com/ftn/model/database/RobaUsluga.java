@@ -1,4 +1,4 @@
-package com.ftn.model;
+package com.ftn.model.database;
 
 import com.ftn.model.dto.RobaUslugaDTO;
 import lombok.Data;

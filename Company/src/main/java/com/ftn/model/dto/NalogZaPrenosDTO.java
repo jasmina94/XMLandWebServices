@@ -1,10 +1,7 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.NalogZaPrenos;
-import com.ftn.model.TPodaciOPrenosu;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

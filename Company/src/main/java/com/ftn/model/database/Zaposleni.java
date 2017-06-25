@@ -1,6 +1,5 @@
-package com.ftn.model;
+package com.ftn.model.database;
 
-import com.ftn.model.dto.ZaposleniDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,8 +37,8 @@ public class Zaposleni {
     @Column(unique = true)
     private String lozinka;
 
-    @ManyToOne
+//    @ManyToOne
     //TODO: Da li je obavezno?
-    private TPodaciSubjekt tPodaciSubjekt;
+//    private TPodaciSubjekt tPodaciSubjekt;
 
 }

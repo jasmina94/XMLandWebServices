@@ -1,6 +1,6 @@
 package com.ftn.repository;
 
-import com.ftn.model.RobaUsluga;
+import com.ftn.model.database.RobaUsluga;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

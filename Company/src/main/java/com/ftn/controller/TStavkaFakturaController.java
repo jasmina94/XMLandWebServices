@@ -1,8 +1,6 @@
 package com.ftn.controller;
 
-import com.ftn.constants.Auth;
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.Faktura;
 import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.dto.RobaUslugaDTO;
 import com.ftn.model.dto.TStavkaFakturaDTO;
@@ -11,7 +9,6 @@ import com.ftn.service.TStavkaFakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

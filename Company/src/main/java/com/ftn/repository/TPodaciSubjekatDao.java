@@ -1,6 +1,5 @@
 package com.ftn.repository;
 
-import com.ftn.model.TPodaciSubjekt;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

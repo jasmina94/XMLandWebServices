@@ -1,7 +1,7 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.RobaUsluga;
+import com.ftn.model.database.RobaUsluga;
 import com.ftn.model.dto.RobaUslugaDTO;
 import com.ftn.repository.RobaUslugaDao;
 import com.ftn.service.RobaUslugaService;

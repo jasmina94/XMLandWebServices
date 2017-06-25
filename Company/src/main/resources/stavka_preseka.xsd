@@ -3,7 +3,7 @@
     targetNamespace="http://www.ftn.uns.ac.rs/stavkaPreseka"
     xmlns:stavkaPreseka="http://www.ftn.uns.ac.rs/stavkaPreseka"
     xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
-    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="../../../../../../schemas_final/tipovi_schema.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
     <xs:element name="stavka_preseka">
         <xs:complexType>
             <xs:sequence>

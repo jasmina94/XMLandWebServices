@@ -1,6 +1,5 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.TPodaciSubjekt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

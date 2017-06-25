@@ -1,7 +1,6 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.TPodaciSubjekt;
 import com.ftn.model.dto.TPodaciSubjektDTO;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.TPodaciSubjektService;

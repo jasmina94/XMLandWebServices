@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/presek" xmlns:presek="http://www.ftn.uns.ac.rs/presek"
+    xmlns:stavkaPreseka="http://www.ftn.uns.ac.rs/stavkaPreseka"
+    xmlns:zaglavljePreseka="http://www.ftn.uns.ac.rs/zaglavljePreseka">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/zaglavljePreseka"
+        schemaLocation="zaglavlje_preseka.xsd"/>
+    <xs:import namespace="http://www.ftn.uns.ac.rs/stavkaPreseka"
+        schemaLocation="stavka_preseka.xsd"/>
+    <xs:element name="getPresekRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="presek" type="presek:presek"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getPresekResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="presek" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="presek">
+        <xs:sequence>
+            <xs:element ref="zaglavljePreseka:zaglavlje_preseka"/>
+            <xs:element maxOccurs="unbounded" ref="stavkaPreseka:stavka_preseka"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
