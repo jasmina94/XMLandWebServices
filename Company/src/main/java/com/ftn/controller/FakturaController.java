@@ -4,6 +4,7 @@ import com.ftn.constants.Auth;
 import com.ftn.exception.BadRequestException;
 import com.ftn.model.Faktura;
 import com.ftn.model.dto.FakturaDTO;
+import com.ftn.model.environment.EnvironmentProperties;
 import com.ftn.service.FakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ import java.util.List;
 public class FakturaController {
 
     private final FakturaService fakturaService;
+
+    @Autowired
+    private EnvironmentProperties environmentProperties;
 
     @Autowired
     public FakturaController(FakturaService fakturaService) {

@@ -6,9 +6,11 @@ import com.ftn.model.dto.mt103.GetMt103Request;
 import com.ftn.model.dto.mt103.GetMt103Response;
 import com.ftn.model.dto.mt103.Mt103;
 import com.ftn.model.dto.error.ServiceFault;
+import com.ftn.model.dto.mt910.Mt910;
 import com.ftn.repository.BankDao;
 import com.ftn.service.Mt103Service;
 import com.ftn.service.Mt900Service;
+import com.ftn.service.Mt910Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class Mt103ServiceImpl extends WebServiceGatewaySupport implements Mt103S
 
     @Autowired
     private Mt900Service mt900Service;
+
+    @Autowired
+    private Mt910Service mt910Service;
 
     @Override
     public void process(Mt103 mt103) {
@@ -50,10 +55,12 @@ public class Mt103ServiceImpl extends WebServiceGatewaySupport implements Mt103S
 
         // Forward Mt103
         send(mt103);
+
+        // Send Mt910
+        mt910Service.send(mt103);
     }
 
-    @Override
-    public void send(Mt103 mt103) {
+    private void send(Mt103 mt103) {
 
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetMt103Request.class, GetMt103Response.class);
