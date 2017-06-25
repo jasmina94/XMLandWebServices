@@ -55,7 +55,7 @@ public class NalogZaPrenosDTO {
         this.hitno = nalogZaPrenos.isHitno();
         this.idPoruke = nalogZaPrenos.getIdPoruke();
         if(cascade) {
-            this.podaciOPrenosuDTO = nalogZaPrenos.getPodaciOPrenosu() != null ? new TPodaciOPrenosuDTO(nalogZaPrenos.getPodaciOPrenosu(), false) : null;
+            this.podaciOPrenosuDTO = nalogZaPrenos.getPodaciOPrenosu() != null ? new TPodaciOPrenosuDTO(nalogZaPrenos.getPodaciOPrenosu()) : null;
         }
     }
 

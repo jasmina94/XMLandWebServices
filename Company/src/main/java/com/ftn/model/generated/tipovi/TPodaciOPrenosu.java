@@ -9,6 +9,7 @@
 package com.ftn.model.generated.tipovi;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import javax.persistence.*;
@@ -50,6 +51,7 @@ import javax.xml.bind.annotation.*;
 
 })
 @Entity
+@NoArgsConstructor
 @Data
 public class TPodaciOPrenosu {
 
@@ -57,13 +59,13 @@ public class TPodaciOPrenosu {
     @GeneratedValue
     @XmlTransient
     private long id;
-    @XmlElement(name = "duznik_u_prenosu", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @XmlElement(name = "duznik_u_prenosu", required = true)
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
     protected TPrenosUcesnik duznikUPrenosu;
-    @XmlElement(name = "poverilac_u_prenosu", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
-    @OneToOne(optional = false)
+    @XmlElement(name = "poverilac_u_prenosu", required = true)
+    @OneToOne(cascade = CascadeType.PERSIST, optional = false)
     protected TPrenosUcesnik poverilacUPrenosu;
-    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @XmlElement(required = true)
     @Column(nullable = false)
     @Digits(integer=15, fraction=2)
     protected BigDecimal iznos;
