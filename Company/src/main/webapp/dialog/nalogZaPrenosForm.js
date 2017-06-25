@@ -1,7 +1,8 @@
-app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $mdDialog, faktura, nalogZaPrenosService) {
+app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $mdDialog, faktura, authenticationService, nalogZaPrenosService) {
 
     $scope.faktura = faktura;
     $scope.podaciZaNalog = {};
+    $scope.firma = authenticationService.getUser().tpodaciSubjektDTO;
 
     $scope.posaljiNalog = function () {
         $scope.podaciZaNalog.faktura = faktura;
