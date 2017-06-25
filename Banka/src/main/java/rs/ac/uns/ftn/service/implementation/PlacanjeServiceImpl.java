@@ -108,8 +108,11 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
         if(nalog.isHitno() || nalog.getPodaciOPrenosu().getIznos().doubleValue() >= 250000.00){
            Mt103 mt103 = createMt103(nalog, racunDuznika, racunPoverioca);
-            System.out.println("PRAVI RTGS");
-            napraviAnalitike(nalog, racunDuznika, racunPoverioca);
+//           racunDuznika.setSaldo(racunDuznika.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
+//           racunPoverioca.setSaldo(racunPoverioca.getSaldo() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
+//           repozitorijumRacuna.save(racunDuznika);
+//           repozitorijumRacuna.save(racunPoverioca);
+//           napraviAnalitike(nalog, racunDuznika, racunPoverioca);
            RTGSService.processMT103(mt103);
         }else{
         //    Clearing();
@@ -142,8 +145,8 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         mt103.setPodaciODuzniku(podaciODuzniku);
 
         TPodaciBanka podaciBankaPoverioca = new TPodaciBanka();
-        podaciBankaPoverioca.setObracunskiRacun(bankaDuznika.get().getObracunskiRacun());
-        podaciBankaPoverioca.setSwiftKod(bankaDuznika.get().getSWIFTkod());
+        podaciBankaPoverioca.setObracunskiRacun(bankaPoverioca.get().getObracunskiRacun());
+        podaciBankaPoverioca.setSwiftKod(bankaPoverioca.get().getSWIFTkod());
         podaciOPoveriocu.setPodaciOBanci(podaciBankaPoverioca);
 
         mt103.setPodaciOPoveriocu(podaciOPoveriocu);
