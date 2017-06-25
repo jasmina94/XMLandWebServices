@@ -13,9 +13,9 @@ public interface FakturaService {
 
     FakturaDTO readFaktura(Long id);
 
-    List<FakturaDTO> readDobavljac(String pib);
+    List<FakturaDTO> readDobavljac();
 
-    List<FakturaDTO> readKupac(String pib);
+    List<FakturaDTO> readKupac();
 
     FakturaDTO create(FakturaDTO fakturaDTO);
 
