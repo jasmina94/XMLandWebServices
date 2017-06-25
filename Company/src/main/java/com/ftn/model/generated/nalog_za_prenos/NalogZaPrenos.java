@@ -85,19 +85,19 @@ public class NalogZaPrenos {
     @GeneratedValue
     @XmlTransient
     public long id;
-    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @XmlElement(required = true)
     @Column(nullable = false)
     @Size(max = 255)
     protected String duznik;
-    @XmlElement(namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @XmlElement(required = true)
     @Column(nullable = false)
     @Size(max = 255)
     protected String poverilac;
-    @XmlElement(name = "svrha_placanja", namespace = "http://www.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @XmlElement(name = "svrha_placanja", required = true)
     @Column(nullable = false)
     @Size(max = 255)
     protected String svrhaPlacanja;
-    @XmlElement(name = "podaci_o_prenosu", namespace = "http://wwww.ftn.uns.ac.rs/nalog_za_prenos", required = true)
+    @XmlElement(name = "podaci_o_prenosu", required = true)
     @OneToOne(optional = false)
     protected TPodaciOPrenosu podaciOPrenosu;
     @XmlAttribute(name = "datum_naloga")

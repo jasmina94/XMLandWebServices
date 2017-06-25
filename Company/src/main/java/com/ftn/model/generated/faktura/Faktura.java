@@ -174,10 +174,12 @@ public class Faktura {
     @Column(nullable = false)
     @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupanPorez;
+
     @XmlElement(name = "oznaka_valute", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     protected TOznakaValute oznakaValute;
+
     @XmlElement(name = "Iznos_za_uplatu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
     @Digits(integer = 15, fraction = 2)
@@ -186,10 +188,11 @@ public class Faktura {
     @Column(nullable = false, length = 20)
     @Pattern(regexp = "\\d{3}-\\d{1,13}-\\d{2}")
     protected String uplataNaRacun;
-    @XmlElement(name = "stavka_fakture", namespace = "httl://www.ftn.uns.ac.rs/faktura", required = true)
-    @OneToMany( cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
-    //TODO: Razmisli o ovome @JoinColumn(nullable = false, name = "faktura_id")
+
+    @XmlElement(name = "stavka_fakture", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
+    @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<TStavkaFaktura> stavkaFakture;
+
     @XmlAttribute(name = "id_poruke")
     @Size(max = 50)
     protected String idPoruke;
@@ -496,10 +499,11 @@ public class Faktura {
      * 
      */
     public List<TStavkaFaktura> getStavkaFakture() {
-        if (stavkaFakture == null) {
-            stavkaFakture = new ArrayList<TStavkaFaktura>();
-        }
         return this.stavkaFakture;
+    }
+
+    public Faktura(List<TStavkaFaktura> stavkaFakture) {
+        this.stavkaFakture = stavkaFakture;
     }
 
     /**

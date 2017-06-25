@@ -14,4 +14,5 @@ public class EnvironmentProperties {
 
     private String pib;
 
+    private String bankUrl;
 }

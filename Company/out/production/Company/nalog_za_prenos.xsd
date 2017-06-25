@@ -2,10 +2,25 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://ftn.uns.ac.rs/nalog_za_prenos"
     xmlns:nzp="http://ftn.uns.ac.rs/nalog_za_prenos" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
-
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
-    <xs:element name="nalog_za_prenos">
+
+    <xs:element name="getNalogZaPrenosRequest">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nalog_za_prenos" type="nzp:nalog_za_prenos"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getNalogZaPrenosResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nalog_za_prenos" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="nalog_za_prenos">
             <xs:sequence>
                 <xs:element name="duznik">
                     <xs:simpleType>
@@ -41,5 +56,5 @@
                 </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
-    </xs:element>
+
 </xs:schema>

@@ -1,11 +1,14 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.*;
 import com.ftn.model.dto.NalogZaPrenosDTO;
 import com.ftn.model.dto.PodaciZaNalogDTO;
 
+import com.ftn.model.environment.EnvironmentProperties;
 import com.ftn.model.generated.faktura.Faktura;
+import com.ftn.model.generated.faktura.GetFakturaRequest;
+import com.ftn.model.generated.nalog_za_prenos.GetNalogZaPrenosRequest;
+import com.ftn.model.generated.nalog_za_prenos.GetNalogZaPrenosResponse;
 import com.ftn.model.generated.nalog_za_prenos.NalogZaPrenos;
 import com.ftn.model.generated.tipovi.TPodaciOPrenosu;
 import com.ftn.model.generated.tipovi.TPrenosUcesnik;
@@ -13,7 +16,9 @@ import com.ftn.repository.FakturaDao;
 import com.ftn.repository.NalogZaPrenosDao;
 import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
+import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -35,40 +40,19 @@ import java.util.stream.Collectors;
  */
 
 @Service
-public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService {
-//    @Override
-//    public List<NalogZaPrenosDTO> read() {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<NalogZaPrenosDTO> readPoverilac(String naziv) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<NalogZaPrenosDTO> readDuznik(String naziv) {
-//        return null;
-//    }
-//
-//    @Override
-//    public NalogZaPrenosDTO create(NalogZaPrenosDTO nalogZaPrenosDTO) {
-//        return null;
-//    }
-//
-//    @Override
-//    public NalogZaPrenosDTO kreirajNalog(PodaciZaNalogDTO podaciZaNalogDTO) {
-//        return null;
-//    }
-
+public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport implements NalogZaPrenosService {
 
     private final NalogZaPrenosDao nalogZaPrenosDao;
+
     private final FakturaDao fakturaDao;
 
+    private final EnvironmentProperties environmentProperties;
+
     @Autowired
-    public NalogZaPrenosServiceImplementation(NalogZaPrenosDao nalogZaPrenosDao, FakturaDao fakturaDao) {
+    public NalogZaPrenosServiceImplementation(NalogZaPrenosDao nalogZaPrenosDao, FakturaDao fakturaDao, EnvironmentProperties environmentProperties) {
         this.nalogZaPrenosDao = nalogZaPrenosDao;
         this.fakturaDao = fakturaDao;
+        this.environmentProperties = environmentProperties;
     }
 
     @Override
@@ -110,20 +94,22 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
 
     @Override
     public NalogZaPrenosDTO kreirajNalog(PodaciZaNalogDTO podaciZaNalogDTO) {
-        File file = new File("src/main/resources/xmlFiles/faktura.xml");
+        File file = new File("src/main/resources/faktura.xml");
 
         JAXBContext jaxbContext;
         try {
-            jaxbContext = JAXBContext.newInstance(Faktura.class);
+            jaxbContext = JAXBContext.newInstance(GetFakturaRequest.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            jaxbMarshaller.marshal(podaciZaNalogDTO.getFaktura(), file);
+            final GetFakturaRequest getFakturaRequest = new GetFakturaRequest();
+            getFakturaRequest.setFaktura(podaciZaNalogDTO.getFaktura());
+            jaxbMarshaller.marshal(getFakturaRequest, file);
         }catch (Exception e) {
             System.out.println("GRESKA: " + e);
             return null;
         }
 
-        if(!validateXMLSchema("src/main/resources/schemas/faktura_schema.xsd", "src/main/resources/xmlFiles/faktura.xml")) {
+        if(!validateXMLSchema("src/main/resources/faktura.xsd", "src/main/resources/faktura.xml")) {
             return null;
         }
 
@@ -152,12 +138,30 @@ public class NalogZaPrenosServiceImplementation implements NalogZaPrenosService 
         podaciOPrenosu.setDuznikUPrenosu(duznikUPrenosu);
         nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosu);
 
+        send(nalogZaPrenos);
+
         NalogZaPrenosDTO kreiranNalogDTO = create(new NalogZaPrenosDTO(nalogZaPrenos));
         podaciZaNalogDTO.getFaktura().setKreiranNalog(true);
         fakturaDao.save(podaciZaNalogDTO.getFaktura());
+
+
+
         return kreiranNalogDTO;
     }
 
+    private void send(NalogZaPrenos nalogZaPrenos) {
+
+        final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setClassesToBeBound(GetNalogZaPrenosRequest.class, GetNalogZaPrenosResponse.class);
+        setMarshaller(marshaller);
+        setUnmarshaller(marshaller);
+
+        final GetNalogZaPrenosRequest getNalogZaPrenosRequest = new GetNalogZaPrenosRequest();
+        getNalogZaPrenosRequest.setNalogZaPrenos(nalogZaPrenos);
+        final GetNalogZaPrenosResponse response = (GetNalogZaPrenosResponse) getWebServiceTemplate()
+                .marshalSendAndReceive(environmentProperties.getBankUrl(), getNalogZaPrenosRequest);
+        // TODO: Based on response throw an exception maybe?
+    }
 
     public static boolean validateXMLSchema(String xsdPath, String xmlPath){
         try {

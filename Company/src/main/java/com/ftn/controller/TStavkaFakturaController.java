@@ -65,7 +65,6 @@ public class TStavkaFakturaController {
         tStavkaFakturaDTO.setIznosRabata(BigDecimal.valueOf(0.0));
         tStavkaFakturaDTO.setUmanjenoZaRabat(BigDecimal.valueOf(0.0));
         tStavkaFakturaDTO.setUkupanPorez(BigDecimal.valueOf(0.0));
-        tStavkaFakturaDTO.setFaktura(fakturaDTO);
 
         //TStavkaFakturaDTO sacuvanaStavka = tStavkaFakturaService.create(tStavkaFakturaDTO);
         /*fakturaDTO.getStavkaFakture().add(sacuvanaStavka);

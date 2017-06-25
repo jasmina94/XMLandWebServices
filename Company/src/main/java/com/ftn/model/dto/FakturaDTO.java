@@ -45,7 +45,7 @@ public class FakturaDTO {
     private TOznakaValute oznakaValute;
 
     @NotNull
-    private  BigDecimal iznosZaUplatu;
+    private BigDecimal iznosZaUplatu;
 
     @NotNull
     private String uplataNaRacun;
@@ -89,7 +89,7 @@ public class FakturaDTO {
         this.poslato = faktura.isPoslato();
         this.kreiranNalog = faktura.isKreiranNalog();
 
-        if(cascade) {
+        if (cascade) {
             this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu(), false) : null;
             this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu(), false) : null;
             this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka, false)).collect(Collectors.toList());
@@ -116,8 +116,8 @@ public class FakturaDTO {
         faktura.setPoslato(poslato);
         faktura.setKreiranNalog(kreiranNalog);
 
-        if(stavkaFakture != null) {
-            stavkaFakture.forEach(tStavkaFakturaDTO  -> faktura.getStavkaFakture().add(tStavkaFakturaDTO.construct()));
+        if (stavkaFakture != null) {
+            stavkaFakture.forEach(tStavkaFakturaDTO -> faktura.getStavkaFakture().add(tStavkaFakturaDTO.construct()));
         }
 
         return faktura;
