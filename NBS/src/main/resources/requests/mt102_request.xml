@@ -1,0 +1,81 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:mt102="http://www.ftn.uns.ac.rs/mt102" xmlns="http://www.ftn.uns.ac.rs/tipovi">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <mt102:getMt102Request>
+            <mt102
+                    xmlns="http://www.ftn.uns.ac.rs/mt102" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://www.ftn.uns.ac.rs/mt102 mt102_schema.xsd">
+                <mt102_zaglavlje id_poruke="1"
+                                 xmlns="http://www.ftn.uns.ac.rs/mt102header"
+                                 xsi:schemaLocation="http://www.ftn.uns.ac.rs/mt102header mt102_header_schema.xsd"
+                                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                 xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                    <podaci_o_banci_duznika>
+                        <tipovi:swift_kod>VBUBRS22</tipovi:swift_kod>
+                        <tipovi:obracunski_racun>471-1234564127894-58</tipovi:obracunski_racun>
+                    </podaci_o_banci_duznika>
+                    <podaci_o_banci_poverioca>
+                        <tipovi:swift_kod>CONARS22</tipovi:swift_kod>
+                        <tipovi:obracunski_racun>678-1234569632514-65</tipovi:obracunski_racun>
+                    </podaci_o_banci_poverioca>
+                    <ukupan_iznos>965</ukupan_iznos>
+                    <datum_valute>2016-06-06</datum_valute>
+                    <datum>2016-06-05</datum>
+                    <sifra_valute>RSD</sifra_valute>
+                </mt102_zaglavlje>
+                <mt102_telo id_naloga="1"
+                            xmlns="http://www.ftn.uns.ac.rs/mt102body"
+                            xsi:schemaLocation="http://www.ftn.uns.ac.rs/mt102body mt102_body_schema.xsd"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                    <podaci_o_duzniku>
+                        <tipovi:naziv>Maxi D.O.O</tipovi:naziv>
+                        <tipovi:broj_racuna>657-1234568574123-65</tipovi:broj_racuna>
+                    </podaci_o_duzniku>
+                    <podaci_o_poveriocu>
+                        <tipovi:naziv>Pionir D.O.O</tipovi:naziv>
+                        <tipovi:broj_racuna>657-8569741235258-65</tipovi:broj_racuna>
+                    </podaci_o_poveriocu>
+                    <svrha_placanja>Uplata po fakturi br1</svrha_placanja>
+                    <iznos valuta="RSD">75</iznos>
+                    <podaci_o_zaduzenju>
+                        <tipovi:model>97</tipovi:model>
+                        <tipovi:poziv_na_broj>123</tipovi:poziv_na_broj>
+                    </podaci_o_zaduzenju>
+                    <podaci_o_odobrenju>
+                        <tipovi:model>97</tipovi:model>
+                        <tipovi:poziv_na_broj>122</tipovi:poziv_na_broj>
+                    </podaci_o_odobrenju>
+                    <datum_naloga>2016-05-05</datum_naloga>
+                </mt102_telo>
+                <mt102_telo id_naloga="1"
+                            xmlns="http://www.ftn.uns.ac.rs/mt102body"
+                            xsi:schemaLocation="http://www.ftn.uns.ac.rs/mt102body mt102_body_schema.xsd"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                    <podaci_o_duzniku>
+                        <tipovi:naziv>Maxi D.O.O</tipovi:naziv>
+                        <tipovi:broj_racuna>657-1234568574123-65</tipovi:broj_racuna>
+                    </podaci_o_duzniku>
+                    <podaci_o_poveriocu>
+                        <tipovi:naziv>Pionir D.O.O</tipovi:naziv>
+                        <tipovi:broj_racuna>657-8569741235258-65</tipovi:broj_racuna>
+                    </podaci_o_poveriocu>
+                    <svrha_placanja>Uplata po fakturi br1</svrha_placanja>
+                    <iznos valuta="RSD">75</iznos>
+                    <podaci_o_zaduzenju>
+                        <tipovi:model>97</tipovi:model>
+                        <tipovi:poziv_na_broj>123</tipovi:poziv_na_broj>
+                    </podaci_o_zaduzenju>
+                    <podaci_o_odobrenju>
+                        <tipovi:model>97</tipovi:model>
+                        <tipovi:poziv_na_broj>122</tipovi:poziv_na_broj>
+                    </podaci_o_odobrenju>
+                    <datum_naloga>2016-05-05</datum_naloga>
+                </mt102_telo>
+            </mt102>
+        </mt102:getMt102Request>
+    </soapenv:Body>
+</soapenv:Envelope>
+

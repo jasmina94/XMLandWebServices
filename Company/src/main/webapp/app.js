@@ -40,9 +40,26 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'HomeController',
             templateUrl: 'page/home.html'
         })
-        .state('home.faktura', {
-            url: '/faktura',
+        .state('home.fakturaKupac', {
+            url: '/fakturaKupac',
             controller: 'FakturaController',
-            templateUrl: 'page/faktura.html'
+            templateUrl: 'page/faktura.html',
         })
+        .state('home.fakturaDobavljac', {
+            url: '/fakturaDobavljac',
+            controller: 'FakturaController',
+            templateUrl: 'page/faktura.html',
+        })
+        .state('home.nalogPoverilac', {
+            url: '/nalogPoverilac',
+            controller: 'NalogController',
+            templateUrl: 'page/nalog.html',
+        })
+        .state('home.nalogDuznik', {
+            url: '/nalogDuznik',
+            controller: 'NalogController',
+            templateUrl: 'page/nalog.html',
+        })
+
+
 });

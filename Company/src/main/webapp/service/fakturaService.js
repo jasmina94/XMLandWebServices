@@ -7,8 +7,11 @@ app.service('fakturaService', function($http){
         read: function(onSuccess, onError){
             $http.get('/api/fakture').then(onSuccess, onError);
         },
-        read: function (pib, onSuccess, onError) {
-            $http.get('api/fakture/firma/' + pib).then(onSuccess, onError);
+        readDobavljac: function (onSuccess, onError) {
+            $http.get('api/fakture/firmaDobavljac/').then(onSuccess, onError);
+        },
+        readKupac: function (onSuccess, onError) {
+            $http.get('api/fakture/firmaKupac').then(onSuccess, onError);
         },
         create: function(faktura, onSuccess, onError){
             $http.post('/api/fakture', faktura).then(onSuccess, onError);

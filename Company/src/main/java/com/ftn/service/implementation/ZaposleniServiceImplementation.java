@@ -1,6 +1,6 @@
 package com.ftn.service.implementation;
 
-import com.ftn.model.Zaposleni;
+import com.ftn.model.database.Zaposleni;
 import com.ftn.model.dto.ZaposleniDTO;
 import com.ftn.repository.ZaposleniDao;
 import com.ftn.service.ZaposleniService;

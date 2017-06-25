@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/nalog_za_prenos"
+    xmlns:nzp="http://www.ftn.uns.ac.rs/nalog_za_prenos" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+
+    <xs:element name="getNalogZaPrenosRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nalog_za_prenos" type="nzp:nalog_za_prenos"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getNalogZaPrenosResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nalog_za_prenos" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="nalog_za_prenos">
+            <xs:sequence>
+                <xs:element name="duznik">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="poverilac">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="svrha_placanja">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="255"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="podaci_o_prenosu" type="tipovi:TPodaciOPrenosu"/>
+            </xs:sequence>
+            <xs:attribute name="datum_naloga" type="xs:date"/>
+            <xs:attribute name="datum_valute" type="xs:date"/>
+            <xs:attribute name="hitno" type="xs:boolean"/>
+            <xs:attribute name="id_poruke">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+
+</xs:schema>

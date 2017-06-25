@@ -1,8 +1,7 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.Faktura;
-import com.ftn.model.TOznakaValute;
-import com.ftn.model.TStavkaFaktura;
+import com.ftn.model.generated.faktura.Faktura;
+import com.ftn.model.generated.tipovi.TOznakaValute;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -46,13 +45,13 @@ public class FakturaDTO {
     private TOznakaValute oznakaValute;
 
     @NotNull
-    private  BigDecimal iznosZaUplatu;
+    private BigDecimal iznosZaUplatu;
 
     @NotNull
     private String uplataNaRacun;
 
     //TODO: zameniti sa DTO. Staviti NotNull?
-    private List<TStavkaFaktura> stavkaFaktura;
+    private List<TStavkaFakturaDTO> stavkaFakture;
 
     private String idPoruke;
 
@@ -61,6 +60,12 @@ public class FakturaDTO {
     private Date datumRacuna;
 
     private Date datumValute;
+
+    @NotNull
+    private boolean poslato;
+
+    @NotNull
+    private boolean kreiranNalog;
 
 
     public FakturaDTO(Faktura faktura) {
@@ -77,16 +82,17 @@ public class FakturaDTO {
         this.oznakaValute = faktura.getOznakaValute();
         this.iznosZaUplatu = faktura.getIznosZaUplatu();
         this.uplataNaRacun = faktura.getUplataNaRacun();
-        //za listu stavki dodati kad bude DTO
         this.idPoruke = faktura.getIdPoruke();
         this.brojRacuna = faktura.getBrojRacuna();
         this.datumRacuna = faktura.getDatumRacuna();
         this.datumValute = faktura.getDatumValute();
+        this.poslato = faktura.isPoslato();
+        this.kreiranNalog = faktura.isKreiranNalog();
 
-        if(cascade) {
+        if (cascade) {
             this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu()) : null;
             this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu()) : null;
-
+            this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka)).collect(Collectors.toList());
         }
     }
 
@@ -106,6 +112,12 @@ public class FakturaDTO {
         faktura.setBrojRacuna(brojRacuna);
         faktura.setDatumRacuna(datumRacuna);
         faktura.setDatumValute(datumValute);
+        faktura.setPoslato(poslato);
+        faktura.setKreiranNalog(kreiranNalog);
+
+        if (stavkaFakture != null) {
+            stavkaFakture.forEach(tStavkaFakturaDTO -> faktura.getStavkaFakture().add(tStavkaFakturaDTO.construct()));
+        }
 
         return faktura;
     }

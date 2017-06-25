@@ -8,6 +8,7 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
     $scope.zaposleni = authenticationService.getUser();
     $scope.authService = authenticationService;
 
+
     $scope.logout = function () {
         authenticationService.logout(function () {
             $state.transitionTo('login');
@@ -20,8 +21,19 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
         return $scope.page.current === pageIndex;
     };
 
-    $scope.goToFakture = function () {
-        $state.transitionTo('home.faktura');
+    $scope.goToFaktureDobavljac = function () {
+        $state.transitionTo('home.fakturaDobavljac');
     };
 
+    $scope.goToFaktureKupac = function () {
+        $state.transitionTo('home.fakturaKupac');
+    };
+
+    $scope.goToNaloziPoverilac = function () {
+        $state.transitionTo('home.nalogPoverilac');
+    };
+
+    $scope.goToNaloziDuznik = function () {
+        $state.transitionTo('home.nalogDuznik');
+    };
 });

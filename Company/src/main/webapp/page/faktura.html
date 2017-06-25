@@ -1,7 +1,12 @@
 <div class="container">
     <div layout="column">
         <div layout="row">
-            <h3>Fakture</h3>
+            <h3>Fakture - {{uloga}}</h3>
+        </div>
+        <div layout="row">
+            <md-button class = "md-raised" ng-click="addFaktura()" ng-if = "uloga == 'dobavljac'">
+                Kreiraj zaglavlje fakture
+            </md-button>
         </div>
         <md-divider></md-divider>
         <md-card ng-class="{'md-whiteframe-4dp':hovering}"
@@ -12,38 +17,43 @@
                     <tr md-row>
                         <th md-column><span>Broj racuna</span></th>
                         <th md-column><span>Datum racuna</span></th>
-                        <th md-column><span>Datum valute</span></th>
                         <th md-column><span>Id poruke</span></th>
                         <th md-column><span>Iznos za uplatu</span></th>
                         <th md-column><span>Oznaka valute</span></th>
-                        <th md-column><span>Ukupan porez</span></th>
-                        <th md-column><span>Ukupan rabat</span></th>
-                        <th md-column><span>Ukupno roba i usluga</span></th>
-                        <th md-column><span>Vrednost robe</span></th>
-                        <th md-column><span>Vrednost usluga</span></th>
                         <th md-column><span>Dobavljac</span></th>
                         <th md-column><span>Kupac</span></th>
                     </tr>
                     </thead>
                     <tbody md-body>
-                    <tr md-row ng-repeat="faktura in fakture | limitTo: query.limit:(query.page-1) * query.limit"
-                        ng-click="null">
-                        <td md-cell>{{faktura.brojRacuna}}</td>
-                        <td md-cell>{{faktura.datumRacuna | date: 'dd-MM-yyyy'}}</td>
-                        <td md-cell>{{faktura.datumValute | date: 'dd-MM-yyyy'}}</td>
-                        <td md-cell>{{faktura.idPoruke}}</td>
-                        <td md-cell>{{faktura.iznosZaUplatu}}</td>
-                        <td md-cell>{{faktura.oznakaValute}}</td>
-                        <td md-cell>{{faktura.ukupanPorez}}</td>
-                        <td md-cell>{{faktura.ukupanRabat}}</td>
-                        <td md-cell>{{faktura.ukupnoRobaIUsluga}}</td>
-                        <td md-cell>{{faktura.vrednostRobe}}</td>
-                        <td md-cell>{{faktura.vrednostUsluga}}</td>
-                        <td md-cell>{{faktura.podaciODobavljacu.naziv}}</td>
-                        <td md-cell>{{faktura.podaciOKupcu.naziv}}</td>
+                    <tr md-row ng-repeat="faktura in fakture | limitTo: query.limit:(query.page-1) * query.limit">
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.brojRacuna}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.datumRacuna | date: 'dd-MM-yyyy'}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.idPoruke}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.iznosZaUplatu}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.oznakaValute}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.podaciODobavljacu.naziv}}</td>
+                        <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.podaciOKupcu.naziv}}</td>
                         <td md-cell>
                             <md-button class = "md-raised" ng-click = "showStavke(faktura)">
                                 Prikazi stavke
+                            </md-button>
+                        </td>
+                        <td md-cell ng-if = "uloga == 'kupac' && !faktura.kreiranNalog">
+                            <md-button class = "md-raised" ng-click = "popuniNalog(faktura)">
+                                Kreiraj nalog
+                            </md-button>
+                        </td>
+                        <td md-cell ng-if = "uloga == 'kupac' && faktura.kreiranNalog">
+                            <i>Kreiran nalog</i>
+                        </td>
+                        <td md-cell ng-if = "uloga == 'dobavljac' && !faktura.poslato">
+                            <md-button class = "md-raised" ng-click = "addStavke(faktura)">
+                                Dodaj stavke
+                            </md-button>
+                        </td>
+                        <td md-cell nf-if = "uloga == 'dobavljac' && faktura.stavkafakture.length > 0 && !faktura.poslato">
+                            <md-button class = "md-raised" ng-click = "sendFaktura()">
+                                Posalji fakturu
                             </md-button>
                         </td>
                     </tbody>
@@ -55,8 +65,4 @@
         </md-card>
             <h3 class="text-center" ng-if = "fakture.length == 0">Trenutno ne postoji nijedna faktura.</h3>
     </div>
-    <md-button class="md-primary md-fab md-fab-bottom-right"
-               aria-label="Kreiraj fakturu" ng-click="addFaktura()">
-        <md-icon md-svg-src="image/ic_add_white_24px.svg"></md-icon>
-    </md-button>
 </div>

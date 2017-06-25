@@ -1,0 +1,61 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Faktura: {{faktura.brojRacuna}}</h2>
+        </div>
+    </md-toolbar>
+    <form novalidate name="nalogZaPrenosForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-checkbox
+                    ng-model="podaciZaNalog.hitno"
+                    aria-label="Hitno"
+                    class="md-warn md-align-top-left" flex>
+                Hitno
+            </md-checkbox>
+            <md-input-container class="md-block">
+                <label>Račun dužnika</label>
+                <input id="racunDuznika" name="racunDuznika" type="text" ng-model="podaciZaNalog.racunDuznika" ng-pattern="/^[0-9]{3}-[0-9]{13}-[0-9]{2}$/" required>
+                <div ng-messages="nalogZaPrenosForm.racunDuznika.$error" ng-if="nalogZaPrenosForm.racunDuznika.$dirty">
+                    <div ng-message="required">Obavezan je unos broja računa.</div>
+                    <div ng-message="pattern">Broj računa nije validan.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Model zaduženja</label>
+                <input id="modelZaduzenja" name="modelZaduzenja" type="text" ng-model = "podaciZaNalog.modelZaduzenja" ng-pattern="/^[0-9]{2}$/">
+                <div ng-messages="nalogZaPrenosForm.modelZaduzenja.$error" ng-if="nalogZaPrenosForm.modelZaduzenja.$dirty">
+                    <div ng-message="pattern">Model zaduženja nije validan.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Poziv na broj zaduženja</label>
+                <input id="pozivNaBrojZ" name="pozivNaBrojZ" data-ng-model="podaciZaNalog.pozivNaBrojZaduzenja" type="number" required>
+                <div ng-messages="nalogZaPrenosForm.pozivNaBrojZ.$error" ng-if="nalogZaPrenosForm.pozivNaBrojZ.$dirty">
+                    <div ng-message="required">Obavezan je unos poziva na broj zaduženja-</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Račun poverioca</label>
+                <input id="racunPoverioca" name="racunPoverioca" ng-model = "faktura.uplataNaRacun" disabled>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Model odobrenja</label>
+                <input id="modelOdobrenja" name="modelOdobrenja" type="text" data-ng-model = "podaciZaNalog.modelOdobrenja" ng-pattern="/^[0-9]{2}$/">
+                <div ng-messages="nalogZaPrenosForm.modelOdobrenja.$error" ng-if="nalogZaPrenosForm.modelOdobrenja.$dirty">
+                    <div ng-message="pattern">Model odobrenja nije validan.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Poziv na broj odobrenja</label>
+                <input id="pozivNaBrojO" name="pozivNaBrojO" type="number" data-ng-model="podaciZaNalog.pozivNaBrojOdobrenja" required>
+                <div ng-messages="nalogZaPrenosForm.pozivNaBrojO.$error" ng-if="nalogZaPrenosForm.pozivNaBrojO.$dirty">
+                    <div ng-message="required">Obavezan je unos poziva na broj odobrenja.</div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Zatvori</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="posaljiNalog()" ng-disabled="nalogZaPrenosForm.$invalid">U redu</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

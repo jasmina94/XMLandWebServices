@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt103" xmlns:mt103="http://www.ftn.uns.ac.rs/mt103"
+    xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+	
+    <xs:element name="getMt103Request">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mt103" type="mt103:mt103"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+	<xs:element name="getMt103Response">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mt103" type="mt103:mt103"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+       
+	   <xs:complexType name="mt103">
+            <xs:sequence>
+                <xs:element name="podaci_o_duzniku">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="tipovi:TPravnoLice">
+                                <xs:sequence>
+                                    <xs:element name="podaci_o_banci" type="tipovi:TPodaciBanka"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="podaci_o_poveriocu">
+                    <xs:complexType>
+                        <xs:complexContent>
+                            <xs:extension base="tipovi:TPravnoLice">
+                                <xs:sequence>
+                                    <xs:element name="podaci_o_banci" type="tipovi:TPodaciBanka"/>
+                                </xs:sequence>
+                            </xs:extension>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="podaci_o_uplati">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="svrha_placanja">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:maxLength value="255"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="iznos">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="tipovi:TIznos">
+                                            <xs:attribute name="valuta">
+                                                <xs:simpleType>
+                                                  <xs:restriction base="xs:string">
+                                                  <xs:enumeration value="RSD"/>
+                                                  <xs:enumeration value="USD"/>
+                                                  <xs:enumeration value="EUR"/>
+                                                  </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="podaci_o_zaduzenju" type="tipovi:TPodaciPlacanje"/>
+                            <xs:element name="podaci_o_odobrenju" type="tipovi:TPodaciPlacanje"/>
+                            <xs:element name="datum_naloga" type="xs:date"/>
+                            <xs:element name="datum_valute" type="xs:date"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id_poruke">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+</xs:schema>
