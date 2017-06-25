@@ -1,13 +1,13 @@
 package rs.ac.uns.ftn.service;
 
-import rs.ac.uns.ftn.model.dto.nalog_za_prenos.NalogZaPrenos;
+import rs.ac.uns.ftn.model.dto.mt102.Mt102;
 
 /**
  * Created by zlatan on 6/25/17.
  */
 public interface ClearingService {
 
-    void process(NalogZaPrenos nalogZaPrenos);
+    void processMT102(Mt102 mt102);
 
-    void send(NalogZaPrenos nalogZaPrenos);
+    void sendMT102(Mt102 mt102);
 }
