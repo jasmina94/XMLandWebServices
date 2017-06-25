@@ -4,18 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.exception.ServiceFaultException;
 import rs.ac.uns.ftn.model.database.AnalitikaIzvoda;
+import rs.ac.uns.ftn.model.database.Banka;
 import rs.ac.uns.ftn.model.database.DnevnoStanjeRacuna;
 import rs.ac.uns.ftn.model.database.Racun;
 import rs.ac.uns.ftn.model.dto.error.ServiceFault;
+import rs.ac.uns.ftn.model.dto.mt103.Mt103;
 import rs.ac.uns.ftn.model.dto.nalog_za_prenos.NalogZaPrenos;
+import rs.ac.uns.ftn.model.dto.tipovi.TPodaciBanka;
+import rs.ac.uns.ftn.model.dto.tipovi.TPodaciPlacanje;
 import rs.ac.uns.ftn.model.dto.tipovi.TPrenosUcesnik;
 import rs.ac.uns.ftn.repository.AnalitikaIzvodaRepository;
+import rs.ac.uns.ftn.repository.BankaRepository;
 import rs.ac.uns.ftn.repository.DnevnoStanjeRacunaRepository;
 import rs.ac.uns.ftn.repository.RacunRepository;
+import rs.ac.uns.ftn.service.ClearingService;
 import rs.ac.uns.ftn.service.PlacanjeService;
+import rs.ac.uns.ftn.service.RTGSService;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by zlatan on 6/24/17.
@@ -31,6 +41,15 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
     @Autowired
     private DnevnoStanjeRacunaRepository repozitorijumDnevnoStanjeRacuna;
+
+    @Autowired
+    private BankaRepository repozitorijumBanka;
+
+    @Autowired
+    private RTGSService RTGSService;
+
+    @Autowired
+    private ClearingService ClearingService;
 
 
     @Override
@@ -86,7 +105,76 @@ public class PlacanjeServiceImpl implements PlacanjeService {
     }
 
     private void medjubankarskiPromet(NalogZaPrenos nalog) {
+        TPrenosUcesnik duznik = nalog.getPodaciOPrenosu().getDuznikUPrenosu();
+        TPrenosUcesnik poverilac = nalog.getPodaciOPrenosu().getPoverilacUPrenosu();
 
+        Racun racunDuznika = repozitorijumRacuna.findByBrojRacuna(duznik.getRacunUcesnika()).get();
+        Racun racunPoverioca = repozitorijumRacuna.findByBrojRacuna(poverilac.getRacunUcesnika()).get();
+
+        if(nalog.isHitno() || nalog.getPodaciOPrenosu().getIznos().doubleValue() >= 250000.00){
+           Mt103 mt103 = createMt103(nalog, racunDuznika, racunPoverioca);
+           RTGSService.processMT103(mt103);
+        }else{
+        //    Clearing();
+        }
+    }
+
+    private Mt103 createMt103(NalogZaPrenos nalog, Racun racunDuznika, Racun racunPoverioca) {
+        Mt103 mt103 = new Mt103();
+        mt103.setIdPoruke(UUID.randomUUID().toString());
+        Mt103.PodaciODuzniku podaciODuzniku = new Mt103.PodaciODuzniku();
+        podaciODuzniku.setNaziv(nalog.getDuznik());
+        podaciODuzniku.setBrojRacuna(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getRacunUcesnika());
+
+        Mt103.PodaciOPoveriocu podaciOPoveriocu = new Mt103.PodaciOPoveriocu();
+        podaciOPoveriocu.setNaziv(nalog.getPoverilac());
+        podaciOPoveriocu.setBrojRacuna(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getRacunUcesnika());
+
+        Optional<Banka> bankaDuznika = repozitorijumBanka.findById(racunDuznika.getBanka().getId());
+        Optional<Banka> bankaPoverioca = repozitorijumBanka.findById(racunPoverioca.getBanka().getId());
+
+        if(!bankaDuznika.isPresent() || !bankaPoverioca.isPresent())
+            throw new ServiceFaultException("Nije pronadjen", new ServiceFault("404", "Banka ucesnika prenosa nije pronadjena!"));
+
+
+        TPodaciBanka podaciBankaDuznika = new TPodaciBanka();
+        podaciBankaDuznika.setObracunskiRacun(bankaDuznika.get().getObracunskiRacun());
+        podaciBankaDuznika.setSwiftKod(bankaDuznika.get().getSWIFTkod());
+        podaciODuzniku.setPodaciOBanci(podaciBankaDuznika);
+
+        mt103.setPodaciODuzniku(podaciODuzniku);
+
+        TPodaciBanka podaciBankaPoverioca = new TPodaciBanka();
+        podaciBankaPoverioca.setObracunskiRacun(bankaDuznika.get().getObracunskiRacun());
+        podaciBankaPoverioca.setSwiftKod(bankaDuznika.get().getSWIFTkod());
+        podaciOPoveriocu.setPodaciOBanci(podaciBankaPoverioca);
+
+        mt103.setPodaciOPoveriocu(podaciOPoveriocu);
+
+        Mt103.PodaciOUplati podaciOUplati = new Mt103.PodaciOUplati();
+        podaciOUplati.setDatumNaloga(nalog.getDatumNaloga());
+        podaciOUplati.setDatumValute(nalog.getDatumValute());
+        Mt103.PodaciOUplati.Iznos iznos = new Mt103.PodaciOUplati.Iznos();
+        iznos.setValue(nalog.getPodaciOPrenosu().getIznos());
+        iznos.setValuta(nalog.getPodaciOPrenosu().getOznakaValute().value());
+        podaciOUplati.setIznos(iznos);
+        TPodaciPlacanje podaciZaduzenje = new TPodaciPlacanje();
+        TPodaciPlacanje podaciOdobrenje = new TPodaciPlacanje();
+
+        podaciZaduzenje.setModel(BigInteger.valueOf(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getModelPrenosa()));
+        podaciZaduzenje.setPozivNaBroj(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getPozivNaBroj());
+
+        podaciOdobrenje.setModel(BigInteger.valueOf(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getModelPrenosa()));
+        podaciOdobrenje.setPozivNaBroj(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getPozivNaBroj());
+
+        podaciOUplati.setPodaciOOdobrenju(podaciOdobrenje);
+        podaciOUplati.setPodaciOZaduzenju(podaciZaduzenje);
+        podaciOUplati.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
+
+
+        mt103.setPodaciOUplati(podaciOUplati);
+
+        return mt103;
     }
 
     private void napraviAnalitike(NalogZaPrenos nalog, Racun racunDuznika, Racun racunPoverioca){
