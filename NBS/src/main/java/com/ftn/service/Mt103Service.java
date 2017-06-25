@@ -8,6 +8,4 @@ import com.ftn.model.dto.mt103.Mt103;
 public interface Mt103Service {
 
     void process(Mt103 mt103);
-
-    void send(Mt103 mt103);
 }

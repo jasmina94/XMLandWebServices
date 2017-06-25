@@ -3,6 +3,7 @@ package com.ftn.model.database;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,6 +29,9 @@ public class PaymentBatch extends BaseModel {
     private String debtorSwift;
 
     private String debtorAccountNumber;
+
+    @Type(type = "text")
+    private String mt102Model;
 
     private double total;
 

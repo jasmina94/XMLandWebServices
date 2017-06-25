@@ -1,10 +1,8 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.NalogZaPrenos;
-import com.ftn.model.TPodaciOPrenosu;
+import com.ftn.model.generated.nalog_za_prenos.NalogZaPrenos;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -57,7 +55,7 @@ public class NalogZaPrenosDTO {
         this.hitno = nalogZaPrenos.isHitno();
         this.idPoruke = nalogZaPrenos.getIdPoruke();
         if(cascade) {
-            this.podaciOPrenosuDTO = nalogZaPrenos.getPodaciOPrenosu() != null ? new TPodaciOPrenosuDTO(nalogZaPrenos.getPodaciOPrenosu()) : null;
+            this.podaciOPrenosuDTO = nalogZaPrenos.getPodaciOPrenosu() != null ? new TPodaciOPrenosuDTO(nalogZaPrenos.getPodaciOPrenosu(), false) : null;
         }
     }
 

@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.RobaUsluga;
+import com.ftn.model.database.RobaUsluga;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

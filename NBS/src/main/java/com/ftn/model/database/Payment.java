@@ -21,21 +21,9 @@ public class Payment extends BaseModel {
 
     private String paymentPurpose;
 
-    private String creditorInfo;
-
     private String creditorAccountNumber;
 
-    private String creditorReferenceNumber;
-
-    private int creditorModel;
-
-    private String debtorInfo;
-
     private String debtorAccountNumber;
-
-    private String debtorReferenceNumber;
-
-    private int debtorModel;
 
     private Date dateOfOrder;
 

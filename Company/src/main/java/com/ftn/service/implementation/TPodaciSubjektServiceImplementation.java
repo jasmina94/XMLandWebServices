@@ -1,8 +1,8 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.TPodaciSubjekt;
 import com.ftn.model.dto.TPodaciSubjektDTO;
+import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.TPodaciSubjektService;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class TPodaciSubjektServiceImplementation implements TPodaciSubjektService {
 
+
     private final TPodaciSubjekatDao tPodaciSubjekatDao;
 
     public  TPodaciSubjektServiceImplementation(TPodaciSubjekatDao tPodaciSubjekatDao) { this.tPodaciSubjekatDao = tPodaciSubjekatDao; }
@@ -28,11 +29,11 @@ public class TPodaciSubjektServiceImplementation implements TPodaciSubjektServic
     @Override
     public List<TPodaciSubjektDTO> readPoslovniPartneri(Long id) {
         List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
-        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
-            if (partner.getId() == id) {
-                    poslovniPartneri = partner.getPoslovniPartneri();
-            }
-        }
+//        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
+//            if (partner.getId() == id) {
+//                    poslovniPartneri = partner.getPoslovniPartneri();
+//            }
+//        }
         return poslovniPartneri.stream().map(TPodaciSubjektDTO::new).collect(Collectors.toList());
     }
 

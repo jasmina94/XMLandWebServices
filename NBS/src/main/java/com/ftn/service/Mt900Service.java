@@ -1,5 +1,6 @@
 package com.ftn.service;
 
+import com.ftn.model.dto.mt102.Mt102;
 import com.ftn.model.dto.mt103.Mt103;
 
 /**
@@ -8,4 +9,6 @@ import com.ftn.model.dto.mt103.Mt103;
 public interface Mt900Service {
 
     void send(Mt103 mt103);
+
+    void send(Mt102 mt102);
 }

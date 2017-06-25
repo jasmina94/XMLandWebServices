@@ -12,11 +12,11 @@
                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                                  xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
                     <podaci_o_banci_duznika>
-                        <tipovi:swift_kod>12345678</tipovi:swift_kod>
+                        <tipovi:swift_kod>VBUBRS22</tipovi:swift_kod>
                         <tipovi:obracunski_racun>471-1234564127894-58</tipovi:obracunski_racun>
                     </podaci_o_banci_duznika>
                     <podaci_o_banci_poverioca>
-                        <tipovi:swift_kod>98765412</tipovi:swift_kod>
+                        <tipovi:swift_kod>CONARS22</tipovi:swift_kod>
                         <tipovi:obracunski_racun>678-1234569632514-65</tipovi:obracunski_racun>
                     </podaci_o_banci_poverioca>
                     <ukupan_iznos>965</ukupan_iznos>

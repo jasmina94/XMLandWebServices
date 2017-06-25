@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://ftn.uns.ac.rs/nalog_za_prenos"
-    xmlns:nzp="http://ftn.uns.ac.rs/nalog_za_prenos" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    targetNamespace="http://www.ftn.uns.ac.rs/nalog_za_prenos"
+    xmlns:nzp="http://www.ftn.uns.ac.rs/nalog_za_prenos" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
 
     <xs:element name="getNalogZaPrenosRequest">

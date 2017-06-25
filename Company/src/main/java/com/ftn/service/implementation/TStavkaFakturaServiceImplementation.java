@@ -1,10 +1,8 @@
 package com.ftn.service.implementation;
 
 import com.ftn.exception.BadRequestException;
-import com.ftn.model.TPodaciSubjekt;
-import com.ftn.model.TStavkaFaktura;
-import com.ftn.model.dto.TPodaciSubjektDTO;
 import com.ftn.model.dto.TStavkaFakturaDTO;
+import com.ftn.model.generated.tipovi.TStavkaFaktura;
 import com.ftn.repository.TStavkaFakturaDao;
 import com.ftn.service.TStavkaFakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TStavkaFakturaServiceImplementation implements TStavkaFakturaService {
+
 
     private final TStavkaFakturaDao tStavkaFakturaDao;
 
