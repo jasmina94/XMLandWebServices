@@ -17,7 +17,7 @@ public interface RTGSService {
 
     void sendMT900(Mt900 mt900);
 
-    void processMT910(Mt910 mt910);
+    String processMT910(Mt910 mt910);
 
     void sendMT910(Mt910 mt910);
 

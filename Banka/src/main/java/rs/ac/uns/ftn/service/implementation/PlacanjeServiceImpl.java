@@ -108,11 +108,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
         if(nalog.isHitno() || nalog.getPodaciOPrenosu().getIznos().doubleValue() >= 250000.00){
            Mt103 mt103 = createMt103(nalog, racunDuznika, racunPoverioca);
-//           racunDuznika.setSaldo(racunDuznika.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
-//           racunPoverioca.setSaldo(racunPoverioca.getSaldo() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
-//           repozitorijumRacuna.save(racunDuznika);
-//           repozitorijumRacuna.save(racunPoverioca);
-//           napraviAnalitike(nalog, racunDuznika, racunPoverioca);
            RTGSService.processMT103(mt103);
         }else{
         //    Clearing();

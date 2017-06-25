@@ -5,6 +5,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import rs.ac.uns.ftn.model.database.AnalitikaIzvoda;
+import rs.ac.uns.ftn.model.database.DnevnoStanjeRacuna;
 import rs.ac.uns.ftn.model.database.Mt103Model;
 import rs.ac.uns.ftn.model.database.Racun;
 import rs.ac.uns.ftn.model.dto.mt103.GetMt103Request;
@@ -14,13 +15,12 @@ import rs.ac.uns.ftn.model.dto.mt900.Mt900;
 import rs.ac.uns.ftn.model.dto.mt910.Mt910;
 import rs.ac.uns.ftn.model.dto.nalog_za_prenos.NalogZaPrenos;
 import rs.ac.uns.ftn.model.environment.EnvironmentProperties;
-import rs.ac.uns.ftn.repository.AnalitikaIzvodaRepository;
-import rs.ac.uns.ftn.repository.BankaRepository;
-import rs.ac.uns.ftn.repository.Mt103Repository;
-import rs.ac.uns.ftn.repository.RacunRepository;
+import rs.ac.uns.ftn.repository.*;
 import rs.ac.uns.ftn.service.RTGSService;
 
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.*;
 
 /**
  * Created by zlatan on 6/25/17.
@@ -42,6 +42,9 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
 
     @Autowired
     private RacunRepository racunRepository;
+
+    @Autowired
+    private DnevnoStanjeRacunaRepository dnevnoStanjeRacunaRepository;
 
     @Override
     public void processMT103(Mt103 mt103) {
@@ -98,7 +101,7 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
                 Racun racunDuznikaReal = racunDuznika.get();
                 racunDuznikaReal.setSaldo(racunDuznikaReal.getSaldo() - mt103Model.get().getIznos());
                 racunRepository.save(racunDuznikaReal);
-                napraviAnalitiku(mt103Model.get(), racunDuznikaReal);
+                napraviAnalitiku(mt103Model.get(), racunDuznikaReal, true);
             }
         }
 
@@ -111,8 +114,24 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
     }
 
     @Override
-    public void processMT910(Mt910 mt910) {
+    public String processMT910(Mt910 mt910) {
+        Optional<Mt103Model> mt103Model = mt103Repository.findByIdPoruke(mt910.getIdPoruke());
 
+        if(!mt103Model.isPresent()){
+            return "Nisam pronasao model mt103Model.";
+        }else{
+            Optional <Racun> racunPoverioca = racunRepository.findByBrojRacuna(mt103Model.get().getRacunPoverioca());
+            if(!racunPoverioca.isPresent()){
+                return "Nema racuna poverioca";
+            }else{
+                Racun RacunPoveriocaReal = racunPoverioca.get();
+                RacunPoveriocaReal.setSaldo(RacunPoveriocaReal.getSaldo() + mt103Model.get().getIznos());
+                racunRepository.save(RacunPoveriocaReal);
+                napraviAnalitiku(mt103Model.get(), RacunPoveriocaReal, false);
+            }
+        }
+
+        return "ok";
     }
 
     @Override
@@ -145,29 +164,101 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         mt103Repository.save(mt103Model);
     }
 
-    private void napraviAnalitiku(Mt103Model mt103Model, Racun racunDuznik){
+    private void napraviAnalitiku(Mt103Model mt103Model, Racun racunDuznik, boolean duznik){
         AnalitikaIzvoda analitika = new AnalitikaIzvoda();
 
-//        analitika.setDatumNaloga(nalog.getDatumNaloga().toGregorianCalendar().getTime());
-//        analitika.setPrimljeno(false);
-//        analitika.setDuznik(nalog.getDuznik());
-//        analitika.setPoverilac(nalog.getPoverilac());
-//        analitika.setDatumValute(nalog.getDatumValute().toGregorianCalendar().getTime());
-//        analitika.setRacunDuznika(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getRacunUcesnika());
-//        analitika.setModelZaduzenja(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getModelPrenosa());
-//        analitika.setPozivNaBrojZaduzenja(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getPozivNaBroj());
-//        analitika.setRacunPoverioca(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getRacunUcesnika());
-//        analitika.setModelOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getModelPrenosa());
-//        analitika.setPozivNaBrojZaduzenja(nalog.getPodaciOPrenosu().getDuznikUPrenosu().getPozivNaBroj());
-//        analitika.setPozivNaBrojOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getPozivNaBroj());
-//        analitika.setIznos(nalog.getPodaciOPrenosu().getIznos());
-//        analitika.setSifraValute(nalog.getPodaciOPrenosu().getOznakaValute().value());
-//        analitika.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
-//        //analitikaDuznika.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunDuznika));
+        analitika.setDatumNaloga(mt103Model.getDatumNaloga());
+        analitika.setPrimljeno(!duznik);
+        analitika.setDuznik(mt103Model.getDuznik());
+        analitika.setPoverilac(mt103Model.getPoverilac());
+        analitika.setDatumValute(mt103Model.getDatumValute());
+        analitika.setRacunDuznika(mt103Model.getRacunDuznika());
+        analitika.setModelZaduzenja(mt103Model.getModelZaduzenja().longValue());
+        analitika.setPozivNaBrojZaduzenja(mt103Model.getPozivNaBrojZaduzenja());
+        analitika.setRacunPoverioca(mt103Model.getRacunPoverioca());
+        analitika.setModelOdobrenja(mt103Model.getModelOdobrenja().longValue());
+        analitika.setPozivNaBrojOdobrenja(mt103Model.getPozivNaBrojOdobrenja());
+        analitika.setIznos(BigDecimal.valueOf(mt103Model.getIznos()));
+        analitika.setSifraValute(mt103Model.getSifraValute());
+        analitika.setSvrhaPlacanja(mt103Model.getSvrhaPlacanja());
 
+        evidentirajDnevnoStanje(analitika, mt103Model, racunDuznik, duznik);
+
+
+    }
+
+    private void evidentirajDnevnoStanje(AnalitikaIzvoda analitika, Mt103Model mt103Model, Racun racun, boolean isDuzan){
+        //treba evidentirati dnevno stanje duznika
+
+        boolean nasaoDnevnoStanje = false;
+
+        Date datumAnalitike = analitika.getDatumNaloga();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(datumAnalitike);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR, 0);
+        datumAnalitike = calendar.getTime();
+
+        //uci i pokupiti sva dnevna stanja,
+        for (DnevnoStanjeRacuna dsr : racun.getDnevnoStanjeRacuna()) {
+            Date tempDatum = dsr.getDatum();
+            Calendar tempCal = Calendar.getInstance();
+            tempCal.setTime(tempDatum);
+            tempCal.set(Calendar.MILLISECOND, 0);
+            tempCal.set(Calendar.SECOND, 0);
+            tempCal.set(Calendar.MINUTE, 0);
+            tempCal.set(Calendar.HOUR, 0);
+            tempDatum = tempCal.getTime();
+
+            if (tempDatum.equals(datumAnalitike)){
+                //nasao sam dnevno stanje
+                dsr.setPredhodnoStanje(dsr.getNovoStanje());
+                if(isDuzan) {
+                    dsr.setNovoStanje(dsr.getNovoStanje() - mt103Model.getIznos());
+                }else{
+                    dsr.setNovoStanje(dsr.getNovoStanje() + mt103Model.getIznos());
+                }
+
+                dsr.getAnalitikeIzvoda().add(analitika);
+                analitika.setDnevnoStanjeRacuna(dsr);
+                dsr = dnevnoStanjeRacunaRepository.save(dsr);
+                racun.getDnevnoStanjeRacuna().add(dsr);
+                nasaoDnevnoStanje = true;
+                break;
+            }
+        }
+
+        if(!nasaoDnevnoStanje){
+            DnevnoStanjeRacuna dnevnoStanjeRacuna = new DnevnoStanjeRacuna();
+            dnevnoStanjeRacuna.setDatum(datumAnalitike);
+            dnevnoStanjeRacuna.setRacun(racun);
+
+            if(isDuzan) {
+                dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() + mt103Model.getIznos());
+                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
+                dnevnoStanjeRacuna.setPrometNaTeret(1);
+            }else{
+                dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() - mt103Model.getIznos());
+                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
+                dnevnoStanjeRacuna.setPrometuKorist(1);
+            }
+            List<AnalitikaIzvoda> listaAnalitika = new ArrayList<>();
+            if(dnevnoStanjeRacuna.getAnalitikeIzvoda() == null){
+                 listaAnalitika.add(analitika);
+                 dnevnoStanjeRacuna.setAnalitikeIzvoda(listaAnalitika);
+            }else{
+                dnevnoStanjeRacuna.getAnalitikeIzvoda().add(analitika);
+            }
+
+            dnevnoStanjeRacuna = dnevnoStanjeRacunaRepository.save(dnevnoStanjeRacuna);
+            racun.getDnevnoStanjeRacuna().add(dnevnoStanjeRacuna);
+            analitika.setDnevnoStanjeRacuna(dnevnoStanjeRacuna);
+        }
+
+        racunRepository.save(racun);
         analitikaIzvodaRepository.save(analitika);
-;
-
     }
 
 }
