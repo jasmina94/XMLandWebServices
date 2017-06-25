@@ -3,7 +3,9 @@ package com.ftn.service.implementation;
 import com.ftn.exception.BadRequestException;
 import com.ftn.exception.NotFoundException;
 import com.ftn.model.dto.FakturaDTO;
+import com.ftn.model.dto.TStavkaFakturaDTO;
 import com.ftn.model.generated.faktura.Faktura;
+import com.ftn.model.generated.tipovi.TStavkaFaktura;
 import com.ftn.repository.FakturaDao;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.FakturaService;
@@ -75,6 +77,12 @@ public class FakturaServiceImplementation implements FakturaService {
 
         faktura.setPodaciOKupcu((tPodaciSubjekatDao.findById(fakturaDTO.getPodaciOKupcu().getId()).get()));
         faktura.setPodaciODobavljacu((tPodaciSubjekatDao.findById(fakturaDTO.getPodaciODobavljacu().getId()).get()));
+
+        ArrayList<TStavkaFaktura> stavke = new ArrayList<>();
+        for (TStavkaFakturaDTO stavkaDTO: fakturaDTO.getStavkaFakture())
+            stavke.add(stavkaDTO.construct());
+        faktura.setStavkaFakture(stavke);
+
         fakturaDao.save(faktura);
         return new FakturaDTO(faktura);
     }

@@ -92,7 +92,7 @@ public class FakturaDTO {
         if (cascade) {
             this.podaciODobavljacu = faktura.getPodaciODobavljacu() != null ? new TPodaciSubjektDTO(faktura.getPodaciODobavljacu(), false) : null;
             this.podaciOKupcu = faktura.getPodaciOKupcu() != null ? new TPodaciSubjektDTO(faktura.getPodaciOKupcu(), false) : null;
-            this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka, false)).collect(Collectors.toList());
+            this.stavkaFakture = faktura.getStavkaFakture().stream().map(stavka -> new TStavkaFakturaDTO(stavka)).collect(Collectors.toList());
 
         }
     }

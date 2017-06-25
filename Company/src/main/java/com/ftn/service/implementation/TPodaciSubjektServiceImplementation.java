@@ -29,11 +29,11 @@ public class TPodaciSubjektServiceImplementation implements TPodaciSubjektServic
     @Override
     public List<TPodaciSubjektDTO> readPoslovniPartneri(Long id) {
         List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
-//        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
-//            if (partner.getId() == id) {
-//                    poslovniPartneri = partner.getPoslovniPartneri();
-//            }
-//        }
+        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
+            if (partner.getId() == id) {
+                    poslovniPartneri = partner.getPoslovniPartneri();
+            }
+        }
         return poslovniPartneri.stream().map(TPodaciSubjektDTO::new).collect(Collectors.toList());
     }
 
