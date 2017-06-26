@@ -1,4 +1,4 @@
-app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $mdDialog, firma) {
+app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $mdDialog, firma, zahtevZaIzvodService) {
 
     $scope.firma = firma;
     $scope.zahtevZaIzvod = {};
@@ -9,7 +9,34 @@ app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $
     };
     
     $scope.posaljiZahtev = function () {
-        //TODO: Implementirati
+        $scope.zahtevZaIzvod.brojRacuna = $scope.firma.racunFirme;
+        zahtevZaIzvodService.posaljiZahtev($scope.zahtevZaIzvod, function (response) {
+            if(response.data) {
+                prikaziUspeh();
+            } else {
+                prikaziNeuspeh();
+            }
+        });
+    }
+
+    var prikaziUspeh = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Uspeh')
+                .content('Zahtev je poslat banci.')
+                .ok('Ok')
+        );
+    }
+
+    var prikaziNeuspeh = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Neuspeh')
+                .content('Doslo je do greske pri slanju zahteva.')
+                .ok('Ok')
+        );
     }
 
     $scope.query = {
