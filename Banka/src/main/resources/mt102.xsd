@@ -5,6 +5,7 @@
     xmlns:mt102header="http://www.ftn.uns.ac.rs/mt102header">
     <xs:import namespace="http://www.ftn.uns.ac.rs/mt102header" schemaLocation="mt102_header.xsd"/>
     <xs:import namespace="http://www.ftn.uns.ac.rs/mt102body" schemaLocation="mt102_body.xsd"/>
+
     <xs:element name="getMt102Request">
         <xs:complexType>
             <xs:sequence>
@@ -19,6 +20,7 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
     <xs:complexType name="mt102">
         <xs:sequence>
             <xs:element ref="mt102header:mt102_zaglavlje"/>

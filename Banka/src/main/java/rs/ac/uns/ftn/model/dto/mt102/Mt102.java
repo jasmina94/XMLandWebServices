@@ -14,8 +14,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import rs.ac.uns.ftn.model.dto.mt102.mt102body.Mt102Telo;
-import rs.ac.uns.ftn.model.dto.mt102.mt102header.Mt102Zaglavlje;
+import rs.ac.uns.ftn.model.dto.mt102body.Mt102Telo;
+import rs.ac.uns.ftn.model.dto.mt102header.Mt102Zaglavlje;
 
 
 /**

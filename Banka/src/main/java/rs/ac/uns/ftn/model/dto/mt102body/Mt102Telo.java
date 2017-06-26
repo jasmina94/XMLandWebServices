@@ -6,22 +6,16 @@
 //
 
 
-package rs.ac.uns.ftn.model.dto.mt102.mt102body;
+package rs.ac.uns.ftn.model.dto.mt102body;
 
-import java.math.BigDecimal;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.datatype.XMLGregorianCalendar;
+
 import rs.ac.uns.ftn.model.dto.tipovi.TOznakaValute;
 import rs.ac.uns.ftn.model.dto.tipovi.TPodaciPlacanje;
 import rs.ac.uns.ftn.model.dto.tipovi.TPravnoLice;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 
 /**
  * <p>Java class for anonymous complex type.
@@ -333,11 +327,11 @@ public class Mt102Telo {
 
         /**
          * Gets the value of the value property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link BigDecimal }
-         *     
+         *
          */
         public BigDecimal getValue() {
             return value;
@@ -345,11 +339,11 @@ public class Mt102Telo {
 
         /**
          * Sets the value of the value property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link BigDecimal }
-         *     
+         *
          */
         public void setValue(BigDecimal value) {
             this.value = value;
@@ -357,11 +351,11 @@ public class Mt102Telo {
 
         /**
          * Gets the value of the valuta property.
-         * 
+         *
          * @return
          *     possible object is
          *     {@link TOznakaValute }
-         *     
+         *
          */
         public TOznakaValute getValuta() {
             return valuta;
@@ -369,11 +363,11 @@ public class Mt102Telo {
 
         /**
          * Sets the value of the valuta property.
-         * 
+         *
          * @param value
          *     allowed object is
          *     {@link TOznakaValute }
-         *     
+         *
          */
         public void setValuta(TOznakaValute value) {
             this.valuta = value;

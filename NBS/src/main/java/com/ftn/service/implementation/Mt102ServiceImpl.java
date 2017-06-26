@@ -103,7 +103,7 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
         });
 
         final List<PaymentBatch> clearingCandidates = paymentBatchDao.findByClearedFalse();
-        if (clearingCandidates.size() > 1) {
+        if (clearingCandidates.size() > 0) {
             clear(clearingCandidates);
         }
     }
@@ -133,6 +133,9 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
             // Send Mt910
             mt910Service.send(mt102);
+
+            paymentBatch.setCleared(true);
+            paymentBatchDao.save(paymentBatch);
         });
     }
 
