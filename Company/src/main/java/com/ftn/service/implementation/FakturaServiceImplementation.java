@@ -94,32 +94,33 @@ public class FakturaServiceImplementation implements FakturaService {
     @Override
     public FakturaDTO update(Long id, FakturaDTO fakturaDTO) {
 
-        BigDecimal vrednostRobe = BigDecimal.valueOf(0.0);
-        BigDecimal vrednostUsluga = BigDecimal.valueOf(0.0);
-        BigDecimal vrednostRobaIUsluga = BigDecimal.valueOf(0.0);
-        BigDecimal ukupanRabat= BigDecimal.valueOf(0.0);
-        BigDecimal ukupanPorez = BigDecimal.valueOf(0.0);
+        double vrednostRobe = 0.0;
+        double vrednostUsluga = 0.0;
+        double vrednostRobaIUsluga = 0.0;
+        double ukupanRabat = 0.0;
+        double ukupanPorez = 0.0;
 
 
         for (TStavkaFakturaDTO stavka: fakturaDTO.getStavkaFakture()) {
             if (stavka.isRoba())
-                vrednostRobe.add(stavka.getVrednost());
+                vrednostRobe += stavka.getVrednost().doubleValue();
             else
-                vrednostUsluga.add(stavka.getVrednost());
+                vrednostUsluga += stavka.getVrednost().doubleValue();
 
-            vrednostRobaIUsluga.add(stavka.getVrednost());
-            ukupanRabat.add(stavka.getIznosRabata());
-            ukupanPorez.add(stavka.getUkupanPorez());
+            vrednostRobaIUsluga += stavka.getVrednost().doubleValue();
+            ukupanRabat += stavka.getIznosRabata().doubleValue();
+            ukupanPorez += stavka.getUkupanPorez().doubleValue();
         }
 
-        fakturaDTO.setVrednostRobe(vrednostRobe);
-        fakturaDTO.setVrednostUsluga(vrednostUsluga);
-        fakturaDTO.setUkupnoRobaIUsluga(vrednostRobaIUsluga);
-        fakturaDTO.setUkupanRabat(ukupanRabat);
-        fakturaDTO.setUkupanPorez(ukupanPorez);
-        fakturaDTO.setIznosZaUplatu(vrednostRobaIUsluga.add(ukupanPorez).subtract(ukupanRabat));
+        fakturaDTO.setVrednostRobe(BigDecimal.valueOf(vrednostRobe));
+        fakturaDTO.setVrednostUsluga(BigDecimal.valueOf(vrednostUsluga));
+        fakturaDTO.setUkupnoRobaIUsluga(BigDecimal.valueOf(vrednostRobaIUsluga));
+        fakturaDTO.setUkupanRabat(BigDecimal.valueOf(ukupanRabat));
+        fakturaDTO.setUkupanPorez(BigDecimal.valueOf(ukupanPorez));
+        fakturaDTO.setIznosZaUplatu(BigDecimal.valueOf(vrednostRobaIUsluga + ukupanPorez - ukupanRabat));
         fakturaDTO.setUplataNaRacun(fakturaDTO.getPodaciODobavljacu().getRacunFirme());
 
+        
         final Faktura faktura = fakturaDao.findById(id).orElseThrow(NotFoundException::new);
         faktura.merge(fakturaDTO);
         fakturaDao.save(faktura);
