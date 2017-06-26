@@ -38,7 +38,6 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
     @Override
     public boolean posaljiZahtev(ZahtevZaIzvod zahtevZaIzvod) {
         File file = new File("src/main/resources/zahtevZaIzvod.xml");
-
         JAXBContext jaxbContext;
         try {
             jaxbContext = JAXBContext.newInstance(GetZahtevZaIzvodRequest.class);
@@ -55,12 +54,11 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
         if(!validateXMLSchema("src/main/resources/zahtev_za_izvod.xsd", "src/main/resources/zahtevZaIzvod.xml")) {
             return false;
         }
-        //send(zahtevZaIzvod);
-        //return send(zahtevZaIzvod);
-        return true;
+
+        return send(zahtevZaIzvod);
     }
 
-    private void send(ZahtevZaIzvod zahtevZaIzvod) {
+    private boolean send(ZahtevZaIzvod zahtevZaIzvod) {
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetZahtevZaIzvodRequest.class, GetZahtevZaIzvodResponse.class);
         setMarshaller(marshaller);
@@ -68,9 +66,13 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
 
         final GetZahtevZaIzvodRequest getZahtevZaIzvodRequest = new GetZahtevZaIzvodRequest();
         getZahtevZaIzvodRequest.setZahtevZaIzvod(zahtevZaIzvod);
-        final GetZahtevZaIzvodResponse response = (GetZahtevZaIzvodResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(environmentProperties.getBankUrl(), getZahtevZaIzvodRequest);
-        // TODO: Based on response throw an exception maybe?
+        try{
+            final GetZahtevZaIzvodResponse response = (GetZahtevZaIzvodResponse) getWebServiceTemplate()
+                    .marshalSendAndReceive(environmentProperties.getBankUrl(), getZahtevZaIzvodRequest);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
 

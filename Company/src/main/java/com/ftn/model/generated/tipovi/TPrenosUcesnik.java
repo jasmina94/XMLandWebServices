@@ -15,6 +15,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
 
 
@@ -57,9 +60,12 @@ public class TPrenosUcesnik {
     protected String racunUcesnika;
     @XmlElement(name = "model_prenosa")
     @XmlSchemaType(name = "unsignedInt")
+    @Min(10)
+    @Max(99)
     protected long modelPrenosa;
     @XmlElement(name = "poziv_na_broj", required = true)
     @Column(nullable = false)
+    @Size(max = 20)
     protected String pozivNaBroj;
 
     /**
