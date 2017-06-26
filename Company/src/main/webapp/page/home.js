@@ -36,4 +36,13 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
     $scope.goToNaloziDuznik = function () {
         $state.transitionTo('home.nalogDuznik');
     };
+
+    $scope.kreirajZahtevZaIzvod = function() {
+        $mdDialog.show({
+            parent: angular.element(document.body),
+            templateUrl: 'dialog/zahtevZaIzvodForm.html',
+            controller: 'ZahtevZaIzvodFormController',
+            locals: {firma: $scope.zaposleni.tpodaciSubjektDTO}
+        });
+    }
 });
