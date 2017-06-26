@@ -38,7 +38,6 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
 
 
     $scope.showStavke = function(faktura) {
-        fakturaService.
         loadData();
         $mdDialog.show({
             parent: angular.element(document.body),
