@@ -39,8 +39,6 @@ public class FakturaController {
     @Transactional
     @GetMapping(value = "/{id}")
     public ResponseEntity readFaktura(@PathVariable Long id) {
-        System.out.println("fakturaaa " + id);
-        System.out.println(fakturaService.readFaktura(id));
         return new ResponseEntity<>(fakturaService.readFaktura(id), HttpStatus.OK);
     }
 
@@ -71,4 +69,5 @@ public class FakturaController {
             throw new BadRequestException();
         return new ResponseEntity<>(fakturaService.update(id, fakturaDTO), HttpStatus.OK);
     }
+
 }

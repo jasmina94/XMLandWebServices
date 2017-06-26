@@ -52,7 +52,7 @@
                             </md-button>
                         </td>
                         <td md-cell ng-if = "uloga == 'dobavljac'" >
-                            <md-button class = "md-raised" ng-click = "sendFaktura()" ng-disabled="faktura.stavkaFakture.length == 0 || faktura.poslato">
+                            <md-button class = "md-raised" ng-click = "sendFaktura(faktura)" ng-disabled="faktura.stavkaFakture.length == 0 || faktura.poslato">
                                 Posalji fakturu
                             </md-button>
                         </td>

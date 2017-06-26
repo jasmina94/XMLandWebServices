@@ -77,6 +77,14 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         });
     }
 
+    $scope.sendFaktura = function(faktura) {
+        faktura.poslato = true;
+        fakturaService.update(faktura, function (response) {
+           loadData();
+        });
+
+    }
+
     $scope.query = {
         order: 'name',
         limit: 5,
