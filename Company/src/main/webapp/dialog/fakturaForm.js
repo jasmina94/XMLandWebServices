@@ -2,9 +2,13 @@
  * Created by JELENA on 20.6.2017.
  */
 
-app.controller('FakturaFormController', function ($scope, $http, $state, $mdDialog, fakturaService, tPodaciSubjektService, authenticationService, faktura) {
+app.controller('FakturaFormController', function ($scope, $http, $state, $mdDialog, $filter, fakturaService, tPodaciSubjektService, authenticationService, faktura) {
 
     $scope.zaposleni = authenticationService.getUser();
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
     $scope.faktura = {
         "podaciODobavljacu": $scope.zaposleni.tpodaciSubjektDTO,
@@ -18,9 +22,9 @@ app.controller('FakturaFormController', function ($scope, $http, $state, $mdDial
         "uplataNaRacun": "000-0000000000000-00",
         "stavkaFakture": [],
         "idPoruke": 0,
-        "brojRacuna": 100000,
-        "datumRacuna": "2017-01-01",
-        "datumValute": "2017-01-01"
+        "brojRacuna": getRandomInt(100000, 999999),
+        "datumRacuna": $filter('date')(new Date(),'yyyy-MM-dd'),
+        "datumValute": $filter('date')(new Date(),'yyyy-MM-dd')
     };
 
     tPodaciSubjektService.readPoslovniPartneri($scope.zaposleni.tpodaciSubjektDTO.id,  function (response) {
