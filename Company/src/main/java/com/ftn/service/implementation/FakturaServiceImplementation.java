@@ -13,6 +13,7 @@ import com.ftn.service.FakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,10 +93,35 @@ public class FakturaServiceImplementation implements FakturaService {
 
     @Override
     public FakturaDTO update(Long id, FakturaDTO fakturaDTO) {
+
+        BigDecimal vrednostRobe = BigDecimal.valueOf(0.0);
+        BigDecimal vrednostUsluga = BigDecimal.valueOf(0.0);
+        BigDecimal vrednostRobaIUsluga = BigDecimal.valueOf(0.0);
+        BigDecimal ukupanRabat= BigDecimal.valueOf(0.0);
+        BigDecimal ukupanPorez = BigDecimal.valueOf(0.0);
+
+
+        for (TStavkaFakturaDTO stavka: fakturaDTO.getStavkaFakture()) {
+            if (stavka.isRoba())
+                vrednostRobe.add(stavka.getVrednost());
+            else
+                vrednostUsluga.add(stavka.getVrednost());
+
+            vrednostRobaIUsluga.add(stavka.getVrednost());
+            ukupanRabat.add(stavka.getIznosRabata());
+            ukupanPorez.add(stavka.getUkupanPorez());
+        }
+
+        fakturaDTO.setVrednostRobe(vrednostRobe);
+        fakturaDTO.setVrednostUsluga(vrednostUsluga);
+        fakturaDTO.setUkupnoRobaIUsluga(vrednostRobaIUsluga);
+        fakturaDTO.setUkupanRabat(ukupanRabat);
+        fakturaDTO.setUkupanPorez(ukupanPorez);
+        fakturaDTO.setIznosZaUplatu(vrednostRobaIUsluga.add(ukupanPorez).subtract(ukupanRabat));
+        fakturaDTO.setUplataNaRacun(fakturaDTO.getPodaciODobavljacu().getRacunFirme());
+
         final Faktura faktura = fakturaDao.findById(id).orElseThrow(NotFoundException::new);
-        System.out.println("pre merge" + fakturaDTO.getStavkaFakture().size());
         faktura.merge(fakturaDTO);
-        System.out.println("posle merge" + faktura.getStavkaFakture().size());
         fakturaDao.save(faktura);
         return new FakturaDTO(faktura);
     }

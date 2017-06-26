@@ -58,33 +58,24 @@ public class TStavkaFakturaServiceImplementation implements TStavkaFakturaServic
     }
 
     public TStavkaFakturaDTO kreirajStavku(FakturaDTO fakturaDTO, BigDecimal kolicina, RobaUslugaDTO robaUslugaDTO) {
-        System.out.println("SERVIC" + fakturaDTO);
         Faktura faktura = fakturaDao.findById(fakturaDTO.getId()).get();
-       // System.out.println(faktura);
 
         TStavkaFakturaDTO tStavkaFakturaDTO = new TStavkaFakturaDTO();
-        //System.out.println("redniBroj " + (fakturaDTO.getStavkaFakture().size() + 1));
         tStavkaFakturaDTO.setRedniBroj(fakturaDTO.getStavkaFakture().size() + 1);
         tStavkaFakturaDTO.setNazivRobeUsluge(robaUslugaDTO.getNaziv());
+        tStavkaFakturaDTO.setRoba(!robaUslugaDTO.isTip());
         tStavkaFakturaDTO.setKolicina(kolicina);
         tStavkaFakturaDTO.setJedinicaMere(robaUslugaDTO.getJedinicaMere());
         tStavkaFakturaDTO.setJedinicnaCena(robaUslugaDTO.getCena());
-        //ovi atributi da se postave u skadu sa poslovnom logikom
+
         tStavkaFakturaDTO.setVrednost(tStavkaFakturaDTO.getJedinicnaCena().multiply(tStavkaFakturaDTO.getKolicina()));
         tStavkaFakturaDTO.setProcenatRabata(robaUslugaDTO.getProcenatRabata());
-        tStavkaFakturaDTO.setIznosRabata(BigDecimal.valueOf(0.0));
-        tStavkaFakturaDTO.setUmanjenoZaRabat(BigDecimal.valueOf(0.0));
-        tStavkaFakturaDTO.setUkupanPorez(BigDecimal.valueOf(0.0));
-       // tStavkaFakturaDTO.setFaktura(fakturaDTO);
+        tStavkaFakturaDTO.setIznosRabata(tStavkaFakturaDTO.getVrednost().multiply(robaUslugaDTO.getProcenatRabata().divide(BigDecimal.valueOf(100.00))));
+        tStavkaFakturaDTO.setUmanjenoZaRabat(tStavkaFakturaDTO.getVrednost().subtract(tStavkaFakturaDTO.getIznosRabata()));
+        tStavkaFakturaDTO.setUkupanPorez(tStavkaFakturaDTO.getVrednost().multiply(robaUslugaDTO.getProcenatPoreza()).divide(BigDecimal.valueOf(100.00)));
         TStavkaFakturaDTO kreiranaStavkaFakturaDTO = create(tStavkaFakturaDTO);
-       // System.out.println("redni broj sacuvan " + kreiranaStavkaFakturaDTO.getRedniBroj());
         fakturaDTO.getStavkaFakture().add(kreiranaStavkaFakturaDTO);
-        //System.out.println("nakon dodavanja" + fakturaDTO.getStavkaFakture().size());
-        //fakturaDao.save(fakturaDTO.construct());
-        System.out.println("pre update");
         fakturaService.update(fakturaDTO.getId(), fakturaDTO);
-        System.out.println("posle update");
-
 
         return kreiranaStavkaFakturaDTO;
     }

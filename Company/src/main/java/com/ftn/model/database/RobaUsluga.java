@@ -39,6 +39,13 @@ public class RobaUsluga {
     @Digits(integer=5, fraction=2)
     private BigDecimal procenatRabata;
 
+    @Column(nullable = false)
+    @Digits(integer=5, fraction=2)
+    private BigDecimal procenatPoreza;
+
+    @Column(nullable = false)
+    private boolean tip;
+
     public RobaUsluga() {}
 
     public void merge(RobaUslugaDTO robaUslugaDTO) {
@@ -46,6 +53,8 @@ public class RobaUsluga {
        this.cena = robaUslugaDTO.getCena();
        this.jedinicaMere = robaUslugaDTO.getJedinicaMere();
        this.procenatRabata = robaUslugaDTO.getProcenatRabata();
+       this.procenatPoreza = robaUslugaDTO.getProcenatPoreza();
+       this.tip = robaUslugaDTO.isTip();
     }
 
 

@@ -52,6 +52,8 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             templateUrl: 'dialog/robaUslugaForm.html',
             controller: 'RobaUslugaFormController',
             locals: {faktura: faktura}
+        }).finally(function () {
+            loadData();
         });
     };
 
