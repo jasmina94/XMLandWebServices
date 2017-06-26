@@ -12,9 +12,13 @@ import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.FakturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -70,9 +74,16 @@ public class FakturaServiceImplementation implements FakturaService {
 
     @Override
     public FakturaDTO create(FakturaDTO fakturaDTO) {
-        if (fakturaDao.findById(fakturaDTO.getId()).isPresent())
-            throw new BadRequestException();
+        fakturaDTO.setId(0);
 
+        fakturaDTO.setUplataNaRacun(fakturaDTO.getPodaciODobavljacu().getRacunFirme());
+        String UUIDString = UUID.randomUUID().toString();
+        while (UUIDString.length() > 50)
+            UUIDString = UUID.randomUUID().toString();
+
+        fakturaDTO.setIdPoruke(UUIDString);
+
+        System.out.println("uuid: " + fakturaDTO.getIdPoruke());
         final Faktura faktura = fakturaDTO.construct();
 
         if (!tPodaciSubjekatDao.findById(fakturaDTO.getPodaciOKupcu().getId()).isPresent() || !tPodaciSubjekatDao.findById(fakturaDTO.getPodaciODobavljacu().getId()).isPresent())
@@ -92,10 +103,43 @@ public class FakturaServiceImplementation implements FakturaService {
 
     @Override
     public FakturaDTO update(Long id, FakturaDTO fakturaDTO) {
+
         final Faktura faktura = fakturaDao.findById(id).orElseThrow(NotFoundException::new);
-        System.out.println("pre merge" + fakturaDTO.getStavkaFakture().size());
+
+        if (!faktura.isPoslato() && fakturaDTO.isPoslato()) {
+            fakturaDTO.setDatumValute(new Date());
+            final RestTemplate restTemplate = new RestTemplate();
+            final String firmaUrl = tPodaciSubjekatDao.findByPib(faktura.getPodaciOKupcu().getPib()).get().getCompanyUrl();
+            final FakturaDTO fakturaResponse = restTemplate.postForObject(firmaUrl + "api/fakture", fakturaDTO, FakturaDTO.class);
+        } else {
+            double vrednostRobe = 0.0;
+            double vrednostUsluga = 0.0;
+            double vrednostRobaIUsluga = 0.0;
+            double ukupanRabat = 0.0;
+            double ukupanPorez = 0.0;
+
+
+            for (TStavkaFakturaDTO stavka: fakturaDTO.getStavkaFakture()) {
+                if (stavka.isRoba())
+                    vrednostRobe += stavka.getVrednost().doubleValue();
+                else
+                    vrednostUsluga += stavka.getVrednost().doubleValue();
+
+                vrednostRobaIUsluga += stavka.getVrednost().doubleValue();
+                ukupanRabat += stavka.getIznosRabata().doubleValue();
+                ukupanPorez += stavka.getUkupanPorez().doubleValue();
+            }
+
+            fakturaDTO.setVrednostRobe(BigDecimal.valueOf(vrednostRobe));
+            fakturaDTO.setVrednostUsluga(BigDecimal.valueOf(vrednostUsluga));
+            fakturaDTO.setUkupnoRobaIUsluga(BigDecimal.valueOf(vrednostRobaIUsluga));
+            fakturaDTO.setUkupanRabat(BigDecimal.valueOf(ukupanRabat));
+            fakturaDTO.setUkupanPorez(BigDecimal.valueOf(ukupanPorez));
+            fakturaDTO.setIznosZaUplatu(BigDecimal.valueOf(vrednostRobaIUsluga + ukupanPorez - ukupanRabat));
+
+        }
+
         faktura.merge(fakturaDTO);
-        System.out.println("posle merge" + faktura.getStavkaFakture().size());
         fakturaDao.save(faktura);
         return new FakturaDTO(faktura);
     }

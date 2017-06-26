@@ -13,5 +13,7 @@ public interface TPodaciSubjekatDao extends JpaRepository<TPodaciSubjekt, Long> 
 
     Optional<TPodaciSubjekt> findById(Long id);
 
+    Optional<TPodaciSubjekt> findByPib(String pib);
+
 
 }

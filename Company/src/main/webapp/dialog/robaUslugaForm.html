@@ -7,9 +7,11 @@
                 <thead md-head md-order="query.order">
                 <tr md-row>
                     <th md-column><span>Naziv robe/usluge</span></th>
+                    <th md-column><span>Tip</span></th>
                     <th md-column><span>Cena</span></th>
                     <th md-column><span>Jedinica mere</span></th>
                     <th md-column><span>Procenat rabata</span></th>
+                    <th md-column><span>Procenat poreza</span></th>
                     <th md-column><span>Kolicina</span></th>
                 </tr>
                 </thead>
@@ -17,8 +19,10 @@
                 <tr md-row ng-repeat="robaUsluga in robeUsluge | limitTo: query.limit:(query.page-1) * query.limit"
                     ng-click="null">
                     <td md-cell>{{robaUsluga.naziv}}</td>
+                    <td md-cell>{{robaUsluga.tip ? "usluga" : "roba"}}</td>
                     <td md-cell>{{robaUsluga.cena}}</td>
                     <td md-cell>{{robaUsluga.jedinicaMere}}</td>
+                    <td md-cell>{{robaUsluga.procenatPoreza}}</td>
                     <td md-cell>{{robaUsluga.procenatRabata}}</td>
                     <td md-cell>
                       <!-- <md-input-container>-->

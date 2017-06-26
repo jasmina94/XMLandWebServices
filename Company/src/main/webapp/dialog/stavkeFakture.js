@@ -4,10 +4,11 @@
 app.controller('StavkeFaktureController', function ($scope, $http, $state, $mdDialog, fakturaService, faktura) {
 
     var loadData = function () {
-        $scope.stavkeFakture = faktura.stavkaFakture;
-        // stavkeFaktureService.read(faktura.id, function (response) {
-        //     $scope.stavkeFakture = response.data;
-        // });
+        fakturaService.readFaktura(faktura.id, function (response) {
+            $scope.fakturaNova = response.data;
+            $scope.stavkeFakture = $scope.fakturaNova.stavkaFakture;
+        });
+
     };
 
     loadData();

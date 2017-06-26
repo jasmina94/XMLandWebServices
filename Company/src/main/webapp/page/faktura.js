@@ -38,7 +38,6 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
 
 
     $scope.showStavke = function(faktura) {
-        loadData();
         $mdDialog.show({
             parent: angular.element(document.body),
             templateUrl: 'dialog/stavkeFakture.html',
@@ -53,6 +52,8 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             templateUrl: 'dialog/robaUslugaForm.html',
             controller: 'RobaUslugaFormController',
             locals: {faktura: faktura}
+        }).finally(function () {
+            loadData();
         });
     };
 
@@ -74,6 +75,14 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
             controller: 'FakturaDetaljiController',
             locals: {faktura: faktura}
         });
+    }
+
+    $scope.sendFaktura = function(faktura) {
+        faktura.poslato = true;
+        fakturaService.update(faktura, function (response) {
+           loadData();
+        });
+
     }
 
     $scope.query = {

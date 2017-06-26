@@ -18,3 +18,5 @@ spring:
 
 environment:
     pib: 22222222222
+    bankUrl: http://localhost:8093/ws
+

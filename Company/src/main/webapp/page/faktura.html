@@ -46,13 +46,13 @@
                         <td md-cell ng-if = "uloga == 'kupac' && faktura.kreiranNalog">
                             <i>Kreiran nalog</i>
                         </td>
-                        <td md-cell ng-if = "uloga == 'dobavljac' && !faktura.poslato">
-                            <md-button class = "md-raised" ng-click = "addStavke(faktura)">
+                        <td md-cell ng-if = "uloga == 'dobavljac'">
+                            <md-button class = "md-raised" ng-click = "addStavke(faktura)" ng-disabled="faktura.poslato">
                                 Dodaj stavke
                             </md-button>
                         </td>
-                        <td md-cell nf-if = "uloga == 'dobavljac' && faktura.stavkafakture.length > 0 && !faktura.poslato">
-                            <md-button class = "md-raised" ng-click = "sendFaktura()">
+                        <td md-cell ng-if = "uloga == 'dobavljac'" >
+                            <md-button class = "md-raised" ng-click = "sendFaktura(faktura)" ng-disabled="faktura.stavkaFakture.length == 0 || faktura.poslato">
                                 Posalji fakturu
                             </md-button>
                         </td>

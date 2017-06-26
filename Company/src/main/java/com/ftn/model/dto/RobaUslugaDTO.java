@@ -28,6 +28,12 @@ public class RobaUslugaDTO  {
     @NotNull
     private BigDecimal procenatRabata;
 
+    @NotNull
+    private BigDecimal procenatPoreza;
+
+    @NotNull
+    private boolean tip;
+
 
     public RobaUslugaDTO(RobaUsluga robaUsluga) {
         this.id = robaUsluga.getId();
@@ -35,7 +41,8 @@ public class RobaUslugaDTO  {
         this.cena = robaUsluga.getCena();
         this.jedinicaMere = robaUsluga.getJedinicaMere();
         this.procenatRabata = robaUsluga.getProcenatRabata();
-
+        this.procenatPoreza = robaUsluga.getProcenatPoreza();
+        this.tip = tip;
     }
 
     public RobaUsluga construct() {
@@ -44,6 +51,8 @@ public class RobaUslugaDTO  {
         robaUsluga.setCena(cena);
         robaUsluga.setJedinicaMere(jedinicaMere);
         robaUsluga.setProcenatRabata(procenatRabata);
+        robaUsluga.setProcenatPoreza(procenatPoreza);
+        robaUsluga.setTip(tip);
 
         return robaUsluga;
     }
