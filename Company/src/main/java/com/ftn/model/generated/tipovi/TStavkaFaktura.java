@@ -180,9 +180,9 @@ public class TStavkaFaktura {
     @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
-    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
-    @XmlTransient
-    private Faktura faktura;
+  //  @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+  //  @XmlTransient
+  //  private Faktura faktura;
 
     /**
      * Gets the value of the redniBroj property.

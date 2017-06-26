@@ -39,8 +39,8 @@ public class TPodaciOPrenosuDTO {
         this.iznos = tPodaciOPrenosu.getIznos();
         this.oznakaValute = tPodaciOPrenosu.getOznakaValute();
         if(cascade) {
-            this.duznikUPrenosuDTO = tPodaciOPrenosu.getDuznikUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getDuznikUPrenosu(), false) : null;
-            this.poverilacUPrenosuDTO = tPodaciOPrenosu.getPoverilacUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getPoverilacUPrenosu(), false) : null;
+            this.duznikUPrenosuDTO = tPodaciOPrenosu.getDuznikUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getDuznikUPrenosu()) : null;
+            this.poverilacUPrenosuDTO = tPodaciOPrenosu.getPoverilacUPrenosu() != null ? new TPrenosUcesnikDTO(tPodaciOPrenosu.getPoverilacUPrenosu()) : null;
         }
     }
 

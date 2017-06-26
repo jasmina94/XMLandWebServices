@@ -117,7 +117,7 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         TPodaciOPrenosu podaciOPrenosu = new TPodaciOPrenosu();
         TPrenosUcesnik duznikUPrenosu = new TPrenosUcesnik();
         TPrenosUcesnik poverilacUPrenosu= new TPrenosUcesnik();
-
+        
         poverilacUPrenosu.setRacunUcesnika(podaciZaNalogDTO.getFaktura().getUplataNaRacun());
         poverilacUPrenosu.setPozivNaBroj(podaciZaNalogDTO.getPozivNaBrojOdobrenja());
         poverilacUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelOdobrenja());
@@ -138,14 +138,10 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         podaciOPrenosu.setDuznikUPrenosu(duznikUPrenosu);
         nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosu);
 
-        send(nalogZaPrenos);
-
+        //send(nalogZaPrenos);
         NalogZaPrenosDTO kreiranNalogDTO = create(new NalogZaPrenosDTO(nalogZaPrenos));
         podaciZaNalogDTO.getFaktura().setKreiranNalog(true);
         fakturaDao.save(podaciZaNalogDTO.getFaktura());
-
-
-
         return kreiranNalogDTO;
     }
 

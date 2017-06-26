@@ -10,10 +10,14 @@ package com.ftn.model.generated.tipovi;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -63,6 +67,7 @@ import javax.xml.bind.annotation.*;
     "pib"
 })
 @Entity
+@NoArgsConstructor
 @Data
 public class TPodaciSubjekt {
 
@@ -70,13 +75,27 @@ public class TPodaciSubjekt {
     @GeneratedValue
     @XmlTransient
     private long id;
-
     @XmlElement(required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String naziv;
     @XmlElement(required = true)
+    @Column(nullable = false)
+    @Size(max = 255)
     protected String adresa;
     @XmlElement(required = true)
+    @Column(nullable = false, length = 11)
+    @Pattern(regexp = "\\d{11}")
     protected String pib;
+
+    @XmlTransient
+    @Column(nullable = false)
+    protected String racunFirme;
+
+    @XmlTransient
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
+
 
     /**
      * Gets the value of the naziv property.

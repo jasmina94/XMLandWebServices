@@ -9,6 +9,7 @@
 package com.ftn.model.generated.tipovi;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +44,7 @@ import javax.xml.bind.annotation.*;
 
 })
 @Entity
+@NoArgsConstructor
 @Data
 public class TPrenosUcesnik {
 
@@ -50,13 +52,13 @@ public class TPrenosUcesnik {
     @GeneratedValue
     @XmlTransient
     private long id;
-    @XmlElement(name = "racun_ucesnika", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @XmlElement(name = "racun_ucesnika", required = true)
     @Column(nullable = false)
     protected String racunUcesnika;
-    @XmlElement(name = "model_prenosa", namespace = "http://www.ftn.uns.ac.rs/tipovi")
+    @XmlElement(name = "model_prenosa")
     @XmlSchemaType(name = "unsignedInt")
     protected long modelPrenosa;
-    @XmlElement(name = "poziv_na_broj", namespace = "http://www.ftn.uns.ac.rs/tipovi", required = true)
+    @XmlElement(name = "poziv_na_broj", required = true)
     @Column(nullable = false)
     protected String pozivNaBroj;
 

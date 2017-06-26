@@ -9,6 +9,7 @@
 package com.ftn.model.generated.faktura;
 
 import com.ftn.model.dto.FakturaDTO;
+import com.ftn.model.dto.TStavkaFakturaDTO;
 import com.ftn.model.generated.tipovi.TOznakaValute;
 import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import com.ftn.model.generated.tipovi.TStavkaFaktura;
@@ -149,10 +150,10 @@ public class Faktura {
     private long id;
 
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     protected TPodaciSubjekt podaciODobavljacu;
     @XmlElement(name = "podaci_o_kupcu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
-    @ManyToOne(optional = false, cascade = {CascadeType.DETACH, CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     protected TPodaciSubjekt podaciOKupcu;
     @XmlElement(name = "vrednost_robe", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
@@ -190,7 +191,7 @@ public class Faktura {
     protected String uplataNaRacun;
 
     @XmlElement(name = "stavka_fakture", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
-    @OneToMany(mappedBy = "faktura", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<TStavkaFaktura> stavkaFakture;
 
     @XmlAttribute(name = "id_poruke")
@@ -218,8 +219,8 @@ public class Faktura {
     public Faktura() {}
 
     public void merge(FakturaDTO fakturaDTO) {
-        this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
-        this.podaciOKupcu = fakturaDTO.getPodaciOKupcu().construct();
+       // this.podaciODobavljacu = fakturaDTO.getPodaciODobavljacu().construct();
+       // this.podaciOKupcu = fakturaDTO.getPodaciOKupcu().construct();
         this.vrednostRobe = fakturaDTO.getVrednostRobe();
         this.vrednostUsluga = fakturaDTO.getVrednostUsluga();
         this.ukupnoRobaIUsluga = fakturaDTO.getUkupnoRobaIUsluga();
@@ -234,6 +235,19 @@ public class Faktura {
         this.datumValute = fakturaDTO.getDatumValute();
         this.poslato = fakturaDTO.isPoslato();
         this.kreiranNalog = fakturaDTO.isKreiranNalog();
+
+
+        List<TStavkaFaktura> stavke = new ArrayList<>();
+        int brojac = 0;
+        for (TStavkaFakturaDTO tStavkaFakturaDTO: fakturaDTO.getStavkaFakture()) {
+            stavke.add(tStavkaFakturaDTO.construct());
+            stavke.get(brojac).setId(tStavkaFakturaDTO.getId());
+            brojac++;
+
+        }
+
+        this.stavkaFakture.clear();
+        this.stavkaFakture = stavke;
     }
 
     /**
@@ -499,6 +513,9 @@ public class Faktura {
      * 
      */
     public List<TStavkaFaktura> getStavkaFakture() {
+        if (stavkaFakture == null) {
+            stavkaFakture = new ArrayList<TStavkaFaktura>();
+        }
         return this.stavkaFakture;
     }
 
@@ -559,7 +576,7 @@ public class Faktura {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumRacuna() {
@@ -571,7 +588,7 @@ public class Faktura {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumRacuna(Date value) {
@@ -583,7 +600,7 @@ public class Faktura {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public Date getDatumValute() {
@@ -595,7 +612,7 @@ public class Faktura {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
     public void setDatumValute(Date value) {

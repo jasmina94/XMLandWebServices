@@ -5,6 +5,7 @@ import com.ftn.model.dto.TPodaciSubjektDTO;
 import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.TPodaciSubjektService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ public class TPodaciSubjektServiceImplementation implements TPodaciSubjektServic
 
     private final TPodaciSubjekatDao tPodaciSubjekatDao;
 
+    @Autowired
     public  TPodaciSubjektServiceImplementation(TPodaciSubjekatDao tPodaciSubjekatDao) { this.tPodaciSubjekatDao = tPodaciSubjekatDao; }
+
     @Override
     public List<TPodaciSubjektDTO> read() {
         return tPodaciSubjekatDao.findAll().stream().map(TPodaciSubjektDTO::new).collect(Collectors.toList());
@@ -29,11 +32,11 @@ public class TPodaciSubjektServiceImplementation implements TPodaciSubjektServic
     @Override
     public List<TPodaciSubjektDTO> readPoslovniPartneri(Long id) {
         List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
-//        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
-//            if (partner.getId() == id) {
-//                    poslovniPartneri = partner.getPoslovniPartneri();
-//            }
-//        }
+        for(TPodaciSubjekt partner : tPodaciSubjekatDao.findAll()) {
+            if (partner.getId() == id) {
+                    poslovniPartneri = partner.getPoslovniPartneri();
+            }
+        }
         return poslovniPartneri.stream().map(TPodaciSubjektDTO::new).collect(Collectors.toList());
     }
 
