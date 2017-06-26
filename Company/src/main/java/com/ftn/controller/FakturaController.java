@@ -37,6 +37,14 @@ public class FakturaController {
     }
 
     @Transactional
+    @GetMapping(value = "/{id}")
+    public ResponseEntity readFaktura(@PathVariable Long id) {
+        System.out.println("fakturaaa " + id);
+        System.out.println(fakturaService.readFaktura(id));
+        return new ResponseEntity<>(fakturaService.readFaktura(id), HttpStatus.OK);
+    }
+
+    @Transactional
     @GetMapping(value = "/firmaDobavljac")
     public ResponseEntity readDobavljac() {
         return new ResponseEntity<>(fakturaService.readDobavljac(), HttpStatus.OK);
