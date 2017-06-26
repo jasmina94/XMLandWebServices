@@ -32,9 +32,11 @@ public class Mt900Endpoint {
     @ResponsePayload
     public GetMt900Response mt900(@RequestPayload GetMt900Request request) {
         final GetMt900Response response = new GetMt900Response();
-        // IDPoruke naloga(Mt102 ili Mt103) govori da li je kliring ili rtgs.
-        // Dodati ovo
         //rtgsService.processMT900(request.getMt900());
+        String pom = request.getMt900().getPodaciONalogu().getIdPorukeNaloga();
+        System.out.println("vraca se mt900");
+        System.out.println("stize " + pom);
+
         String ret = clearingService.processMT900(request.getMt900());
         System.out.println(ret);
         response.setMt900("Ok");

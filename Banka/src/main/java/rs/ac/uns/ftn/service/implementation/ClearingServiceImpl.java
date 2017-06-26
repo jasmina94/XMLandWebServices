@@ -133,6 +133,9 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
 
     @Override
     public void sendMT102(Mt102 mt102) {
+        System.out.println("Saljem mt102");
+        System.out.println("mt102 ima id poruke: " + mt102.getMt102Zaglavlje().getIdPoruke());
+
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetMt102Request.class, GetMt102Response.class);
         setMarshaller(marshaller);

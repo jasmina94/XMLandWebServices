@@ -33,9 +33,7 @@ public class Mt910Endpoint {
     @ResponsePayload
     public GetMt910Response mt910(@RequestPayload GetMt910Request request) {
         final GetMt910Response response = new GetMt910Response();
-
         rtgsService.processMT910(request.getMt910());
-
         response.setMt910("Ok");
         return response;
     }
