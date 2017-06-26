@@ -15,7 +15,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class Mt102Endpoint {
 
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt102";
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt102";
 
     @Autowired
     private Mt102Service mt102Service;
