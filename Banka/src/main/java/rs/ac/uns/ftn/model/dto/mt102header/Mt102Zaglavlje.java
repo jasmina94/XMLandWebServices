@@ -6,7 +6,7 @@
 //
 
 
-package rs.ac.uns.ftn.model.dto.mt102.mt102header;
+package rs.ac.uns.ftn.model.dto.mt102header;
 
 import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;

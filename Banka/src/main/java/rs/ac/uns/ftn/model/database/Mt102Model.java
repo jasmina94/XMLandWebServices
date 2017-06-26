@@ -19,14 +19,14 @@ public class Mt102Model {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String idPoruke;
 
     @Column(length = 8)
-    private String SWIFTBankeDuznika;
+    private String swiftBankeDuznika;
 
     @Column(length = 8)
-    private String SWIFTBankePoverioca;
+    private String swiftBankePoverioca;
 
     @Column(length = 20)
     private String racunBankeDuznika;
@@ -35,7 +35,7 @@ public class Mt102Model {
     private String racunBankePoverioca;
 
     @Column
-    private Double ukupanIznos;
+    private double ukupanIznos;
 
     @Column
     private String sifraValute;

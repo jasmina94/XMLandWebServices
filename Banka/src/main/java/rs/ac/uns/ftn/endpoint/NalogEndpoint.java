@@ -17,9 +17,6 @@ import rs.ac.uns.ftn.service.PlacanjeService;
 @Endpoint
 public class NalogEndpoint {
     private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/nalog_za_prenos";
-//
-//    @Autowired
-//    private EnvironmentProperties environmentProperties;
 
     @Autowired
     private PlacanjeService servisPlacanje;
@@ -29,9 +26,7 @@ public class NalogEndpoint {
     public GetNalogZaPrenosResponse nalog(@RequestPayload GetNalogZaPrenosRequest request) {
         final GetNalogZaPrenosResponse response = new GetNalogZaPrenosResponse();
         NalogZaPrenos nalogZaPrenos = request.getNalogZaPrenos();
-
         servisPlacanje.process(nalogZaPrenos);
-
         response.setNalogZaPrenos("Ok");
         return response;
     }

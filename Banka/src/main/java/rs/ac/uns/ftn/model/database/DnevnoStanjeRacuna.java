@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.model.database;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -24,21 +25,26 @@ public class DnevnoStanjeRacuna {
     private Date datum;
 
     @Column
-    private Double predhodnoStanje;
+    private double predhodnoStanje;
 
     @Column
-    private int prometNaTeret;
+    private int brojPromenaNaTeret;
 
     @Column
-    private int prometuKorist;
+    private int brojPromenaUKorist;
 
     @Column
-    private Double novoStanje;
+    private double ukupnoUKorist;
+
+    @Column
+    private double ukupnoNaTeret;
+
+    @Column
+    private double novoStanje;
 
     @ManyToOne
     private Racun racun;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna")
     private List<AnalitikaIzvoda> analitikeIzvoda;
-
 }

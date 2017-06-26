@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.ftn.uns.ac.rs/mt102body"
-    xmlns:mt102body="http://www.ftn.uns.ac.rs/mt102body"
+    targetNamespace="http://www.ftn.uns.ac.rs/mt102body" xmlns:mt102body="http://www.ftn.uns.ac.rs/mt102body"
     xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
     <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
     <xs:element name="mt102_telo">

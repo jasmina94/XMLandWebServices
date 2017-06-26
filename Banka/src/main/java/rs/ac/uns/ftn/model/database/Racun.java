@@ -22,7 +22,7 @@ public class Racun {
     private String brojRacuna;
 
     @Column
-    private Double saldo;
+    private double saldo = 0.0;
 
     @ManyToOne
     private Banka banka;
@@ -30,5 +30,7 @@ public class Racun {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "racun")
     private List<DnevnoStanjeRacuna> dnevnoStanjeRacuna;
 
+    @Column
+    private double rezervisanaSredstva = 0.0;
 
 }
