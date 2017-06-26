@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/faktura" xmlns:fakt="http://www.ftn.uns.ac.rs/faktura"
+    xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/tipovi" schemaLocation="tipovi_schema.xsd"/>
+    <xs:element name="getFakturaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="faktura" type="fakt:faktura"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getFakturaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="faktura" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType  name="faktura">
+        <xs:sequence>
+            <xs:element name="podaci_o_dobavljacu" type="tipovi:TPodaciSubjekt"/>
+            <xs:element name="podaci_o_kupcu" type="tipovi:TPodaciSubjekt"/>
+            <xs:element name="vrednost_robe">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vrednost_usluga">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ukupno_roba_i_usluga">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ukupan_rabat">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ukupan_porez">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="oznaka_valute">
+                <xs:simpleType>
+                    <xs:restriction base="tipovi:TOznakaValute"> </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Iznos_za_uplatu">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="uplata_na_racun">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{3}-\d{1,13}-\d{2}"/>
+                        <xs:length value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="stavka_fakture" type="tipovi:TStavkaFaktura"
+            />
+        </xs:sequence>
+        <xs:attribute name="id_poruke">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="50"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="broj_racuna">
+            <xs:simpleType>
+                <xs:restriction base="xs:unsignedInt">
+                    <xs:totalDigits value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="datum_racuna" type="xs:date"/>
+        <xs:attribute name="datum_valute" type="xs:date"/>
+    </xs:complexType>
+</xs:schema>

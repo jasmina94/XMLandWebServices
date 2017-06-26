@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.TPodaciSubjekt;
+import com.ftn.model.generated.tipovi.TPodaciSubjekt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,11 +34,10 @@ public class TPodaciSubjektDTO {
     private String pib;
 
     @NotNull
-    private String mesto;
+    protected String racunFirme;
 
     private List<TPodaciSubjektDTO> poslovniPartneri = new ArrayList<>();
 
-    private List<ZaposleniDTO> zaposleni = new ArrayList<>();
 
     public TPodaciSubjektDTO(TPodaciSubjekt tPodaciSubjekt) {
         this(tPodaciSubjekt, true);
@@ -50,10 +49,11 @@ public class TPodaciSubjektDTO {
         this.naziv = tPodaciSubjekt.getNaziv();
         this.adresa = tPodaciSubjekt.getAdresa();
         this.pib = tPodaciSubjekt.getPib();
-        this.mesto = tPodaciSubjekt.getMesto();
+        this.racunFirme = tPodaciSubjekt.getRacunFirme();
         if(cascade) {
             this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner, false)).collect(Collectors.toList());
-            this.zaposleni = tPodaciSubjekt.getZaposleni().stream().map(zaposleni -> new ZaposleniDTO(zaposleni, false)).collect(Collectors.toList());
+           // this.poslovniPartneri = tPodaciSubjekt.getPoslovniPartneri().stream().map(poslovniPartner -> new TPodaciSubjektDTO(poslovniPartner)).collect(Collectors.toList());
+
         }
     }
 
@@ -63,13 +63,11 @@ public class TPodaciSubjektDTO {
         tPodaciSubjekt.setNaziv(naziv);
         tPodaciSubjekt.setAdresa(adresa);
         tPodaciSubjekt.setPib(pib);
-        tPodaciSubjekt.setMesto(mesto);
+        tPodaciSubjekt.setRacunFirme(racunFirme);
         if(poslovniPartneri != null) {
             poslovniPartneri.forEach(poslovniPartnerDTO -> tPodaciSubjekt.getPoslovniPartneri().add(poslovniPartnerDTO.construct()));
         }
-        if(zaposleni != null) {
-            zaposleni.forEach(zaposleniDTO -> tPodaciSubjekt.getZaposleni().add(zaposleniDTO.construct()));
-        }
+
         return tPodaciSubjekt;
     }
 }

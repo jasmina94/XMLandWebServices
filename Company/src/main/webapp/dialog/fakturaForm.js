@@ -7,7 +7,7 @@ app.controller('FakturaFormController', function ($scope, $http, $state, $mdDial
     $scope.zaposleni = authenticationService.getUser();
 
     $scope.faktura = {
-        "podaciODobavljacu": zaposleni.tpodaciSubjektDTO,
+        "podaciODobavljacu": $scope.zaposleni.tpodaciSubjektDTO,
         "vrednostRobe": 0.0,
         "vrednostUsluga": 0.0,
         "ukupnoRobaIUsluga": 0.0,
@@ -23,7 +23,7 @@ app.controller('FakturaFormController', function ($scope, $http, $state, $mdDial
         "datumValute": "2017-01-01"
     };
 
-    tPodaciSubjektService.readPoslovniPartneri(zaposleni.tpodaciSubjektDTO.id,  function (response) {
+    tPodaciSubjektService.readPoslovniPartneri($scope.zaposleni.tpodaciSubjektDTO.id,  function (response) {
         $scope.poslovniPartneri = response.data;
     });
 

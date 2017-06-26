@@ -1,8 +1,6 @@
 package com.ftn.service;
 
-import com.ftn.model.Zaposleni;
 import com.ftn.model.dto.FakturaDTO;
-import com.ftn.model.dto.ZaposleniDTO;
 
 import java.util.List;
 
@@ -15,9 +13,9 @@ public interface FakturaService {
 
     FakturaDTO readFaktura(Long id);
 
-    List<FakturaDTO> readDobavljac(String pib);
+    List<FakturaDTO> readDobavljac();
 
-    List<FakturaDTO> readKupac(String pib);
+    List<FakturaDTO> readKupac();
 
     FakturaDTO create(FakturaDTO fakturaDTO);
 

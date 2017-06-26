@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -22,19 +23,7 @@ public class AnalitikaIzvoda {
     private Date datumNaloga;
 
     @Column
-    private boolean primljeno;
-
-    @Column(length = 8)
-    private String SWIFTBankeDuznika;
-
-    @Column(length = 8)
-    private String SWIFTBankePoverioca;
-
-    @Column(length = 20)
-    private String racunBankeDuznika;
-
-    @Column(length = 20)
-    private String racunBankePoverioca;
+    private boolean primljeno; //smer (true ulaz, false izlaz)
 
     @Column
     private String duznik;
@@ -52,7 +41,7 @@ public class AnalitikaIzvoda {
     private String racunDuznika;
 
     @Column
-    private int modelZaduzenja;
+    private long modelZaduzenja;
 
     @Column
     private String pozivNaBrojZaduzenja;
@@ -61,13 +50,13 @@ public class AnalitikaIzvoda {
     private String racunPoverioca;
 
     @Column
-    private int modelOdobrenja;
+    private long modelOdobrenja;
 
     @Column
     private String pozivNaBrojOdobrenja;
 
     @Column
-    private Double iznos;
+    private BigDecimal iznos;
 
     @Column
     private String sifraValute;

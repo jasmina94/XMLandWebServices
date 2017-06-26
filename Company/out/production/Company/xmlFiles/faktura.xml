@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:faktura xmlns="http://www.ftn.uns.ac.rs/tipovi" xmlns:ns2="http://www.ftn.uns.ac.rs/faktura" xmlns:ns3="httl://www.ftn.uns.ac.rs/faktura" id_poruke="2" broj_racuna="444444" datum_racuna="2017-05-04" datum_valute="2017-05-05">
+    <ns2:podaci_o_dobavljacu>
+        <naziv>Imlek</naziv>
+        <adresa>Zrenjaninski put 100</adresa>
+        <pib>22222222222</pib>
+    </ns2:podaci_o_dobavljacu>
+    <ns2:podaci_o_kupcu>
+        <naziv>Pionir d.o.o.</naziv>
+        <adresa>Pozeska BB</adresa>
+        <pib>11111111111</pib>
+    </ns2:podaci_o_kupcu>
+    <ns2:vrednost_robe>15000</ns2:vrednost_robe>
+    <ns2:vrednost_usluga>500</ns2:vrednost_usluga>
+    <ns2:ukupno_roba_i_usluga>20000</ns2:ukupno_roba_i_usluga>
+    <ns2:ukupan_rabat>5000</ns2:ukupan_rabat>
+    <ns2:ukupan_porez>8000</ns2:ukupan_porez>
+    <ns2:oznaka_valute>RSD</ns2:oznaka_valute>
+    <ns2:Iznos_za_uplatu>20000</ns2:Iznos_za_uplatu>
+    <ns2:uplata_na_racun>840-1234444487774-12</ns2:uplata_na_racun>
+</ns2:faktura>

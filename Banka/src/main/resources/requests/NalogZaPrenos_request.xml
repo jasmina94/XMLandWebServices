@@ -1,0 +1,28 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:nzp="http://www.ftn.uns.ac.rs/nalog_za_prenos" xmlns="http://www.ftn.uns.ac.rs/tipovi">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <nzp:getNalogZaPrenosRequest>
+            <nalog_za_prenos datum_naloga="2017-06-09" datum_valute="2017-06-09" hitno="false" id_poruke="001"
+                             xmlns="http://www.ftn.uns.ac.rs/nalog_za_prenos" xsi:schemaLocation="http://www.ftn.uns.ac.rs/nalog_za_prenos nalog_za_prenos.xsd"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                <duznik>Petar Petrovic, Jovana Subotica 12, 21000 Novi Sad</duznik>
+                <poverilac>TELEKOM SRBIJA, Petra Drapsina 2, 21000 Novi Sad</poverilac>
+                <svrha_placanja>Racun za maj</svrha_placanja>
+                <podaci_o_prenosu oznaka_valute = "RSD" >
+                    <tipovi:duznik_u_prenosu >
+                        <tipovi:racun_ucesnika>205-2200148916622-71</tipovi:racun_ucesnika>
+                        <tipovi:model_prenosa>97</tipovi:model_prenosa>
+                        <tipovi:poziv_na_broj>100018356</tipovi:poziv_na_broj>
+                    </tipovi:duznik_u_prenosu>
+                    <tipovi:poverilac_u_prenosu>
+                        <tipovi:racun_ucesnika>205-2200148916622-71</tipovi:racun_ucesnika>
+                        <tipovi:model_prenosa>97</tipovi:model_prenosa>
+                        <tipovi:poziv_na_broj>100018999</tipovi:poziv_na_broj>
+                    </tipovi:poverilac_u_prenosu>
+                    <tipovi:iznos>1000.00</tipovi:iznos>
+                </podaci_o_prenosu>
+            </nalog_za_prenos>
+        </nzp:getNalogZaPrenosRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

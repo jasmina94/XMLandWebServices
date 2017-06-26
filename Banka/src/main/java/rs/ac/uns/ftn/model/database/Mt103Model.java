@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -56,7 +57,7 @@ public class Mt103Model {
     private String racunDuznika;
 
     @Column
-    private int modelZaduzenja;
+    private BigInteger modelZaduzenja;
 
     @Column
     private String pozivNaBrojZaduzenja;
@@ -65,7 +66,7 @@ public class Mt103Model {
     private String racunPoverioca;
 
     @Column
-    private int modelOdobrenja;
+    private BigInteger modelOdobrenja;
 
     @Column
     private String pozivNaBrojOdobrenja;

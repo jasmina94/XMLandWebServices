@@ -1,6 +1,6 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.Faktura;
+import com.ftn.model.generated.faktura.Faktura;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -43,7 +43,7 @@ public class PodaciZaNalogDTO {
         this.pozivNaBrojOdobrenja = podaciZaNalogDTO.getPozivNaBrojOdobrenja();
         this.hitno = podaciZaNalogDTO.isHitno();
         if(cascade) {
-            this.faktura = podaciZaNalogDTO.getFaktura() != null ? podaciZaNalogDTO.getFaktura() : null;
+            this.faktura = podaciZaNalogDTO.getFaktura();
         }
     }
 

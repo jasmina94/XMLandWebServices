@@ -14,11 +14,7 @@
             </md-checkbox>
             <md-input-container class="md-block">
                 <label>Račun dužnika</label>
-                <input id="racunDuznika" name="racunDuznika" type="text" ng-model="podaciZaNalog.racunDuznika" ng-pattern="/^[0-9]{3}-[0-9]{13}-[0-9]{2}$/" required>
-                <div ng-messages="nalogZaPrenosForm.racunDuznika.$error" ng-if="nalogZaPrenosForm.racunDuznika.$dirty">
-                    <div ng-message="required">Obavezan je unos broja računa.</div>
-                    <div ng-message="pattern">Broj računa nije validan.</div>
-                </div>
+                <input id="racunDuznika" name="racunDuznika" type="text" ng-model="firma.racunFirme" disabled>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Model zaduženja</label>

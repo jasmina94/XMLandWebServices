@@ -1,6 +1,7 @@
 package com.ftn.model.dto;
 
-import com.ftn.model.TStavkaFaktura;
+import com.ftn.model.generated.faktura.Faktura;
+import com.ftn.model.generated.tipovi.TStavkaFaktura;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
 
 /**
  * Created by Olivera on 20.6.2017..
@@ -57,8 +59,7 @@ public class TStavkaFakturaDTO {
     @Digits(integer=12, fraction=2)
     protected BigDecimal ukupanPorez;
 
-    @NotNull
-    private FakturaDTO faktura;
+
 
     public TStavkaFakturaDTO(TStavkaFaktura tStavkaFaktura) {
         this(tStavkaFaktura, true);
@@ -76,9 +77,7 @@ public class TStavkaFakturaDTO {
         this.iznosRabata = tStavkaFaktura.getIznosRabata();
         this.umanjenoZaRabat = tStavkaFaktura.getUmanjenoZaRabat();
         this.ukupanPorez = tStavkaFaktura.getUkupanPorez();
-        if(cascade) {
-            this.faktura = new FakturaDTO(tStavkaFaktura.getFaktura(), false);
-        }
+
     }
 
     public TStavkaFaktura construct() {
@@ -93,8 +92,6 @@ public class TStavkaFakturaDTO {
         tStavkaFaktura.setIznosRabata(iznosRabata);
         tStavkaFaktura.setUmanjenoZaRabat(umanjenoZaRabat);
         tStavkaFaktura.setUkupanPorez(ukupanPorez);
-        tStavkaFaktura.setFaktura(faktura != null ? faktura.construct() : null);
-
         return tStavkaFaktura;
     }
 }
