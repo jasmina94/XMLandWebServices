@@ -133,6 +133,9 @@ public class Mt102ServiceImpl extends WebServiceGatewaySupport implements Mt102S
 
             // Send Mt910
             mt910Service.send(mt102);
+
+            paymentBatch.setCleared(true);
+            paymentBatchDao.save(paymentBatch);
         });
     }
 

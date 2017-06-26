@@ -8,12 +8,16 @@
 
 package com.ftn.model.generated.zahtevzaizvod;
 
+import com.ftn.util.DateAdapter;
+
 import java.math.BigInteger;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -55,8 +59,8 @@ public class ZahtevZaIzvod {
     @XmlElement(name = "broj_racuna", required = true)
     protected String brojRacuna;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datum;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datum;
     @XmlElement(name = "redni_broj_preseka", required = true)
     protected BigInteger redniBrojPreseka;
 
@@ -89,10 +93,10 @@ public class ZahtevZaIzvod {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public XMLGregorianCalendar getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
@@ -101,10 +105,10 @@ public class ZahtevZaIzvod {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatum(XMLGregorianCalendar value) {
+    public void setDatum(Date value) {
         this.datum = value;
     }
 

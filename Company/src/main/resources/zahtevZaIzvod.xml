@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<getZahtevZaIzvodRequest xmlns="http://www.ftn.uns.ac.rs/zahtevZaIzvod">
+    <zahtev_za_izvod>
+        <broj_racuna>265-2234522100014-72</broj_racuna>
+        <datum>2017-06-26</datum>
+        <redni_broj_preseka>1</redni_broj_preseka>
+    </zahtev_za_izvod>
+</getZahtevZaIzvodRequest>

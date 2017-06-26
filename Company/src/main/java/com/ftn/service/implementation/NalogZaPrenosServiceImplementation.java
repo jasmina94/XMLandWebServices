@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -125,7 +126,9 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         duznikUPrenosu.setPozivNaBroj(podaciZaNalogDTO.getPozivNaBrojZaduzenja());
         duznikUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelZaduzenja());
 
-        nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
+        //TODO: Testiraj ovo
+        nalogZaPrenos.setIdPoruke(UUID.randomUUID().toString());
+        //nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
         nalogZaPrenos.setDuznik(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setPoverilac(podaciZaNalogDTO.getFaktura().getPodaciODobavljacu().getNaziv());
         nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + podaciZaNalogDTO.getFaktura().getBrojRacuna());
@@ -138,14 +141,16 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         podaciOPrenosu.setDuznikUPrenosu(duznikUPrenosu);
         nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosu);
 
-        //send(nalogZaPrenos);
+        if(!send(nalogZaPrenos)) {
+            return null;
+        }
         NalogZaPrenosDTO kreiranNalogDTO = create(new NalogZaPrenosDTO(nalogZaPrenos));
         podaciZaNalogDTO.getFaktura().setKreiranNalog(true);
         fakturaDao.save(podaciZaNalogDTO.getFaktura());
         return kreiranNalogDTO;
     }
 
-    private void send(NalogZaPrenos nalogZaPrenos) {
+    private boolean send(NalogZaPrenos nalogZaPrenos) {
 
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetNalogZaPrenosRequest.class, GetNalogZaPrenosResponse.class);
@@ -154,9 +159,13 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
 
         final GetNalogZaPrenosRequest getNalogZaPrenosRequest = new GetNalogZaPrenosRequest();
         getNalogZaPrenosRequest.setNalogZaPrenos(nalogZaPrenos);
-        final GetNalogZaPrenosResponse response = (GetNalogZaPrenosResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(environmentProperties.getBankUrl(), getNalogZaPrenosRequest);
-        // TODO: Based on response throw an exception maybe?
+        try{
+            final GetNalogZaPrenosResponse response = (GetNalogZaPrenosResponse) getWebServiceTemplate()
+                    .marshalSendAndReceive(environmentProperties.getBankUrl(), getNalogZaPrenosRequest);
+        }catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean validateXMLSchema(String xsdPath, String xmlPath){
