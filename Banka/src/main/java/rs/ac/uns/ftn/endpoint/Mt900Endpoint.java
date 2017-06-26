@@ -32,14 +32,14 @@ public class Mt900Endpoint {
     @ResponsePayload
     public GetMt900Response mt900(@RequestPayload GetMt900Request request) {
         final GetMt900Response response = new GetMt900Response();
-        //rtgsService.processMT900(request.getMt900());
-        String pom = request.getMt900().getPodaciONalogu().getIdPorukeNaloga();
-        System.out.println("vraca se mt900");
-        System.out.println("stize " + pom);
-
-        String ret = clearingService.processMT900(request.getMt900());
-        System.out.println(ret);
-        response.setMt900("Ok");
-        return response;
+        if(request.getMt900().getPodaciONalogu().getIdPorukeNaloga().startsWith("Mt102")){
+            clearingService.processMT900(request.getMt900());
+            response.setMt900("Ok");
+            return response;
+        }else {
+            rtgsService.processMT900(request.getMt900());
+            response.setMt900("Ok");
+            return response;
+        }
     }
 }

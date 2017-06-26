@@ -23,7 +23,7 @@ public class Mt103Model {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String idPoruke;
 
     @Column(length = 8)

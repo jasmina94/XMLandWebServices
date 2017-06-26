@@ -13,13 +13,11 @@ import rs.ac.uns.ftn.model.dto.mt103.GetMt103Response;
 import rs.ac.uns.ftn.model.dto.mt103.Mt103;
 import rs.ac.uns.ftn.model.dto.mt900.Mt900;
 import rs.ac.uns.ftn.model.dto.mt910.Mt910;
-import rs.ac.uns.ftn.model.dto.nalog_za_prenos.NalogZaPrenos;
 import rs.ac.uns.ftn.model.environment.EnvironmentProperties;
 import rs.ac.uns.ftn.repository.*;
 import rs.ac.uns.ftn.service.RTGSService;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -111,7 +109,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
     @Override
     public String processMT910(Mt910 mt910) {
         Optional<Mt103Model> mt103Model = mt103Repository.findByIdPoruke(mt910.getIdPoruke());
-
         if(!mt103Model.isPresent()){
             return "Nisam pronasao model mt103Model.";
         }else{
@@ -125,7 +122,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
                 napraviAnalitiku(mt103Model.get(), RacunPoveriocaReal, false);
             }
         }
-
         return "ok";
     }
 
@@ -150,13 +146,11 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         mt103Model.setPozivNaBrojOdobrenja(mt103.getPodaciOUplati().getPodaciOOdobrenju().getPozivNaBroj());
         mt103Model.setSifraValute(mt103.getPodaciOUplati().getIznos().getValuta());
         mt103Model.setIznos(mt103.getPodaciOUplati().getIznos().getValue().doubleValue());
-
         mt103Repository.save(mt103Model);
     }
 
     private void napraviAnalitiku(Mt103Model mt103Model, Racun racunDuznik, boolean duznik){
         AnalitikaIzvoda analitika = new AnalitikaIzvoda();
-
         analitika.setDatumNaloga(mt103Model.getDatumNaloga());
         analitika.setPrimljeno(!duznik);
         analitika.setDuznik(mt103Model.getDuznik());
@@ -173,8 +167,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         analitika.setSvrhaPlacanja(mt103Model.getSvrhaPlacanja());
 
         evidentirajDnevnoStanje(analitika, mt103Model, racunDuznik, duznik);
-
-
     }
 
     private void evidentirajDnevnoStanje(AnalitikaIzvoda analitika, Mt103Model mt103Model, Racun racun, boolean isDuzan){
@@ -228,11 +220,11 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
             if(isDuzan) {
                 dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() + mt103Model.getIznos());
                 dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
-                dnevnoStanjeRacuna.setPrometNaTeret(1);
+                dnevnoStanjeRacuna.setBrojPromenaNaTeret(1);
             }else{
                 dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() - mt103Model.getIznos());
                 dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
-                dnevnoStanjeRacuna.setPrometuKorist(1);
+                dnevnoStanjeRacuna.setBrojPromenaUKorist(1);
             }
             List<AnalitikaIzvoda> listaAnalitika = new ArrayList<>();
             if(dnevnoStanjeRacuna.getAnalitikeIzvoda() == null){

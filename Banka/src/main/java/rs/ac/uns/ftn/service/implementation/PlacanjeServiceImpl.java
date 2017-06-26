@@ -6,8 +6,6 @@ import rs.ac.uns.ftn.exception.ServiceFaultException;
 import rs.ac.uns.ftn.model.database.*;
 import rs.ac.uns.ftn.model.dto.error.ServiceFault;
 import rs.ac.uns.ftn.model.dto.mt102.Mt102;
-import rs.ac.uns.ftn.model.dto.mt102body.Mt102Telo;
-import rs.ac.uns.ftn.model.dto.mt102header.Mt102Zaglavlje;
 import rs.ac.uns.ftn.model.dto.mt103.Mt103;
 import rs.ac.uns.ftn.model.dto.nalog_za_prenos.NalogZaPrenos;
 import rs.ac.uns.ftn.model.dto.tipovi.*;
@@ -17,9 +15,6 @@ import rs.ac.uns.ftn.service.ClearingService;
 import rs.ac.uns.ftn.service.PlacanjeService;
 import rs.ac.uns.ftn.service.RTGSService;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -71,9 +66,7 @@ public class PlacanjeServiceImpl implements PlacanjeService {
     }
 
     @Override
-    public void send(NalogZaPrenos nalogZaPrenos) {
-
-    }
+    public void send(NalogZaPrenos nalogZaPrenos) {}
 
     private boolean proveriFirmu(String brojRacuna) {
 
@@ -129,11 +122,8 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
             List<Mt102Model> mt102Model = mt102Repository.findBySwiftBankeDuznikaAndSwiftBankePoveriocaAndPoslato(swiftBankeDuznika, swiftBankePoverioca, false);
             if(mt102Model.isEmpty()){
-                System.out.println("pravim novi mt102 model");
                 kreirajNoviMt102Model(nalog, racunDuznika, racunPoverioca);
-                System.out.println("Prosao kliring PRAZAN");
             }else{
-                System.out.println("samo dodajem novi nalog u mt102 model");
                 PojedinacniNalogZaPlacanje pojedinacniNalogZaPlacanje = kreiranjeNalogaZaPlacanje(nalog);
                 pojedinacniNalogZaPlacanje.setMt102Model(mt102Model.get(0));
                 mt102Model.get(0).getListaNalogaZaPlacanje().add(pojedinacniNalogZaPlacanje);
@@ -142,9 +132,11 @@ public class PlacanjeServiceImpl implements PlacanjeService {
                 mt102Repository.save(mt102Model.get(0));
                 if(mt102Model.get(0).getListaNalogaZaPlacanje().size() >= 2){
                     Mt102 mt102 = clearingService.createMT102(mt102Model.get(0));
+                    mt102Model.get(0).setPoslato(true);
+                    mt102Repository.save(mt102Model.get(0));
                     clearingService.sendMT102(mt102);
                 }
-                System.out.println("Prosao kliring IMA VEC");
+                System.out.println("Prosao kliring ka nbs.");
             }
        }
     }
@@ -170,7 +162,7 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
         List<PojedinacniNalogZaPlacanje> naloziZaPlacanje = new ArrayList<>();
         mt102Model.setListaNalogaZaPlacanje(naloziZaPlacanje);
-        //napravi pojedinacni nalog od onog koji dolazi iz firme i kaci ga na model
+
         PojedinacniNalogZaPlacanje pojedinacniNalogZaPlacanje = kreiranjeNalogaZaPlacanje(nalog);
         mt102Model.getListaNalogaZaPlacanje().add(pojedinacniNalogZaPlacanje);
         mt102Model = mt102Repository.save(mt102Model);
@@ -193,7 +185,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         pnzp.setPozivNaBrojOdobrenja(nalog.getPodaciOPrenosu().getPoverilacUPrenosu().getPozivNaBroj());
         pnzp.setIznos(nalog.getPodaciOPrenosu().getIznos().doubleValue());
         pnzp.setSifraValute(nalog.getPodaciOPrenosu().getOznakaValute().value());
-
         return pnzp;
     }
 
@@ -298,14 +289,10 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
         evidentirajDnevnoStanje(analitikaDuznika, nalog, racunDuznika, true);
         evidentirajDnevnoStanje(analitikaPoverioca, nalog, racunPoverioca, false);
-
     }
 
     private void evidentirajDnevnoStanje(AnalitikaIzvoda analitika, NalogZaPrenos nalog, Racun racun, boolean isDuzan){
-        //treba evidentirati dnevno stanje duznika
-
         boolean nasaoDnevnoStanje = false;
-
         Date datumAnalitike = analitika.getDatumNaloga();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(datumAnalitike);
@@ -314,8 +301,7 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR, 0);
         datumAnalitike = calendar.getTime();
-
-        //uci i pokupiti sva dnevna stanja,
+        //udjii i pokupiti sva dnevna stanja,
         for (DnevnoStanjeRacuna dsr : racun.getDnevnoStanjeRacuna()) {
             Date tempDatum = dsr.getDatum();
             Calendar tempCal = Calendar.getInstance();
@@ -330,8 +316,10 @@ public class PlacanjeServiceImpl implements PlacanjeService {
                 //nasao sam dnevno stanje
                 dsr.setPredhodnoStanje(dsr.getNovoStanje());
                 if(isDuzan) {
+                    dsr.setPredhodnoStanje(dsr.getNovoStanje());
                     dsr.setNovoStanje(dsr.getNovoStanje() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
                 }else{
+                    dsr.setPredhodnoStanje(dsr.getNovoStanje());
                     dsr.setNovoStanje(dsr.getNovoStanje() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
                 }
 
@@ -352,11 +340,11 @@ public class PlacanjeServiceImpl implements PlacanjeService {
             if(isDuzan) {
                 dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
                 dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
-                dnevnoStanjeRacuna.setPrometNaTeret(1);
+                dnevnoStanjeRacuna.setBrojPromenaNaTeret(1);
             }else{
                 dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
                 dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
-                dnevnoStanjeRacuna.setPrometuKorist(1);
+                dnevnoStanjeRacuna.setBrojPromenaUKorist(1);
             }
 
             dnevnoStanjeRacuna = repozitorijumDnevnoStanjeRacuna.save(dnevnoStanjeRacuna);

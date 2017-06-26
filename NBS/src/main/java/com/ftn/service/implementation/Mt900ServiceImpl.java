@@ -50,9 +50,7 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
 
     @Override
     public void send(Mt102 mt102) {
-
         final Mt900 mt900 = new Mt900();
-
         mt900.setIdPoruke(mt102.getMt102Zaglavlje().getIdPoruke());
         mt900.setPodaciOBanciDuznika(mt102.getMt102Zaglavlje().getPodaciOBanciDuznika());
 

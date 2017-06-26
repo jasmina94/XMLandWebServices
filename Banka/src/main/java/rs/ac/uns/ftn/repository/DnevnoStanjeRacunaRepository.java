@@ -14,6 +14,4 @@ public interface DnevnoStanjeRacunaRepository extends JpaRepository<DnevnoStanje
 
     Optional<DnevnoStanjeRacuna> findById(Long id);
 
-    DnevnoStanjeRacuna findByRacun(Racun racun);
-
 }

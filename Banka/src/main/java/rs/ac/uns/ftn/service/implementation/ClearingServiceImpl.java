@@ -10,8 +10,6 @@ import rs.ac.uns.ftn.model.dto.mt102.GetMt102Response;
 import rs.ac.uns.ftn.model.dto.mt102.Mt102;
 import rs.ac.uns.ftn.model.dto.mt102body.Mt102Telo;
 import rs.ac.uns.ftn.model.dto.mt102header.Mt102Zaglavlje;
-import rs.ac.uns.ftn.model.dto.mt103.GetMt103Response;
-import rs.ac.uns.ftn.model.dto.mt103.Mt103;
 import rs.ac.uns.ftn.model.dto.mt900.Mt900;
 import rs.ac.uns.ftn.model.dto.mt910.Mt910;
 import rs.ac.uns.ftn.model.dto.tipovi.TOznakaValute;
@@ -19,10 +17,7 @@ import rs.ac.uns.ftn.model.dto.tipovi.TPodaciBanka;
 import rs.ac.uns.ftn.model.dto.tipovi.TPodaciPlacanje;
 import rs.ac.uns.ftn.model.dto.tipovi.TPravnoLice;
 import rs.ac.uns.ftn.model.environment.EnvironmentProperties;
-import rs.ac.uns.ftn.repository.AnalitikaIzvodaRepository;
-import rs.ac.uns.ftn.repository.DnevnoStanjeRacunaRepository;
-import rs.ac.uns.ftn.repository.Mt102Repository;
-import rs.ac.uns.ftn.repository.RacunRepository;
+import rs.ac.uns.ftn.repository.*;
 import rs.ac.uns.ftn.service.ClearingService;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -51,6 +46,9 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
 
     @Autowired
     private AnalitikaIzvodaRepository analitikaIzvodaRepository;
+
+    @Autowired
+    private PojedinacniNalogZaPlacanjeRepository pojedinacniNalogZaPlacanjeRepository;
 
     @Override
     public Mt102 createMT102(Mt102Model mt102Model) {
@@ -133,9 +131,6 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
 
     @Override
     public void sendMT102(Mt102 mt102) {
-        System.out.println("Saljem mt102");
-        System.out.println("mt102 ima id poruke: " + mt102.getMt102Zaglavlje().getIdPoruke());
-
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetMt102Request.class, GetMt102Response.class);
         setMarshaller(marshaller);
@@ -149,11 +144,7 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
 
     @Override
     public String processMT900(Mt900 mt900) {
-        System.out.println("Process mt900 zapoceo");
-        System.out.println(mt900.getIdPoruke());
-
         Optional<Mt102Model> mt102Model = mt102Repository.findByIdPoruke(mt900.getIdPoruke());
-
         if(!mt102Model.isPresent()){
             return "Nisam pronasao model mt102Model.";
         }else{
@@ -164,7 +155,8 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
                 }else{
                     System.out.println("ovakav racun postoji " + racunDuznika.get().getBrojRacuna());
                     Racun racunDuznikaReal = racunDuznika.get();
-                    napraviAnalitiku(mt102Model.get(), racunDuznikaReal, true);
+                    AnalitikaIzvoda analitikaIzvoda = napraviAnalitiku(pnzp, racunDuznikaReal, true, mt102Model.get().getDatumValute());
+                    evidentirajDnevnoStanje(analitikaIzvoda, racunDuznikaReal, true);
                     racunDuznikaReal.setSaldo(racunDuznikaReal.getSaldo() - racunDuznikaReal.getRezervisanaSredstva());
                     racunDuznikaReal.setRezervisanaSredstva(0.0);
                     racunRepository.save(racunDuznikaReal);
@@ -176,38 +168,85 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
 
     @Override
     public String processMT910(Mt910 mt910) {
-        return null;
+        Optional<Mt102Model> mt102Model = mt102Repository.findByIdPoruke(mt910.getIdPoruke());
+        if(!mt102Model.isPresent()){
+            return "Nisam pronasao model mt102Model.";
+        }else{
+            for (PojedinacniNalogZaPlacanje pnzp: mt102Model.get().getListaNalogaZaPlacanje()) {
+                Optional<Racun> racunPoverioca = racunRepository.findByBrojRacuna(pnzp.getRacunPoverioca());
+                if(!racunPoverioca.isPresent()){
+                    return "Nema racuna duznika.";
+                }else{
+                    Racun racunPoveriocaReal = racunPoverioca.get();
+                    AnalitikaIzvoda analitikaIzvoda = napraviAnalitiku(pnzp, racunPoveriocaReal, false, mt102Model.get().getDatumValute());
+                    evidentirajDnevnoStanje(analitikaIzvoda, racunPoveriocaReal, false);
+                    racunPoveriocaReal.setSaldo(racunPoveriocaReal.getSaldo() + pnzp.getIznos().doubleValue());
+                    racunRepository.save(racunPoveriocaReal);
+                }
+            }
+        }
+        return "ok";
     }
 
     @Override
     public void save(Mt102 mt102) {
-
+        Mt102Model mt102Model = new Mt102Model();
+        mt102Model.setPoslato(true);
+        mt102Model.setDatumNaloga(mt102.getMt102Zaglavlje().getDatum().toGregorianCalendar().getTime());
+        mt102Model.setDatumValute(mt102.getMt102Zaglavlje().getDatumValute().toGregorianCalendar().getTime());
+        mt102Model.setIdPoruke(mt102.getMt102Zaglavlje().getIdPoruke());
+        mt102Model.setSifraValute(mt102.getMt102Zaglavlje().getSifraValute().value());
+        mt102Model.setUkupanIznos(mt102.getMt102Zaglavlje().getUkupanIznos().doubleValue());
+        mt102Model.setSwiftBankeDuznika(mt102.getMt102Zaglavlje().getPodaciOBanciDuznika().getSwiftKod());
+        mt102Model.setSwiftBankePoverioca(mt102.getMt102Zaglavlje().getPodaciOBanciPoverioca().getSwiftKod());
+        mt102Model.setRacunBankeDuznika(mt102.getMt102Zaglavlje().getPodaciOBanciDuznika().getObracunskiRacun());
+        mt102Model.setRacunBankePoverioca(mt102.getMt102Zaglavlje().getPodaciOBanciPoverioca().getObracunskiRacun());
+        mt102Model = mt102Repository.save(mt102Model);
+        List<PojedinacniNalogZaPlacanje> pojedinacniNalogZaPlacanjeList = new ArrayList<>();
+        for (Mt102Telo telo : mt102.getMt102Telo()){
+            PojedinacniNalogZaPlacanje pnzp = new PojedinacniNalogZaPlacanje();
+            pnzp.setIdNaloga(telo.getIdNaloga());
+            pnzp.setDuznik(telo.getPodaciODuzniku().getNaziv());
+            pnzp.setPoverilac(telo.getPodaciOPoveriocu().getNaziv());
+            pnzp.setSvrhaPlacanja(telo.getSvrhaPlacanja());
+            pnzp.setDatumNaloga(telo.getDatumNaloga().toGregorianCalendar().getTime());
+            pnzp.setRacunDuznika(telo.getPodaciODuzniku().getBrojRacuna());
+            pnzp.setRacunPoverioca(telo.getPodaciOPoveriocu().getBrojRacuna());
+            pnzp.setModelZaduzenja(telo.getPodaciOZaduzenju().getModel().intValue());
+            pnzp.setModelOdobrenja(telo.getPodaciOOdobrenju().getModel().intValue());
+            pnzp.setPozivNaBrojZaduzenja(telo.getPodaciOZaduzenju().getPozivNaBroj());
+            pnzp.setPozivNaBrojOdobrenja(telo.getPodaciOOdobrenju().getPozivNaBroj());
+            pnzp.setSifraValute(telo.getIznos().getValuta().value());
+            pnzp.setIznos(telo.getIznos().getValue().doubleValue());
+            pnzp.setMt102Model(mt102Model);
+            pojedinacniNalogZaPlacanjeRepository.save(pnzp);
+            pojedinacniNalogZaPlacanjeList.add(pnzp);
+        }
+        mt102Model.setListaNalogaZaPlacanje(pojedinacniNalogZaPlacanjeList);
+        mt102Repository.save(mt102Model);
+        System.out.println("Sacuvao mt102model u bazu desne banke.");
     }
 
-    private void napraviAnalitiku(Mt102Model mt102Model, Racun racunDuznik, boolean duznik){
-        for(PojedinacniNalogZaPlacanje pnzp : mt102Model.getListaNalogaZaPlacanje()){
-            AnalitikaIzvoda analitika = new AnalitikaIzvoda();
-            analitika.setDatumNaloga(pnzp.getDatumNaloga());
-            analitika.setDatumValute(mt102Model.getDatumValute());
-            analitika.setPrimljeno(!duznik);
-            analitika.setDuznik(pnzp.getDuznik());
-            analitika.setPoverilac(pnzp.getPoverilac());
-            analitika.setRacunDuznika(pnzp.getRacunDuznika());
-            analitika.setRacunPoverioca(pnzp.getRacunPoverioca());
-            analitika.setModelZaduzenja(pnzp.getModelZaduzenja());
-            analitika.setModelOdobrenja(pnzp.getModelOdobrenja());
-            analitika.setPozivNaBrojOdobrenja(pnzp.getPozivNaBrojOdobrenja());
-            analitika.setPozivNaBrojZaduzenja(pnzp.getPozivNaBrojZaduzenja());
-            analitika.setIznos(BigDecimal.valueOf(pnzp.getIznos()));
-            analitika.setSifraValute(pnzp.getSifraValute());
-            analitika.setSvrhaPlacanja(pnzp.getSvrhaPlacanja());
-            evidentirajDnevnoStanje(analitika, racunDuznik, duznik);
-        }
-
+    private AnalitikaIzvoda napraviAnalitiku(PojedinacniNalogZaPlacanje pnzp, Racun racunDuznik, boolean duznik, Date datumValute){
+        AnalitikaIzvoda analitika = new AnalitikaIzvoda();
+        analitika.setDatumNaloga(pnzp.getDatumNaloga());
+        analitika.setDatumValute(datumValute);
+        analitika.setPrimljeno(!duznik);
+        analitika.setDuznik(pnzp.getDuznik());
+        analitika.setPoverilac(pnzp.getPoverilac());
+        analitika.setRacunDuznika(pnzp.getRacunDuznika());
+        analitika.setRacunPoverioca(pnzp.getRacunPoverioca());
+        analitika.setModelZaduzenja(pnzp.getModelZaduzenja());
+        analitika.setModelOdobrenja(pnzp.getModelOdobrenja());
+        analitika.setPozivNaBrojOdobrenja(pnzp.getPozivNaBrojOdobrenja());
+        analitika.setPozivNaBrojZaduzenja(pnzp.getPozivNaBrojZaduzenja());
+        analitika.setIznos(BigDecimal.valueOf(pnzp.getIznos()));
+        analitika.setSifraValute(pnzp.getSifraValute());
+        analitika.setSvrhaPlacanja(pnzp.getSvrhaPlacanja());
+        return analitika;
     }
 
     private void evidentirajDnevnoStanje(AnalitikaIzvoda analitika, Racun racun, boolean isDuzan){
-        //treba evidentirati dnevno stanje duznika
         boolean nasaoDnevnoStanje = false;
         Date datumAnalitike = analitika.getDatumNaloga();
         Calendar calendar = Calendar.getInstance();
@@ -217,8 +256,6 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR, 0);
         datumAnalitike = calendar.getTime();
-
-        //uci i pokupiti sva dnevna stanja,
         for (DnevnoStanjeRacuna dsr : racun.getDnevnoStanjeRacuna()) {
             Date tempDatum = dsr.getDatum();
             Calendar tempCal = Calendar.getInstance();
@@ -228,14 +265,16 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
             tempCal.set(Calendar.MINUTE, 0);
             tempCal.set(Calendar.HOUR, 0);
             tempDatum = tempCal.getTime();
-
             if (tempDatum.equals(datumAnalitike)){
-                //nasao sam dnevno stanje
-                dsr.setPredhodnoStanje(dsr.getNovoStanje());
+                //dsr.setPredhodnoStanje(racun.getSaldo());
                 if(isDuzan) {
-                    dsr.setNovoStanje(dsr.getNovoStanje());
+                    dsr.setUkupnoNaTeret(dsr.getUkupnoNaTeret() + analitika.getIznos().doubleValue());
+                    dsr.setNovoStanje(dsr.getPredhodnoStanje() - dsr.getUkupnoNaTeret() + dsr.getUkupnoUKorist());
+                    dsr.setBrojPromenaNaTeret(dsr.getBrojPromenaNaTeret() + 1);
                 }else{
-                    dsr.setNovoStanje(dsr.getNovoStanje());
+                    dsr.setUkupnoUKorist(dsr.getUkupnoUKorist() + analitika.getIznos().doubleValue());
+                    dsr.setNovoStanje(dsr.getPredhodnoStanje() - dsr.getUkupnoNaTeret() + dsr.getUkupnoUKorist());
+                    dsr.setBrojPromenaUKorist(dsr.getBrojPromenaUKorist() + 1);
                 }
 
                 dsr.getAnalitikeIzvoda().add(analitika);
@@ -246,20 +285,19 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
                 break;
             }
         }
-
         if(!nasaoDnevnoStanje){
             DnevnoStanjeRacuna dnevnoStanjeRacuna = new DnevnoStanjeRacuna();
             dnevnoStanjeRacuna.setDatum(datumAnalitike);
             dnevnoStanjeRacuna.setRacun(racun);
-
+            dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo());
             if(isDuzan) {
-                dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo());
-                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo() - racun.getRezervisanaSredstva());
-                dnevnoStanjeRacuna.setPrometNaTeret(1);
+                dnevnoStanjeRacuna.setUkupnoNaTeret(analitika.getIznos().doubleValue());
+                dnevnoStanjeRacuna.setNovoStanje(dnevnoStanjeRacuna.getPredhodnoStanje() - dnevnoStanjeRacuna.getUkupnoNaTeret() + dnevnoStanjeRacuna.getUkupnoUKorist());
+                dnevnoStanjeRacuna.setBrojPromenaNaTeret(dnevnoStanjeRacuna.getBrojPromenaNaTeret() + 1);
             }else{
-                dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo());
-                dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo() + racun.getRezervisanaSredstva());
-                dnevnoStanjeRacuna.setPrometuKorist(1);
+                dnevnoStanjeRacuna.setUkupnoUKorist(analitika.getIznos().doubleValue());
+                dnevnoStanjeRacuna.setNovoStanje(dnevnoStanjeRacuna.getPredhodnoStanje() - dnevnoStanjeRacuna.getUkupnoNaTeret() + dnevnoStanjeRacuna.getUkupnoUKorist());
+                dnevnoStanjeRacuna.setBrojPromenaUKorist(dnevnoStanjeRacuna.getBrojPromenaUKorist() + 1);
             }
             List<AnalitikaIzvoda> listaAnalitika = new ArrayList<>();
             if(dnevnoStanjeRacuna.getAnalitikeIzvoda() == null){
@@ -268,12 +306,10 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
             }else{
                 dnevnoStanjeRacuna.getAnalitikeIzvoda().add(analitika);
             }
-
             dnevnoStanjeRacuna = dnevnoStanjeRacunaRepository.save(dnevnoStanjeRacuna);
             racun.getDnevnoStanjeRacuna().add(dnevnoStanjeRacuna);
             analitika.setDnevnoStanjeRacuna(dnevnoStanjeRacuna);
         }
-
         racunRepository.save(racun);
         analitikaIzvodaRepository.save(analitika);
     }
