@@ -16,4 +16,6 @@ public interface Mt102Repository extends JpaRepository<Mt102Model, Long>{
 
     List<Mt102Model> findBySwiftBankeDuznikaAndSwiftBankePoveriocaAndPoslato(String swiftBankeDuznika, String swiftBankePoverioca, boolean poslato);
 
+    Optional<Mt102Model> findByIdPoruke(String idPoruke);
+
 }

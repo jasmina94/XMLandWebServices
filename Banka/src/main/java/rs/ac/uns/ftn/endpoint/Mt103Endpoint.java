@@ -27,9 +27,7 @@ public class Mt103Endpoint {
     @ResponsePayload
     public GetMt103Response mt103(@RequestPayload GetMt103Request request) {
         final GetMt103Response response = new GetMt103Response();
-
         rtgsService.save(request.getMt103());
-
         response.setMt103("Ok");
         return response;
     }

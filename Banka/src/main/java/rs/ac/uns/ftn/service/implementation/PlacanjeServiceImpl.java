@@ -125,7 +125,7 @@ public class PlacanjeServiceImpl implements PlacanjeService {
             }
             //Rezervisi sredstva
             racunDuznika.setRezervisanaSredstva(racunDuznika.getRezervisanaSredstva() + nalog.getPodaciOPrenosu().getIznos().doubleValue());
-            racunDuznika.setSaldo(racunDuznika.getSaldo() - nalog.getPodaciOPrenosu().getIznos().doubleValue());
+            repozitorijumRacuna.save(racunDuznika);
 
             List<Mt102Model> mt102Model = mt102Repository.findBySwiftBankeDuznikaAndSwiftBankePoveriocaAndPoslato(swiftBankeDuznika, swiftBankePoverioca, false);
             if(mt102Model.isEmpty()){
@@ -137,93 +137,16 @@ public class PlacanjeServiceImpl implements PlacanjeService {
                 PojedinacniNalogZaPlacanje pojedinacniNalogZaPlacanje = kreiranjeNalogaZaPlacanje(nalog);
                 pojedinacniNalogZaPlacanje.setMt102Model(mt102Model.get(0));
                 mt102Model.get(0).getListaNalogaZaPlacanje().add(pojedinacniNalogZaPlacanje);
+                mt102Model.get(0).setUkupanIznos(mt102Model.get(0).getUkupanIznos() + pojedinacniNalogZaPlacanje.getIznos());
                 pojedinacniNalogZaPlacanjeRepository.save(pojedinacniNalogZaPlacanje);
                 mt102Repository.save(mt102Model.get(0));
                 if(mt102Model.get(0).getListaNalogaZaPlacanje().size() >= 2){
-                    Mt102 mt102 = createMt102(mt102Model.get(0));
+                    Mt102 mt102 = clearingService.createMT102(mt102Model.get(0));
                     clearingService.sendMT102(mt102);
                 }
                 System.out.println("Prosao kliring IMA VEC");
             }
        }
-    }
-
-    private Mt102 createMt102(Mt102Model mt102Model) {
-        Mt102 mt102 = new Mt102();
-        Mt102Zaglavlje zaglavlje = new Mt102Zaglavlje();
-
-        TPodaciBanka bankaDuznika = new TPodaciBanka();
-        bankaDuznika.setSwiftKod(mt102Model.getSwiftBankeDuznika());
-        bankaDuznika.setObracunskiRacun(mt102Model.getRacunBankeDuznika());
-
-        TPodaciBanka bankaPoverioca = new TPodaciBanka();
-        bankaPoverioca.setSwiftKod(mt102Model.getSwiftBankePoverioca());
-        bankaPoverioca.setObracunskiRacun(mt102Model.getRacunBankePoverioca());
-
-        zaglavlje.setPodaciOBanciDuznika(bankaDuznika);
-        zaglavlje.setPodaciOBanciPoverioca(bankaPoverioca);
-        zaglavlje.setUkupanIznos(BigDecimal.valueOf(mt102Model.getUkupanIznos()));
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(mt102Model.getDatumValute());
-        try {
-            zaglavlje.setDatumValute(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-        } catch (DatatypeConfigurationException e) {
-            e.printStackTrace();
-        }
-        calendar.setTime(mt102Model.getDatumNaloga());
-        try {
-            zaglavlje.setDatum(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
-        } catch (DatatypeConfigurationException e) {
-            e.printStackTrace();
-        }
-        zaglavlje.setSifraValute(TOznakaValute.fromValue(mt102Model.getSifraValute()));
-        zaglavlje.setIdPoruke(mt102Model.getIdPoruke());
-        mt102.setMt102Zaglavlje(zaglavlje);
-
-        //Pojedinacni nalozi
-        for (PojedinacniNalogZaPlacanje pnzp: mt102Model.getListaNalogaZaPlacanje()){
-            Mt102Telo telo = new Mt102Telo();
-
-            TPravnoLice duznik = new TPravnoLice();
-            duznik.setNaziv(pnzp.getDuznik());
-            duznik.setBrojRacuna(pnzp.getRacunDuznika());
-            telo.setPodaciODuzniku(duznik);
-
-            TPravnoLice poverilac = new TPravnoLice();
-            poverilac.setNaziv(pnzp.getPoverilac());
-            poverilac.setBrojRacuna(pnzp.getRacunPoverioca());
-            telo.setPodaciOPoveriocu(poverilac);
-
-            Mt102Telo.Iznos iznos = new Mt102Telo.Iznos();
-            iznos.setValue(BigDecimal.valueOf(pnzp.getIznos()));
-            iznos.setValuta(TOznakaValute.valueOf(pnzp.getSifraValute()));
-            telo.setIznos(iznos);
-
-            TPodaciPlacanje podaciZaduzenje = new TPodaciPlacanje();
-            podaciZaduzenje.setModel(BigInteger.valueOf(pnzp.getModelZaduzenja()));
-            podaciZaduzenje.setPozivNaBroj(pnzp.getPozivNaBrojZaduzenja());
-            telo.setPodaciOZaduzenju(podaciZaduzenje);
-
-            TPodaciPlacanje podaciOdobrenje = new TPodaciPlacanje();
-            podaciOdobrenje.setModel(BigInteger.valueOf(pnzp.getModelOdobrenja()));
-            podaciOdobrenje.setPozivNaBroj(pnzp.getPozivNaBrojOdobrenja());
-            telo.setPodaciOOdobrenju(podaciOdobrenje);
-
-            GregorianCalendar calendarNew = new GregorianCalendar();
-            calendarNew.setTime(pnzp.getDatumNaloga());
-            try {
-                telo.setDatumNaloga(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendarNew));
-            } catch (DatatypeConfigurationException e) {
-                e.printStackTrace();
-            }
-
-            telo.setIdNaloga(pnzp.getIdNaloga());
-            telo.setSvrhaPlacanja(pnzp.getSvrhaPlacanja());
-
-            mt102.getMt102Telo().add(telo);
-        }
-
-        return mt102;
     }
 
     private void kreirajNoviMt102Model(NalogZaPrenos nalog, Racun racunDuznika, Racun racunPoverioca) {

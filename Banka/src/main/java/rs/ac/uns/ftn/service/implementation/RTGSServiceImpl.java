@@ -109,11 +109,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
     }
 
     @Override
-    public void sendMT900(Mt900 mt900) {
-
-    }
-
-    @Override
     public String processMT910(Mt910 mt910) {
         Optional<Mt103Model> mt103Model = mt103Repository.findByIdPoruke(mt910.getIdPoruke());
 
@@ -132,11 +127,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         }
 
         return "ok";
-    }
-
-    @Override
-    public void sendMT910(Mt910 mt910) {
-
     }
 
     @Override

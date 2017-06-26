@@ -8,7 +8,10 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import rs.ac.uns.ftn.model.dto.mt910.GetMt910Request;
 import rs.ac.uns.ftn.model.dto.mt910.GetMt910Response;
 import rs.ac.uns.ftn.model.environment.EnvironmentProperties;
+import rs.ac.uns.ftn.service.ClearingService;
 import rs.ac.uns.ftn.service.RTGSService;
+
+import javax.jws.Oneway;
 
 /**
  * Created by Jasmina on 24/06/2017.
@@ -22,6 +25,9 @@ public class Mt910Endpoint {
 
     @Autowired
     private RTGSService rtgsService;
+
+    @Autowired
+    private ClearingService clearingService;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMt910Request")
     @ResponsePayload
