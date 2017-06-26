@@ -127,7 +127,11 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         duznikUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelZaduzenja());
 
         //TODO: Testiraj ovo
-        nalogZaPrenos.setIdPoruke(UUID.randomUUID().toString());
+        String UUIDString = UUID.randomUUID().toString();
+        while (UUIDString.length() > 50)
+            UUIDString = UUID.randomUUID().toString();
+
+        nalogZaPrenos.setIdPoruke(UUIDString);
         //nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
         nalogZaPrenos.setDuznik(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setPoverilac(podaciZaNalogDTO.getFaktura().getPodaciODobavljacu().getNaziv());

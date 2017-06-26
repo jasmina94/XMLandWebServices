@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -74,6 +75,14 @@ public class FakturaServiceImplementation implements FakturaService {
         if (fakturaDao.findById(fakturaDTO.getId()).isPresent())
             throw new BadRequestException();
 
+        fakturaDTO.setUplataNaRacun(fakturaDTO.getPodaciODobavljacu().getRacunFirme());
+        String UUIDString = UUID.randomUUID().toString();
+        while (UUIDString.length() > 50)
+            UUIDString = UUID.randomUUID().toString();
+
+        fakturaDTO.setIdPoruke(UUIDString);
+
+        System.out.println("uuid: " + fakturaDTO.getIdPoruke());
         final Faktura faktura = fakturaDTO.construct();
 
         if (!tPodaciSubjekatDao.findById(fakturaDTO.getPodaciOKupcu().getId()).isPresent() || !tPodaciSubjekatDao.findById(fakturaDTO.getPodaciODobavljacu().getId()).isPresent())
@@ -118,7 +127,6 @@ public class FakturaServiceImplementation implements FakturaService {
         fakturaDTO.setUkupanRabat(BigDecimal.valueOf(ukupanRabat));
         fakturaDTO.setUkupanPorez(BigDecimal.valueOf(ukupanPorez));
         fakturaDTO.setIznosZaUplatu(BigDecimal.valueOf(vrednostRobaIUsluga + ukupanPorez - ukupanRabat));
-        fakturaDTO.setUplataNaRacun(fakturaDTO.getPodaciODobavljacu().getRacunFirme());
 
         
         final Faktura faktura = fakturaDao.findById(id).orElseThrow(NotFoundException::new);
