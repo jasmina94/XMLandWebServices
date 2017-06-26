@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface AnalitikaIzvodaRepository extends JpaRepository<AnalitikaIzvoda, Long> {
 
     Optional<AnalitikaIzvoda> findById(Long id);
+
 }

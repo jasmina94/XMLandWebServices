@@ -68,13 +68,16 @@ public class PlacanjeServiceImpl implements PlacanjeService {
     public void send(NalogZaPrenos nalogZaPrenos) {}
 
     private boolean proveriFirmu(String brojRacuna) {
+        Optional<Racun> racun = repozitorijumRacuna.findByBrojRacuna(brojRacuna);
+        if(racun.isPresent()){
+            String swiftCode = racun.get().getBanka().getSWIFTkod();
 
-        Racun racun = repozitorijumRacuna.findByBrojRacuna(brojRacuna).get();
-        String swiftCode = racun.getBanka().getSWIFTkod();
-
-        if(swiftCode.equals(environmentProperties.getSwiftCode())){
-            return true;
-        }else {
+            if(swiftCode.equals(environmentProperties.getSwiftCode())){
+                return true;
+            }else {
+                return false;
+            }
+        }else{
             return false;
         }
     }

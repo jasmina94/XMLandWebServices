@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.cdi.JpaRepositoryExtension;
 import rs.ac.uns.ftn.model.database.DnevnoStanjeRacuna;
 import rs.ac.uns.ftn.model.database.Racun;
 
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -14,4 +15,5 @@ public interface DnevnoStanjeRacunaRepository extends JpaRepository<DnevnoStanje
 
     Optional<DnevnoStanjeRacuna> findById(Long id);
 
+    Optional<DnevnoStanjeRacuna> findByRacunAndDatum(Racun racun, Date datum);
 }
