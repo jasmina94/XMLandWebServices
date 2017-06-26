@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -125,7 +126,9 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         duznikUPrenosu.setPozivNaBroj(podaciZaNalogDTO.getPozivNaBrojZaduzenja());
         duznikUPrenosu.setModelPrenosa(podaciZaNalogDTO.getModelZaduzenja());
 
-        nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
+        //TODO: Testiraj ovo
+        nalogZaPrenos.setIdPoruke(UUID.randomUUID().toString());
+        //nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
         nalogZaPrenos.setDuznik(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setPoverilac(podaciZaNalogDTO.getFaktura().getPodaciODobavljacu().getNaziv());
         nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + podaciZaNalogDTO.getFaktura().getBrojRacuna());
