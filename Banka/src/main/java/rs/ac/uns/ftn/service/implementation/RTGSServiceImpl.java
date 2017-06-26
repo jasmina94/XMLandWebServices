@@ -97,7 +97,8 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
                 return "Nema racuna duznika";
             }else{
                 Racun racunDuznikaReal = racunDuznika.get();
-                racunDuznikaReal.setSaldo(racunDuznikaReal.getSaldo() - mt103Model.get().getIznos());
+                racunDuznikaReal.setSaldo(racunDuznikaReal.getSaldo() - racunDuznika.get().getRezervisanaSredstva());
+                racunDuznika.get().setRezervisanaSredstva(0.0);
                 racunRepository.save(racunDuznikaReal);
                 napraviAnalitiku(mt103Model.get(), racunDuznikaReal, true);
             }
@@ -195,11 +196,12 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
             tempDatum = tempCal.getTime();
 
             if (tempDatum.equals(datumAnalitike)){
-                //nasao sam dnevno stanje
                 dsr.setPredhodnoStanje(dsr.getNovoStanje());
                 if(isDuzan) {
+                    dsr.setUkupnoNaTeret(dsr.getUkupnoNaTeret() + mt103Model.getIznos());
                     dsr.setNovoStanje(dsr.getNovoStanje() - mt103Model.getIznos());
                 }else{
+                    dsr.setUkupnoUKorist(dsr.getUkupnoUKorist() + mt103Model.getIznos());
                     dsr.setNovoStanje(dsr.getNovoStanje() + mt103Model.getIznos());
                 }
 
@@ -218,10 +220,12 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
             dnevnoStanjeRacuna.setRacun(racun);
 
             if(isDuzan) {
+                dnevnoStanjeRacuna.setUkupnoNaTeret(dnevnoStanjeRacuna.getUkupnoNaTeret() + mt103Model.getIznos());
                 dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() + mt103Model.getIznos());
                 dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
                 dnevnoStanjeRacuna.setBrojPromenaNaTeret(1);
             }else{
+                dnevnoStanjeRacuna.setUkupnoUKorist(dnevnoStanjeRacuna.getUkupnoUKorist() + mt103Model.getIznos());
                 dnevnoStanjeRacuna.setPredhodnoStanje(racun.getSaldo() - mt103Model.getIznos());
                 dnevnoStanjeRacuna.setNovoStanje(racun.getSaldo());
                 dnevnoStanjeRacuna.setBrojPromenaUKorist(1);

@@ -26,9 +26,7 @@ public class NalogEndpoint {
     public GetNalogZaPrenosResponse nalog(@RequestPayload GetNalogZaPrenosRequest request) {
         final GetNalogZaPrenosResponse response = new GetNalogZaPrenosResponse();
         NalogZaPrenos nalogZaPrenos = request.getNalogZaPrenos();
-
         servisPlacanje.process(nalogZaPrenos);
-
         response.setNalogZaPrenos("Ok");
         return response;
     }

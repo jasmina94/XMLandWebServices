@@ -55,7 +55,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
     public void process(NalogZaPrenos nalogZaPrenos) {
         boolean duznikKodNas = proveriFirmu(nalogZaPrenos.getPodaciOPrenosu().getDuznikUPrenosu().getRacunUcesnika());
         boolean poverilacKodNas = proveriFirmu(nalogZaPrenos.getPodaciOPrenosu().getPoverilacUPrenosu().getRacunUcesnika());
-
         if(!duznikKodNas) {
             throw new ServiceFaultException("Nije pronadjen", new ServiceFault("404", "Racun duznika nije pronadjen!"));
         }else if(duznikKodNas && poverilacKodNas) {
@@ -102,6 +101,8 @@ public class PlacanjeServiceImpl implements PlacanjeService {
 
         if(nalog.isHitno() || nalog.getPodaciOPrenosu().getIznos().doubleValue() >= 250000.00){
             // RTGS
+            racunDuznika.setRezervisanaSredstva(nalog.getPodaciOPrenosu().getIznos().doubleValue());
+            repozitorijumRacuna.save(racunDuznika);
             Mt103 mt103 = createMt103(nalog, racunDuznika, racunPoverioca);
             RTGSService.processMT103(mt103);
         }else{
