@@ -20,7 +20,7 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Redni broj preseka</label>
-                <input id="rbrPreseka" name="rbrPreseka" type="number" ng-model = "zahtevZaIzvod.redniBrojPreseka" ng-pattern="/^[1-9][0-9]$/" required>
+                <input id="rbrPreseka" name="rbrPreseka" type="number" ng-model = "zahtevZaIzvod.redniBrojPreseka" ng-pattern="/^[1-9][0-9]?$/" required>
                 <div ng-messages="zahtevZaIzvodForm.rbrPreseka.$error" ng-if="zahtevZaIzvodForm.rbrPreseka.$dirty">
                     <div ng-message="required">Obavezan je unos rednog broja preseka</div>
                     <div ng-message="pattern">Redni broj preseka nije validan</div>

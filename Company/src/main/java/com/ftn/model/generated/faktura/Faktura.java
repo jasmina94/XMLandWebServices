@@ -148,7 +148,6 @@ public class Faktura {
     @GeneratedValue
     @XmlTransient
     private long id;
-
     @XmlElement(name = "podaci_o_dobavljacu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     protected TPodaciSubjekt podaciODobavljacu;
@@ -175,12 +174,10 @@ public class Faktura {
     @Column(nullable = false)
     @Digits(integer = 15, fraction = 2)
     protected BigDecimal ukupanPorez;
-
     @XmlElement(name = "oznaka_valute", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     protected TOznakaValute oznakaValute;
-
     @XmlElement(name = "Iznos_za_uplatu", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @Column(nullable = false)
     @Digits(integer = 15, fraction = 2)
@@ -189,11 +186,9 @@ public class Faktura {
     @Column(nullable = false, length = 20)
     @Pattern(regexp = "\\d{3}-\\d{1,13}-\\d{2}")
     protected String uplataNaRacun;
-
     @XmlElement(name = "stavka_fakture", namespace = "http://www.ftn.uns.ac.rs/faktura", required = true)
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<TStavkaFaktura> stavkaFakture;
-
     @XmlAttribute(name = "id_poruke")
     @Size(max = 50)
     protected String idPoruke;
@@ -211,7 +206,6 @@ public class Faktura {
     @XmlTransient
     @Column(nullable = false)
     private boolean poslato;
-
     @XmlTransient
     @Column(nullable = false)
     private boolean kreiranNalog;

@@ -141,14 +141,16 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
         podaciOPrenosu.setDuznikUPrenosu(duznikUPrenosu);
         nalogZaPrenos.setPodaciOPrenosu(podaciOPrenosu);
 
-        //send(nalogZaPrenos);
+        if(!send(nalogZaPrenos)) {
+            return null;
+        }
         NalogZaPrenosDTO kreiranNalogDTO = create(new NalogZaPrenosDTO(nalogZaPrenos));
         podaciZaNalogDTO.getFaktura().setKreiranNalog(true);
         fakturaDao.save(podaciZaNalogDTO.getFaktura());
         return kreiranNalogDTO;
     }
 
-    private void send(NalogZaPrenos nalogZaPrenos) {
+    private boolean send(NalogZaPrenos nalogZaPrenos) {
 
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetNalogZaPrenosRequest.class, GetNalogZaPrenosResponse.class);
@@ -157,9 +159,13 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
 
         final GetNalogZaPrenosRequest getNalogZaPrenosRequest = new GetNalogZaPrenosRequest();
         getNalogZaPrenosRequest.setNalogZaPrenos(nalogZaPrenos);
-        final GetNalogZaPrenosResponse response = (GetNalogZaPrenosResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(environmentProperties.getBankUrl(), getNalogZaPrenosRequest);
-        // TODO: Based on response throw an exception maybe?
+        try{
+            final GetNalogZaPrenosResponse response = (GetNalogZaPrenosResponse) getWebServiceTemplate()
+                    .marshalSendAndReceive(environmentProperties.getBankUrl(), getNalogZaPrenosRequest);
+        }catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean validateXMLSchema(String xsdPath, String xmlPath){
