@@ -10,4 +10,4 @@ INSERT INTO `quatrofantasticoxmlcompany1`.`roba_usluga`(`cena`, `jedinica_mere`,
 
 INSERT INTO `quatrofantasticoxmlcompany1`.`tstavka_faktura` (`redni_broj`, `naziv_robe_usluge`, `kolicina`, `jedinica_mere`, `jedinicna_cena`, `vrednost`, `procenat_rabata`, `iznos_rabata`, `umanjeno_za_rabat`, `ukupan_porez`, `roba` ) VALUES (1, "Cokoladno mleko", 15.00, "kg", 50.00, 750.00, 18.00, 100.00, 14.00, 2000.00, TRUE ), (2, "Jogurt", 30.00, "litar", 100.00, 3000.00, 18.00, 200.00, 33.00, 20000.00, TRUE );
 
-INSERT INTO `quatrofantasticoxmlcompany1`.`faktura_stavka_fakture`(`faktura_id`,`stavka_fakture_id`) VALUES (1,1), (1,2);
+INSERT INTO `quatrofantasticoxmlcompany1`.`faktura_stavka_fakture`(`faktura_id`,`stavka_fakture_id`) VALUES (1,1), (1,2), (3,3), (4,4);

@@ -39,7 +39,7 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
         amount.setValuta(TOznakaValute.valueOf(mt103.getPodaciOUplati().getIznos().getValuta()));
 
         final Mt900.PodaciONalogu paymentRequest = new Mt900.PodaciONalogu();
-        paymentRequest.setIdPorukeNaloga(mt103.getIdPoruke());
+        paymentRequest.setIdPorukeNaloga("Mt103|" + mt103.getIdPoruke());
         paymentRequest.setDatumValute(mt103.getPodaciOUplati().getDatumValute());
         paymentRequest.setIznos(amount);
 
@@ -61,7 +61,7 @@ public class Mt900ServiceImpl extends WebServiceGatewaySupport implements Mt900S
         amount.setValuta(mt102.getMt102Zaglavlje().getSifraValute());
 
         final Mt900.PodaciONalogu paymentRequest = new Mt900.PodaciONalogu();
-        paymentRequest.setIdPorukeNaloga(mt102.getMt102Zaglavlje().getIdPoruke());
+        paymentRequest.setIdPorukeNaloga("Mt102|" + mt102.getMt102Zaglavlje().getIdPoruke());
         paymentRequest.setDatumValute(mt102.getMt102Zaglavlje().getDatumValute());
         paymentRequest.setIznos(amount);
 

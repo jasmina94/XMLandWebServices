@@ -1,0 +1,35 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Zahtev za izvod</h2>
+        </div>
+    </md-toolbar>
+    <form novalidate name="zahtevZaIzvodForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-input-container class="md-block">
+                <label>Broj računa</label>
+                <input id="brojRacuna" name="brojRacuna" type="text" ng-model="firma.racunFirme" disabled>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Datum</label>
+                <input id="datumZahteva" name="datumZahteva" type="date" ng-model = "zahtevZaIzvod.datum" max="{{danasnjiDatum | date:'yyyy-MM-dd'}}" required>
+                <div ng-messages="zahtevZaIzvodForm.datumZahteva.$error" ng-if="zahtevZaIzvodForm.datumZahteva.$dirty">
+                    <div ng-message="required">Obavezan je unos datuma</div>
+                    <div ng-message="max">Datum ne sme biti veći od današnjeg</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Redni broj preseka</label>
+                <input id="rbrPreseka" name="rbrPreseka" type="number" ng-model = "zahtevZaIzvod.redniBrojPreseka" ng-pattern="/^[1-9][0-9]$/" required>
+                <div ng-messages="zahtevZaIzvodForm.rbrPreseka.$error" ng-if="zahtevZaIzvodForm.rbrPreseka.$dirty">
+                    <div ng-message="required">Obavezan je unos rednog broja preseka</div>
+                    <div ng-message="pattern">Redni broj preseka nije validan</div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Zatvori</md-button>
+            <md-button ng-click="posaljiZahtev()" ng-disabled="zahtevZaIzvodForm.$invalid">Pošalji</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
