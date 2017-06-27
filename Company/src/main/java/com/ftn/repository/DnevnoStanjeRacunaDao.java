@@ -3,6 +3,7 @@ package com.ftn.repository;
 import com.ftn.model.database.DnevnoStanjeRacuna;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -11,5 +12,7 @@ import java.util.Optional;
 public interface DnevnoStanjeRacunaDao extends JpaRepository<DnevnoStanjeRacuna, Long> {
 
     Optional<DnevnoStanjeRacuna> findById(Long id);
+
+    Optional<DnevnoStanjeRacuna> findByDatum(Date date);
 
 }
