@@ -18,14 +18,6 @@
                     <div ng-message="max">Datum ne sme biti veći od današnjeg</div>
                 </div>
             </md-input-container>
-            <md-input-container class="md-block">
-                <label>Redni broj preseka</label>
-                <input id="rbrPreseka" name="rbrPreseka" type="number" ng-model = "zahtevZaIzvod.redniBrojPreseka" ng-pattern="/^[1-9][0-9]?$/" required>
-                <div ng-messages="zahtevZaIzvodForm.rbrPreseka.$error" ng-if="zahtevZaIzvodForm.rbrPreseka.$dirty">
-                    <div ng-message="required">Obavezan je unos rednog broja preseka</div>
-                    <div ng-message="pattern">Redni broj preseka nije validan</div>
-                </div>
-            </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">
             <md-button ng-if="!obradaUToku" ng-click="close()">Zatvori</md-button>

@@ -12,6 +12,7 @@ app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $
     $scope.posaljiZahtev = function () {
         $scope.obradaUToku = true;
         $scope.zahtevZaIzvod.brojRacuna = $scope.firma.racunFirme;
+        $scope.zahtevZaIzvod.redniBrojPreseka = 1;
         zahtevZaIzvodService.posaljiZahtev($scope.zahtevZaIzvod, function (response) {
             if(response.data) {
                 prikaziUspeh();
