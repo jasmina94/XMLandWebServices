@@ -103,4 +103,18 @@ public class Presek {
         return this.stavkaPreseka;
     }
 
+    /**
+     * Sets the value of the stavkaPreseka property.
+     *
+     * @param value
+     *     allowed object is
+     *     {@link List<StavkaPreseka> }
+     *
+     */
+    public void setStavkaPreseka(List<StavkaPreseka> value) {
+        this.stavkaPreseka = value;
+    }
+
+
+
 }

@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:nzp="http://www.ftn.uns.ac.rs/zahtevZaIzvod" xmlns="http://www.ftn.uns.ac.rs/tipovi">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <nzp:getZahtevZaIzvodRequest>
+            <zahtev_za_izvod xmlns="http://www.ftn.uns.ac.rs/zahtevZaIzvod" xsi:schemaLocation="http://www.ftn.uns.ac.rs/zahtevZaIzvod"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tipovi="http://www.ftn.uns.ac.rs/tipovi">
+                <broj_racuna>205-2200148916622-71</broj_racuna>
+                <datum>2016-06-26</datum>
+                <redni_broj_preseka>1</redni_broj_preseka>
+            </zahtev_za_izvod>
+        </nzp:getZahtevZaIzvodRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

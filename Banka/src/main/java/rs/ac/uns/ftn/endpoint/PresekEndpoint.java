@@ -8,6 +8,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import rs.ac.uns.ftn.model.dto.presek.GetPresekRequest;
 import rs.ac.uns.ftn.model.dto.presek.GetPresekResponse;
 import rs.ac.uns.ftn.model.environment.EnvironmentProperties;
+import rs.ac.uns.ftn.service.PresekService;
 
 /**
  * Created by Jasmina on 24/06/2017.
@@ -19,10 +20,14 @@ public class PresekEndpoint {
     @Autowired
     private EnvironmentProperties environmentProperties;
 
+    @Autowired
+    private PresekService presekService;
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPresekRequest")
     @ResponsePayload
     public GetPresekResponse presek(@RequestPayload GetPresekRequest request) {
         final GetPresekResponse response = new GetPresekResponse();
+        presekService.send(request.getPresek());
         response.setPresek("Ok");
         return response;
     }
