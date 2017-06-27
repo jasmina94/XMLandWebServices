@@ -44,14 +44,12 @@ public class FakturaServiceImplementation implements FakturaService {
     private final FakturaDao fakturaDao;
     private final TPodaciSubjekatDao tPodaciSubjekatDao;
     private final EnvironmentProperties environmentProperties;
-    private final PDFGeneratorService pdfService;
 
     @Autowired
-    public FakturaServiceImplementation(FakturaDao fakturaDao, TPodaciSubjekatDao tPodaciSubjekatDao, EnvironmentProperties environmentProperties, PDFGeneratorService pdfGeneratorService) {
+    public FakturaServiceImplementation(FakturaDao fakturaDao, TPodaciSubjekatDao tPodaciSubjekatDao, EnvironmentProperties environmentProperties) {
         this.fakturaDao = fakturaDao;
         this.tPodaciSubjekatDao = tPodaciSubjekatDao;
         this.environmentProperties = environmentProperties;
-        this.pdfService = pdfGeneratorService;
     }
 
     @Override
