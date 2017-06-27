@@ -11,7 +11,7 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'swiftbanke_duznika
+apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 version = '0.0.1-SNAPSHOT'
