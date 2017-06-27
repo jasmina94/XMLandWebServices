@@ -3,12 +3,14 @@ app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $
     $scope.firma = firma;
     $scope.zahtevZaIzvod = {};
     $scope.danasnjiDatum = new Date();
+    $scope.obradaUToku = false;
 
     $scope.close = function () {
         $mdDialog.hide();
     };
     
     $scope.posaljiZahtev = function () {
+        $scope.obradaUToku = true;
         $scope.zahtevZaIzvod.brojRacuna = $scope.firma.racunFirme;
         zahtevZaIzvodService.posaljiZahtev($scope.zahtevZaIzvod, function (response) {
             if(response.data) {

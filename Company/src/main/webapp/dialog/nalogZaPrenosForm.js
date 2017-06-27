@@ -3,8 +3,10 @@ app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $
     $scope.faktura = faktura;
     $scope.podaciZaNalog = {};
     $scope.firma = authenticationService.getUser().tpodaciSubjektDTO;
+    $scope.obradaUToku = false;
 
     $scope.posaljiNalog = function () {
+        $scope.obradaUToku = true;
         $scope.podaciZaNalog.faktura = faktura;
         $scope.podaciZaNalog.racunDuznika = $scope.firma.racunFirme;
         nalogZaPrenosService.kreirajNalog($scope.podaciZaNalog,  function (response) {
@@ -14,7 +16,6 @@ app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $
             } else {
                 prikaziNeuspeh();
             }
-
         });
     };
 

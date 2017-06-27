@@ -70,6 +70,7 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
             final GetZahtevZaIzvodResponse response = (GetZahtevZaIzvodResponse) getWebServiceTemplate()
                     .marshalSendAndReceive(environmentProperties.getBankUrl(), getZahtevZaIzvodRequest);
         } catch (Exception e) {
+            //TODO: Dodaj handlovanje greskama, zbog cega tacno nije proslo ----- nekako iscitati iz exceptiona
             return false;
         }
         return true;

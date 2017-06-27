@@ -52,8 +52,14 @@
             </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">
-            <md-button ng-click="close()">Zatvori</md-button>
-            <md-button type="submit" class="md-primary md-raised" ng-click="posaljiNalog()" ng-disabled="nalogZaPrenosForm.$invalid">U redu</md-button>
+            <md-button ng-if="!obradaUToku" ng-click="close()">Zatvori</md-button>
+            <md-button ng-if="!obradaUToku" type="submit" class="md-primary md-raised" ng-click="posaljiNalog()" ng-disabled="nalogZaPrenosForm.$invalid">U redu</md-button>
+            <div class="container" ng-if = "obradaUToku">
+                <md-progress-linear md-mode="query"></md-progress-linear>
+                <div class="bottom-block">
+                    <span>Nalog za prenos se kreira</span>
+                </div>
+            </div>
         </md-dialog-actions>
     </form>
 </md-dialog>
