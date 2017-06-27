@@ -8,7 +8,7 @@ import com.ftn.model.generated.nalog_za_prenos.NalogZaPrenos;
  */
 public interface PDFGeneratorService {
 
-    public void generisiFakturaPDF(Faktura faktura);
+    Faktura generisiFakturaPDF(Faktura faktura);
 
-    public void generisiNalogZaPrenosPDF(NalogZaPrenos nalogZaPrenos);
+    void generisiNalogZaPrenosPDF(NalogZaPrenos nalogZaPrenos);
 }

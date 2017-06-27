@@ -21,6 +21,9 @@ app.service('fakturaService', function($http){
         },
         update: function(faktura, onSuccess, onError){//mozda i nece trebati
             $http.patch('/api/fakture/' + faktura.id, faktura).then(onSuccess, onError);
+        },
+        generisiPdf: function(faktura, onSuccess, onError){
+            $http.post('/api/fakture/generisiPdf', faktura).then(onSuccess, onError);
         }
     }
 });

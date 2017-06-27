@@ -110,6 +110,11 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         );
     }
 
+    $scope.generisiPdf = function(faktura) {
+        fakturaService.generisiPdf(faktura, function (response) {
+        });
+    }
+
     $scope.query = {
         order: 'name',
         limit: 5,

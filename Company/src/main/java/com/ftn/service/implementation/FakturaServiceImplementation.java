@@ -141,7 +141,6 @@ public class FakturaServiceImplementation implements FakturaService {
             if(!validateXMLSchema("src/main/resources/faktura.xsd", "src/main/resources/faktura.xml")) {
                 return null;
             }
-            pdfService.generisiFakturaPDF(faktura);
 
             final RestTemplate restTemplate = new RestTemplate();
             final String firmaUrl = tPodaciSubjekatDao.findByPib(faktura.getPodaciOKupcu().getPib()).get().getCompanyUrl();

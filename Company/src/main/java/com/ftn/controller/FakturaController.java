@@ -1,9 +1,11 @@
 package com.ftn.controller;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.ftn.exception.BadRequestException;
 import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.environment.EnvironmentProperties;
 import com.ftn.service.FakturaService;
+import com.ftn.service.PDFGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,10 @@ public class FakturaController {
 
     @Autowired
     private EnvironmentProperties environmentProperties;
+
+    @Autowired
+    private PDFGeneratorService pdfGeneratorService;
+
 
     @Autowired
     public FakturaController(FakturaService fakturaService) {
@@ -70,4 +76,11 @@ public class FakturaController {
         return new ResponseEntity<>(fakturaService.update(id, fakturaDTO), HttpStatus.OK);
     }
 
+    @Transactional
+    @PostMapping(value = "/generisiPdf")
+    public ResponseEntity generisiPdf(@Valid @RequestBody FakturaDTO fakturaDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            throw new BadRequestException();
+        return new ResponseEntity<>(pdfGeneratorService.generisiFakturaPDF(fakturaDTO.construct()), HttpStatus.OK);
+    }
 }

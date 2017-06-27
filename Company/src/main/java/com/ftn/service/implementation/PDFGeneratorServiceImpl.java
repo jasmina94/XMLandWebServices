@@ -35,7 +35,7 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
             Font.BOLD);
 
     @Override
-    public void generisiFakturaPDF(Faktura faktura) {
+    public Faktura generisiFakturaPDF(Faktura faktura) {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FakturaFILE));
@@ -43,8 +43,10 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
             addMetaData(document);
             addTitlePage(document, faktura);
             document.close();
+            return faktura;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
