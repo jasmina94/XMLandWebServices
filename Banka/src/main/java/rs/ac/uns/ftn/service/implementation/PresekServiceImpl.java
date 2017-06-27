@@ -47,6 +47,10 @@ public class PresekServiceImpl extends WebServiceGatewaySupport implements Prese
         final GetPresekRequest getPresekRequest = new GetPresekRequest();
         getPresekRequest.setPresek(presek);
 
-        final GetPresekResponse response = (GetPresekResponse) getWebServiceTemplate().marshalSendAndReceive(url, getPresekRequest);
+        try{
+            final GetPresekResponse response = (GetPresekResponse) getWebServiceTemplate().marshalSendAndReceive(url, getPresekRequest);
+        }catch (RuntimeException e){
+            throw new ServiceFaultException("Pogresan odgovor.", new ServiceFault("500", "Nemoguce slanje preseka firmi."));
+        }
     }
 }

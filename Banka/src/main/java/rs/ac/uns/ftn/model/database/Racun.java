@@ -32,5 +32,4 @@ public class Racun {
 
     @Column
     private double rezervisanaSredstva = 0.0;
-
 }

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+import rs.ac.uns.ftn.exception.ServiceFaultException;
 import rs.ac.uns.ftn.model.database.*;
+import rs.ac.uns.ftn.model.dto.error.ServiceFault;
 import rs.ac.uns.ftn.model.dto.mt102.GetMt102Request;
 import rs.ac.uns.ftn.model.dto.mt102.GetMt102Response;
 import rs.ac.uns.ftn.model.dto.mt102.Mt102;
@@ -125,7 +127,6 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
 
             mt102.getMt102Telo().add(telo);
         }
-
         return mt102;
     }
 
@@ -139,19 +140,24 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
         final GetMt102Request getMt102Request = new GetMt102Request();
         getMt102Request.setMt102(mt102);
 
-        final GetMt102Response response = (GetMt102Response) getWebServiceTemplate().marshalSendAndReceive(environmentProperties.getNbsUrl(), getMt102Request);
+        try{
+            final GetMt102Response response = (GetMt102Response) getWebServiceTemplate()
+                    .marshalSendAndReceive(environmentProperties.getNbsUrl(), getMt102Request);
+        }catch (Exception e) {
+            throw new ServiceFaultException("Pogresan odgovor.", new ServiceFault("500", "Nemoguce slanje Mt102 modela narodnoj banci!"));
+        }
     }
 
     @Override
     public String processMT900(Mt900 mt900) {
         Optional<Mt102Model> mt102Model = mt102Repository.findByIdPoruke(mt900.getIdPoruke());
         if(!mt102Model.isPresent()){
-            return "Nisam pronasao model mt102Model.";
+            throw new ServiceFaultException("Nije pronadjeno.", new ServiceFault("404", "Nije pronadjen Mt102 model koji!"));
         }else{
             for (PojedinacniNalogZaPlacanje pnzp: mt102Model.get().getListaNalogaZaPlacanje()) {
                 Optional<Racun> racunDuznika = racunRepository.findByBrojRacuna(pnzp.getRacunDuznika());
                 if(!racunDuznika.isPresent()){
-                    return "Nema racuna duznika.";
+                    throw new ServiceFaultException("Nije pronadjeno.", new ServiceFault("404", "Nije pronadjen racun duznika!"));
                 }else{
                     System.out.println("ovakav racun postoji " + racunDuznika.get().getBrojRacuna());
                     Racun racunDuznikaReal = racunDuznika.get();
@@ -170,12 +176,12 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
     public String processMT910(Mt910 mt910) {
         Optional<Mt102Model> mt102Model = mt102Repository.findByIdPoruke(mt910.getIdPoruke());
         if(!mt102Model.isPresent()){
-            return "Nisam pronasao model mt102Model.";
+            throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nije pronadjen Mt102model u banci poverioca!"));
         }else{
             for (PojedinacniNalogZaPlacanje pnzp: mt102Model.get().getListaNalogaZaPlacanje()) {
                 Optional<Racun> racunPoverioca = racunRepository.findByBrojRacuna(pnzp.getRacunPoverioca());
                 if(!racunPoverioca.isPresent()){
-                    return "Nema racuna duznika.";
+                    throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nema racuna poverioca."));
                 }else{
                     Racun racunPoveriocaReal = racunPoverioca.get();
                     AnalitikaIzvoda analitikaIzvoda = napraviAnalitiku(pnzp, racunPoveriocaReal, false, mt102Model.get().getDatumValute());
@@ -224,7 +230,6 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
         }
         mt102Model.setListaNalogaZaPlacanje(pojedinacniNalogZaPlacanjeList);
         mt102Repository.save(mt102Model);
-        System.out.println("Sacuvao mt102model u bazu desne banke.");
     }
 
     private AnalitikaIzvoda napraviAnalitiku(PojedinacniNalogZaPlacanje pnzp, Racun racunDuznik, boolean duznik, Date datumValute){
@@ -266,7 +271,6 @@ public class ClearingServiceImpl extends WebServiceGatewaySupport implements Cle
             tempCal.set(Calendar.HOUR, 0);
             tempDatum = tempCal.getTime();
             if (tempDatum.equals(datumAnalitike)){
-                //dsr.setPredhodnoStanje(racun.getSaldo());
                 if(isDuzan) {
                     dsr.setUkupnoNaTeret(dsr.getUkupnoNaTeret() + analitika.getIznos().doubleValue());
                     dsr.setNovoStanje(dsr.getPredhodnoStanje() - dsr.getUkupnoNaTeret() + dsr.getUkupnoUKorist());

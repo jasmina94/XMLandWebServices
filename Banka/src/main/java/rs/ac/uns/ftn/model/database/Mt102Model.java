@@ -51,5 +51,4 @@ public class Mt102Model {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "mt102Model")
     private List<PojedinacniNalogZaPlacanje> listaNalogaZaPlacanje;
-
 }

@@ -64,14 +64,10 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         }
     }
 
-    @Override
-    public void send(NalogZaPrenos nalogZaPrenos) {}
-
     private boolean proveriFirmu(String brojRacuna) {
         Optional<Racun> racun = repozitorijumRacuna.findByBrojRacuna(brojRacuna);
         if(racun.isPresent()){
             String swiftCode = racun.get().getBanka().getSWIFTkod();
-
             if(swiftCode.equals(environmentProperties.getSwiftCode())){
                 return true;
             }else {
@@ -140,7 +136,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
                     mt102Repository.save(mt102Model.get(0));
                     clearingService.sendMT102(mt102);
                 }
-                System.out.println("Prosao kliring ka nbs.");
             }
        }
     }
@@ -244,7 +239,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         podaciOUplati.setPodaciOZaduzenju(podaciZaduzenje);
         podaciOUplati.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
 
-
         mt103.setPodaciOUplati(podaciOUplati);
 
         return mt103;
@@ -269,7 +263,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         analitikaDuznika.setIznos(nalog.getPodaciOPrenosu().getIznos());
         analitikaDuznika.setSifraValute(nalog.getPodaciOPrenosu().getOznakaValute().value());
         analitikaDuznika.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
-        //analitikaDuznika.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunDuznika));
 
         repozitorijumAnalitika.save(analitikaDuznika);
 
@@ -287,7 +280,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         analitikaPoverioca.setIznos(nalog.getPodaciOPrenosu().getIznos());
         analitikaPoverioca.setSifraValute(nalog.getPodaciOPrenosu().getOznakaValute().value());
         analitikaPoverioca.setSvrhaPlacanja(nalog.getSvrhaPlacanja());
-        //analitikaPoverioca.setDnevnoStanjeRacuna(repozitorijumDnevnoStanjeRacuna.findByRacun(racunPoverioca));
 
         repozitorijumAnalitika.save(analitikaPoverioca);
 
@@ -305,7 +297,7 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR, 0);
         datumAnalitike = calendar.getTime();
-        //udjii i pokupiti sva dnevna stanja,
+
         for (DnevnoStanjeRacuna dsr : racun.getDnevnoStanjeRacuna()) {
             Date tempDatum = dsr.getDatum();
             Calendar tempCal = Calendar.getInstance();
@@ -317,7 +309,6 @@ public class PlacanjeServiceImpl implements PlacanjeService {
             tempDatum = tempCal.getTime();
 
             if (tempDatum.equals(datumAnalitike)){
-                //nasao sam dnevno stanje
                 dsr.setPredhodnoStanje(dsr.getNovoStanje());
                 if(isDuzan) {
                     dsr.setPredhodnoStanje(dsr.getNovoStanje());
@@ -359,5 +350,4 @@ public class PlacanjeServiceImpl implements PlacanjeService {
         repozitorijumRacuna.save(racun);
         repozitorijumAnalitika.save(analitika);
     }
-
 }

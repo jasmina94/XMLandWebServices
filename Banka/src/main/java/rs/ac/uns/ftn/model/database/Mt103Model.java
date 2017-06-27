@@ -76,5 +76,4 @@ public class Mt103Model {
 
     @Column
     private String sifraValute;
-
 }

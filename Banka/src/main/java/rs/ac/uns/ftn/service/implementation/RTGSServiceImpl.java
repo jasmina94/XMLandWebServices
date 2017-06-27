@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+import rs.ac.uns.ftn.exception.ServiceFaultException;
 import rs.ac.uns.ftn.model.database.AnalitikaIzvoda;
 import rs.ac.uns.ftn.model.database.DnevnoStanjeRacuna;
 import rs.ac.uns.ftn.model.database.Mt103Model;
 import rs.ac.uns.ftn.model.database.Racun;
+import rs.ac.uns.ftn.model.dto.error.ServiceFault;
+import rs.ac.uns.ftn.model.dto.mt102.GetMt102Response;
 import rs.ac.uns.ftn.model.dto.mt103.GetMt103Request;
 import rs.ac.uns.ftn.model.dto.mt103.GetMt103Response;
 import rs.ac.uns.ftn.model.dto.mt103.Mt103;
@@ -33,7 +36,7 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
     private BankaRepository bankaRepository;
 
     @Autowired
-    private EnvironmentProperties environment;
+    private EnvironmentProperties environmentProperties;
 
     @Autowired
     private AnalitikaIzvodaRepository analitikaIzvodaRepository;
@@ -82,7 +85,12 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         final GetMt103Request getMt103Request = new GetMt103Request();
         getMt103Request.setMt103(mt103);
 
-        final GetMt103Response response = (GetMt103Response) getWebServiceTemplate().marshalSendAndReceive(environment.getNbsUrl(), getMt103Request);
+        try{
+            final GetMt103Response response = (GetMt103Response) getWebServiceTemplate()
+                    .marshalSendAndReceive(environmentProperties.getNbsUrl(), getMt103Request);
+        }catch (RuntimeException e) {
+            throw new ServiceFaultException("Pogresan odgovor.", new ServiceFault("500", "Nemoguce slanje Mt103 modela narodnoj banci!"));
+        }
     }
 
     @Override
@@ -90,11 +98,11 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         Optional<Mt103Model> mt103Model = mt103Repository.findByIdPoruke(mt900.getIdPoruke());
 
         if(!mt103Model.isPresent()){
-            return "Nisam pronasao model mt103Model.";
+            throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nije pronadjen Mt103 model u banci duznika!"));
         }else{
             Optional <Racun> racunDuznika = racunRepository.findByBrojRacuna(mt103Model.get().getRacunDuznika());
             if(!racunDuznika.isPresent()){
-                return "Nema racuna duznika";
+                throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nije pronadjen racun duznika!"));
             }else{
                 Racun racunDuznikaReal = racunDuznika.get();
                 racunDuznikaReal.setSaldo(racunDuznikaReal.getSaldo() - racunDuznika.get().getRezervisanaSredstva());
@@ -103,7 +111,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
                 napraviAnalitiku(mt103Model.get(), racunDuznikaReal, true);
             }
         }
-
         return "ok";
     }
 
@@ -166,15 +173,11 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         analitika.setIznos(BigDecimal.valueOf(mt103Model.getIznos()));
         analitika.setSifraValute(mt103Model.getSifraValute());
         analitika.setSvrhaPlacanja(mt103Model.getSvrhaPlacanja());
-
         evidentirajDnevnoStanje(analitika, mt103Model, racunDuznik, duznik);
     }
 
     private void evidentirajDnevnoStanje(AnalitikaIzvoda analitika, Mt103Model mt103Model, Racun racun, boolean isDuzan){
-        //treba evidentirati dnevno stanje duznika
-
         boolean nasaoDnevnoStanje = false;
-
         Date datumAnalitike = analitika.getDatumNaloga();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(datumAnalitike);
@@ -184,7 +187,6 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         calendar.set(Calendar.HOUR, 0);
         datumAnalitike = calendar.getTime();
 
-        //uci i pokupiti sva dnevna stanja,
         for (DnevnoStanjeRacuna dsr : racun.getDnevnoStanjeRacuna()) {
             Date tempDatum = dsr.getDatum();
             Calendar tempCal = Calendar.getInstance();
@@ -246,5 +248,4 @@ public class RTGSServiceImpl extends WebServiceGatewaySupport implements RTGSSer
         racunRepository.save(racun);
         analitikaIzvodaRepository.save(analitika);
     }
-
 }
