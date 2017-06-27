@@ -68,7 +68,7 @@ public class PresekServiceImplementation implements PresekService {
         for (StavkaPreseka stavka: stavkePreseka) {
             AnalitikaIzvodaDTO analitikaIzvodaDTO  = new AnalitikaIzvodaDTO();
             analitikaIzvodaDTO.setDatumNaloga(stavka.getPodaciOUplati().getDatumNaloga());
-            if (stavka.getPodaciOUplati().getSmer().equalsIgnoreCase("ulaz"))
+            if (stavka.getPodaciOUplati().getSmer().equalsIgnoreCase("K"))
                 analitikaIzvodaDTO.setSmer(true);
             else
                 analitikaIzvodaDTO.setSmer(false);

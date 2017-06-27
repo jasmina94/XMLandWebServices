@@ -138,7 +138,7 @@ public class ZahtevServiceImpl implements ZahtevService {
             StavkaPreseka.PodaciOUplati uplata = new StavkaPreseka.PodaciOUplati();
             uplata.setSvrhaPlacanja(analitika.getSvrhaPlacanja());
             uplata.setIznos(analitika.getIznos());
-            uplata.setSmer((analitika.isPrimljeno()) ? "ulaz" : "izlaz");
+            uplata.setSmer((analitika.isPrimljeno()) ? "K" : "T");
 
             GregorianCalendar gregorNalog = new GregorianCalendar();
             GregorianCalendar gregorValuta = new GregorianCalendar();
