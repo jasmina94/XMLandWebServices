@@ -1,9 +1,11 @@
 package com.ftn.service.implementation;
 
+import com.ftn.model.database.DnevnoStanjeRacuna;
 import com.ftn.model.environment.EnvironmentProperties;
 import com.ftn.model.generated.zahtevzaizvod.GetZahtevZaIzvodRequest;
 import com.ftn.model.generated.zahtevzaizvod.GetZahtevZaIzvodResponse;
 import com.ftn.model.generated.zahtevzaizvod.ZahtevZaIzvod;
+import com.ftn.repository.DnevnoStanjeRacunaDao;
 import com.ftn.service.ZahtevZaIzvodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -20,6 +22,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by Olivera on 26.6.2017..
@@ -29,12 +32,12 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
 
     private final EnvironmentProperties environmentProperties;
 
+
     @Autowired
     public ZahtevZaIzvodServiceImplementation(EnvironmentProperties environmentProperties) {
         this.environmentProperties = environmentProperties;
     }
 
-//postaviti redniBroj na 1!!!!!
     @Override
     public boolean posaljiZahtev(ZahtevZaIzvod zahtevZaIzvod) {
         File file = new File("src/main/resources/zahtevZaIzvod.xml");
@@ -59,6 +62,7 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
     }
 
     private boolean send(ZahtevZaIzvod zahtevZaIzvod) {
+
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setClassesToBeBound(GetZahtevZaIzvodRequest.class, GetZahtevZaIzvodResponse.class);
         setMarshaller(marshaller);

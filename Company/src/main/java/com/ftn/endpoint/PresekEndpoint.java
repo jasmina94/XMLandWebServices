@@ -16,7 +16,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
  */
 @Endpoint
 public class PresekEndpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/presek";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/presek";
 
     @Autowired
     private EnvironmentProperties environmentProperties;

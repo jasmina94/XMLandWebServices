@@ -73,7 +73,7 @@ public class ZahtevServiceImpl implements ZahtevService {
                     throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nije pronadjena nijedna transakcija za prosledjeni datum!"));
                 }else {
                    if(brojAnalitika > 3){
-                       int pocetak = trazeniPresek -1;
+                       int pocetak = (trazeniPresek -1) * 3;
                        int kraj = pocetak + 3;
                        if(kraj > (analitike.size() - 1)){
                            kraj = analitike.size();
