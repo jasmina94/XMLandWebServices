@@ -76,7 +76,7 @@ public class TPodaciSubjekt {
     @XmlTransient
     private long id;
     @XmlElement(required = true)
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Size(max = 255)
     protected String naziv;
     @XmlElement(required = true)
@@ -84,12 +84,12 @@ public class TPodaciSubjekt {
     @Size(max = 255)
     protected String adresa;
     @XmlElement(required = true)
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 11, unique = true)
     @Pattern(regexp = "\\d{11}")
     protected String pib;
 
     @XmlTransient
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     protected String racunFirme;
 
     @XmlTransient

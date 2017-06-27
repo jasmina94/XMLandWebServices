@@ -7,9 +7,6 @@ app.service('nalogZaPrenosService', function($http){
         read: function(onSuccess, onError){
             $http.get('/api/naloziZaPrenos').then(onSuccess, onError);
         },
-        readPoverilac: function(naziv, onSuccess, onError){
-            $http.get('/api/naloziZaPrenos/firmaPoverilac/' + naziv + '/').then(onSuccess, onError);
-        },
         readDuznik: function(naziv, onSuccess, onError){
             $http.get('/api/naloziZaPrenos/firmaDuznik/' + naziv + '/').then(onSuccess, onError);
         },

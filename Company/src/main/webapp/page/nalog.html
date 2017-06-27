@@ -1,7 +1,7 @@
 <div class="container">
     <div layout="column">
         <div layout="row">
-            <h3>Nalozi - {{uloga}}</h3>
+            <h3>Kreirani nalozi</h3>
         </div>
         <md-divider></md-divider>
         <md-card ng-class="{'md-whiteframe-4dp':hovering}"
@@ -43,8 +43,4 @@
         </md-card>
         <h3 class="text-center" ng-if = "nalozi.length == 0">Trenutno ne postoji nijedan nalog.</h3>
     </div>
-    <md-button class="md-primary md-fab md-fab-bottom-right"
-               aria-label="Kreiraj nalog"   ng-if = "uloga == 'duznik'">
-        <md-icon md-svg-src="image/ic_add_white_24px.svg"></md-icon>
-    </md-button>
 </div>
