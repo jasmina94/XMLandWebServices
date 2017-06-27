@@ -1,7 +1,6 @@
 app.controller('RobaUslugaFormController', function ($scope, $http, $state, $mdDialog, robaUslugaService,stavkeFaktureService, faktura) {
 
-    //da saljem id fakture, id robe i kolicinu
-    //prilikom dodavanja
+    $scope.tipovi = ["roba", "usluga"];
 
     var loadData = function () {
         robaUslugaService.read(function (response) {

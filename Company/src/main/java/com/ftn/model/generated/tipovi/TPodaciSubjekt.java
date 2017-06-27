@@ -93,6 +93,10 @@ public class TPodaciSubjekt {
     protected String racunFirme;
 
     @XmlTransient
+    @Column(nullable = false)
+    private String companyUrl;
+
+    @XmlTransient
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<TPodaciSubjekt> poslovniPartneri = new ArrayList<>();
 
