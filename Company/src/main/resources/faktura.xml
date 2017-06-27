@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:getFakturaRequest xmlns="http://www.ftn.uns.ac.rs/tipovi" xmlns:ns2="http://www.ftn.uns.ac.rs/faktura">
-    <ns2:faktura id_poruke="3" broj_racuna="222222" datum_racuna="2017-05-01" datum_valute="2017-05-05">
+    <ns2:faktura id_poruke="2" broj_racuna="123456" datum_racuna="2017-05-10" datum_valute="2017-06-27">
         <ns2:podaci_o_dobavljacu>
-            <naziv>Imlek</naziv>
-            <adresa>Zrenjaninski put 100</adresa>
-            <pib>22222222222</pib>
-        </ns2:podaci_o_dobavljacu>
-        <ns2:podaci_o_kupcu>
             <naziv>Pionir d.o.o.</naziv>
             <adresa>Pozeska BB</adresa>
             <pib>11111111111</pib>
+        </ns2:podaci_o_dobavljacu>
+        <ns2:podaci_o_kupcu>
+            <naziv>Imlek</naziv>
+            <adresa>Zrenjaninski put 100</adresa>
+            <pib>22222222222</pib>
         </ns2:podaci_o_kupcu>
-        <ns2:vrednost_robe>1500</ns2:vrednost_robe>
-        <ns2:vrednost_usluga>500</ns2:vrednost_usluga>
-        <ns2:ukupno_roba_i_usluga>20000</ns2:ukupno_roba_i_usluga>
-        <ns2:ukupan_rabat>5000</ns2:ukupan_rabat>
-        <ns2:ukupan_porez>800</ns2:ukupan_porez>
+        <ns2:vrednost_robe>14000</ns2:vrednost_robe>
+        <ns2:vrednost_usluga>0</ns2:vrednost_usluga>
+        <ns2:ukupno_roba_i_usluga>14000</ns2:ukupno_roba_i_usluga>
+        <ns2:ukupan_rabat>4000</ns2:ukupan_rabat>
+        <ns2:ukupan_porez>7000</ns2:ukupan_porez>
         <ns2:oznaka_valute>RSD</ns2:oznaka_valute>
-        <ns2:Iznos_za_uplatu>2000</ns2:Iznos_za_uplatu>
-        <ns2:uplata_na_racun>265-2234522100015-72</ns2:uplata_na_racun>
+        <ns2:Iznos_za_uplatu>14000</ns2:Iznos_za_uplatu>
+        <ns2:uplata_na_racun>265-2234522100014-72</ns2:uplata_na_racun>
         <ns2:stavka_fakture>
             <redni_broj>1</redni_broj>
+            <naziv_robe_usluge>Cokoladno mleko</naziv_robe_usluge>
+            <kolicina>15</kolicina>
+            <jedinica_mere>kg</jedinica_mere>
+            <jedinicna_cena>50</jedinicna_cena>
+            <vrednost>750</vrednost>
+            <procenat_rabata>18</procenat_rabata>
+            <iznos_rabata>100</iznos_rabata>
+            <umanjeno_za_rabat>14</umanjeno_za_rabat>
+            <ukupan_porez>2000</ukupan_porez>
+        </ns2:stavka_fakture>
+        <ns2:stavka_fakture>
+            <redni_broj>2</redni_broj>
             <naziv_robe_usluge>Jogurt</naziv_robe_usluge>
             <kolicina>30</kolicina>
             <jedinica_mere>litar</jedinica_mere>
