@@ -57,8 +57,7 @@ public class AnalitikaIzvodaDTO {
     @NotNull
     private BigDecimal iznos;
 
-    @NotNull
-    private String sifraValute;
+
 
     private DnevnoStanjeRacunaDTO dnevnoStanjeRacuna;
 
@@ -81,7 +80,6 @@ public class AnalitikaIzvodaDTO {
         this.modelOdobrenja = analitikaIzvoda.getModelOdobrenja();
         this.pozivNaBrojOdobrenja = analitikaIzvoda.getPozivNaBrojOdobrenja();
         this.iznos = analitikaIzvoda.getIznos();
-        this.sifraValute = analitikaIzvoda.getSifraValute();
 
 
         if (cascade) {
@@ -104,7 +102,6 @@ public class AnalitikaIzvodaDTO {
         analitikaIzvoda.setModelOdobrenja(modelOdobrenja);
         analitikaIzvoda.setPozivNaBrojOdobrenja(pozivNaBrojOdobrenja);
         analitikaIzvoda.setIznos(iznos);
-        analitikaIzvoda.setSifraValute(sifraValute);
         analitikaIzvoda.setDnevnoStanjeRacuna(dnevnoStanjeRacuna != null ? dnevnoStanjeRacuna.construct() : null);
 
         return analitikaIzvoda;

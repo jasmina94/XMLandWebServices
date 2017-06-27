@@ -10,8 +10,10 @@ package com.ftn.model.generated.stavkapreseka;
 
 import com.ftn.model.generated.tipovi.TPodaciPlacanje;
 import com.ftn.model.generated.tipovi.TPravnoLice;
+import com.ftn.util.DateAdapter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -221,11 +224,11 @@ public class StavkaPreseka {
         @XmlElement(name = "podaci_o_odobrenju", required = true)
         protected TPodaciPlacanje podaciOOdobrenju;
         @XmlElement(name = "datum_naloga", required = true)
-        @XmlSchemaType(name = "date")
-        protected XMLGregorianCalendar datumNaloga;
+        @XmlJavaTypeAdapter(DateAdapter.class)
+        protected Date datumNaloga;
         @XmlElement(name = "datum_valute", required = true)
-        @XmlSchemaType(name = "date")
-        protected XMLGregorianCalendar datumValute;
+        @XmlJavaTypeAdapter(DateAdapter.class)
+        protected Date datumValute;
         @XmlAttribute(name = "smer")
         protected String smer;
 
@@ -330,10 +333,10 @@ public class StavkaPreseka {
          * 
          * @return
          *     possible object is
-         *     {@link XMLGregorianCalendar }
+         *     {@link Date }
          *     
          */
-        public XMLGregorianCalendar getDatumNaloga() {
+        public Date getDatumNaloga() {
             return datumNaloga;
         }
 
@@ -342,10 +345,10 @@ public class StavkaPreseka {
          * 
          * @param value
          *     allowed object is
-         *     {@link XMLGregorianCalendar }
+         *     {@link Date }
          *     
          */
-        public void setDatumNaloga(XMLGregorianCalendar value) {
+        public void setDatumNaloga(Date value) {
             this.datumNaloga = value;
         }
 
@@ -354,10 +357,10 @@ public class StavkaPreseka {
          * 
          * @return
          *     possible object is
-         *     {@link XMLGregorianCalendar }
+         *     {@link Date }
          *     
          */
-        public XMLGregorianCalendar getDatumValute() {
+        public Date getDatumValute() {
             return datumValute;
         }
 
@@ -366,10 +369,10 @@ public class StavkaPreseka {
          * 
          * @param value
          *     allowed object is
-         *     {@link XMLGregorianCalendar }
+         *     {@link Date }
          *     
          */
-        public void setDatumValute(XMLGregorianCalendar value) {
+        public void setDatumValute(Date value) {
             this.datumValute = value;
         }
 

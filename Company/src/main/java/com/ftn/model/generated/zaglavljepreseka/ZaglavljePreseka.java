@@ -9,9 +9,11 @@
 package com.ftn.model.generated.zaglavljepreseka;
 
 import com.ftn.model.generated.tipovi.TPromene;
+import com.ftn.util.DateAdapter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,6 +21,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -82,8 +85,8 @@ public class ZaglavljePreseka {
     @XmlElement(name = "broj_racuna", required = true)
     protected String brojRacuna;
     @XmlElement(name = "datum_naloga", required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumNaloga;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date datumNaloga;
     @XmlElement(name = "prethodno_stanje", required = true)
     protected BigDecimal prethodnoStanje;
     @XmlElement(required = true)
@@ -127,7 +130,7 @@ public class ZaglavljePreseka {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumNaloga() {
+    public Date getDatumNaloga() {
         return datumNaloga;
     }
 
@@ -136,10 +139,10 @@ public class ZaglavljePreseka {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Date }
      *     
      */
-    public void setDatumNaloga(XMLGregorianCalendar value) {
+    public void setDatumNaloga(Date value) {
         this.datumNaloga = value;
     }
 
