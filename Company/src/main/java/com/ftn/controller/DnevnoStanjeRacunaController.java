@@ -1,6 +1,7 @@
 package com.ftn.controller;
 
 import com.ftn.repository.DnevnoStanjeRacunaDao;
+import com.ftn.service.DnevnoStanjeRacunaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +18,16 @@ import javax.transaction.Transactional;
 @RequestMapping("/api/izvodi")
 public class DnevnoStanjeRacunaController {
 
-    private final DnevnoStanjeRacunaDao dnevnoStanjeRacunaDao;
+    private final DnevnoStanjeRacunaService dnevnoStanjeRacunaService;
 
     @Autowired
-    public DnevnoStanjeRacunaController(DnevnoStanjeRacunaDao dnevnoStanjeRacunaDao) {
-        this.dnevnoStanjeRacunaDao = dnevnoStanjeRacunaDao;
+    public DnevnoStanjeRacunaController(DnevnoStanjeRacunaService dnevnoStanjeRacunaService) {
+        this.dnevnoStanjeRacunaService = dnevnoStanjeRacunaService;
     }
 
     @Transactional
     @GetMapping
     public ResponseEntity read() {
-        return new ResponseEntity<>(dnevnoStanjeRacunaDao.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(dnevnoStanjeRacunaService.read(), HttpStatus.OK);
     }
 }

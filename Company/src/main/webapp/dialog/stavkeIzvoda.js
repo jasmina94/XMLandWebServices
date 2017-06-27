@@ -1,5 +1,6 @@
-app.controller('StavkeIzvodaController', function ($scope, $http, $state, $mdDialog) {
+app.controller('StavkeIzvodaController', function ($scope, $http, $state, $mdDialog, izvod) {
 
+    $scope.izvod = izvod;
     
     $scope.close = function () {
         $mdDialog.hide();

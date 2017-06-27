@@ -45,4 +45,9 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
             locals: {firma: $scope.zaposleni.tpodaciSubjektDTO}
         });
     }
+
+    $scope.goToIzvodi = function () {
+        $state.transitionTo('home.izvod');
+
+    }
 });

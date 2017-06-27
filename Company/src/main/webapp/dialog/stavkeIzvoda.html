@@ -1,36 +1,22 @@
 <md-dialog class="md-padding card" style="width: 1200px">
     <md-divider></md-divider>
     <md-card ng-class="{'md-whiteframe-4dp':hovering}"
-             ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "stavkeFakture.length > 0">
+             ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "izvod.analitikeIzvoda.length > 0">
         <md-table-container>
             <table md-table>
                 <thead md-head md-order="query.order">
                 <tr md-row>
-                    datumNaloga
-                    smer
-                    duznik
-                    poverilac
-                    svrhaPlacanja
-                    datumValute
-                    racunDuznika
-                    modelZaduzenja
-                    pozivNaBrojZaduzenja
-                    racunPoverioca
-                    modelOdobrenja
-                    pozivNaBrojOdobrenja
-                    iznos
-                    dnevnoStanjeRacuna
                     <th md-column><span>Datum naloga</span></th>
                     <th md-column><span>Smer</span></th>
-                    <th md-column><span>Svrha placanja</span></th>
+                    <th md-column><span>Svrha plaćanja</span></th>
                     <th md-column><span>Iznos</span></th>
-                    <th md-column><span>Duznik</span></th>
-                    <th md-column><span>Racun duznika</span></th>
+                    <th md-column><span>Dužnik</span></th>
+                    <th md-column><span>Račun dužnika</span></th>
                     <th md-column><span>Poverilac</span></th>
-                    <th md-column><span>Racun poverioca</span></th>
+                    <th md-column><span>Račun poverioca</span></th>
                     <th md-column><span>Datum valute</span></th>
-                    <th md-column><span>Model zaduzenja</span></th>
-                    <th md-column><span>Poziv na broj zaduzenja</span></th>
+                    <th md-column><span>Model zaduženja</span></th>
+                    <th md-column><span>Poziv na broj zaduženja</span></th>
                     <th md-column><span>Model odobrenja</span></th>
                     <th md-column><span>Poziv na broj odobrenja</span></th>
                 </tr>
@@ -38,7 +24,7 @@
                 <tbody md-body>
                 <tr md-row ng-repeat="stavka in izvod.analitikeIzvoda | limitTo: query.limit:(query.page-1) * query.limit"
                     ng-click="null">
-                    <td md-cell>{{stavka.datumNaloga | date: 'dd-MM-yyyy}}</td>
+                    <td md-cell>{{stavka.datumNaloga | date: 'dd-MM-yyyy'}}</td>
                     <td md-cell>{{stavka.smer ? "ulaz" : "izlaz"}}</td>
                     <td md-cell>{{stavka.svrhaPlacanja}}</td>
                     <td md-cell>{{stavka.iznos}}</td>
@@ -46,12 +32,11 @@
                     <td md-cell>{{stavka.racunDuznika}}</td>
                     <td md-cell>{{stavka.poverilac}}</td>
                     <td md-cell>{{stavka.racunPoverioca}}</td>
-                    <td md-cell>{{stavka.datumValute | date: 'dd-MM-yyyy}}</td>
+                    <td md-cell>{{stavka.datumValute | date: 'dd-MM-yyyy'}}</td>
                     <td md-cell>{{stavka.modelZaduzenja}}</td>
                     <td md-cell>{{stavka.pozivNaBrojZaduzenja}}</td>
                     <td md-cell>{{stavka.modelOdobrenja}}</td>
                     <td md-cell>{{stavka.pozivNaBrojOdobrenja}}</td>
-
                 </tbody>
             </table>
         </md-table-container>
@@ -63,3 +48,4 @@
     <md-dialog-actions layout="row" layout-align="end center">
         <md-button ng-click="close()">Zatvori</md-button>
     </md-dialog-actions>
+</md-dialog>

@@ -1,15 +1,15 @@
 <md-dialog class="md-padding card" style="width: 800px">
     <md-toolbar>
-        <div class="md-toolbar-tools" >
-            <h2>Racun broj {{faktura.brojRacuna}}</h2>
+        <div class="md-toolbar-tools" style="padding-top: 30px">
+            <h2>Račun broj {{faktura.brojRacuna}}</h2>
         </div>
     </md-toolbar>
     <form novalidate name="fakturaDetalji" layout="column">
-        <md-dialog-content style="padding-top: 30px">
+        <md-dialog-content>
             <md-content>
                 <div layout-gt-xs="row">
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label>Dobavljac</label>
+                        <label>Dobavljač</label>
                         <input ng-model="faktura.podaciODobavljacu.naziv" disabled>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
@@ -20,7 +20,7 @@
             </md-content>
             <md-dialog-content>
                 <md-input-container class="md-block">
-                    <label>Adresa dobavljaca</label>
+                    <label>Adresa dobavljača</label>
                     <input ng-model="faktura.podaciODobavljacu.adresa" disabled>
                 </md-input-container>
             </md-dialog-content>
@@ -72,7 +72,7 @@
             </md-content>
             <md-dialog-content>
                 <md-input-container class="md-block">
-                    <label>Racun za uplatu</label>
+                    <label>Račun za uplatu</label>
                     <input ng-model="faktura.uplataNaRacun" disabled>
                 </md-input-container>
             </md-dialog-content>
@@ -91,7 +91,7 @@
             <md-content>
                 <div layout-gt-xs="row">
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label>Datum racuna</label>
+                        <label>Datum računa</label>
                         <input ng-model="faktura.datumRacuna  | date: 'dd-MM-yyyy'" disabled>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>

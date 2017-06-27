@@ -55,6 +55,11 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'NalogController',
             templateUrl: 'page/nalog.html',
         })
+        .state('home.izvod', {
+            url: '/izvod',
+            controller: 'IzvodController',
+            templateUrl: 'page/izvod.html',
+        })
 
 
 });

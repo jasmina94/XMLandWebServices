@@ -1,0 +1,45 @@
+<div class="container">
+    <div layout="column">
+        <div layout="row">
+            <h3>Preuzeti izvodi</h3>
+        </div>
+        <md-divider></md-divider>
+        <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" ng-if = "izvodi.length > 0">
+            <md-table-container>
+                <table md-table>
+                    <thead md-head md-order="query.order">
+                    <tr md-row>
+                        <th md-column><span>Datum</span></th>
+                        <th md-column><span>Prethodno stanje</span></th>
+                        <th md-column><span>Broj promena(teret)</span></th>
+                        <th md-column><span>Broj promena(korist)</span></th>
+                        <th md-column><span>Ukupno(teret)</span></th>
+                        <th md-column><span>Ukupno(korist)</span></th>
+                        <th md-column><span>Novo stanje</span></th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="izvod in izvodi | limitTo: query.limit:(query.page-1) * query.limit">
+                        <td md-cell>{{izvod.datum | date: 'dd-MM-yyyy'}}</td>
+                        <td md-cell>{{izvod.predhodnoStanje}}</td>
+                        <td md-cell>{{izvod.brojPromenaNaTeret}}</td>
+                        <td md-cell>{{izvod.brojPromenaUKorist}}</td>
+                        <td md-cell>{{izvod.ukupnoNaTeret}}</td>
+                        <td md-cell>{{izvod.ukupnoUKorist}}</td>
+                        <td md-cell>{{izvod.novoStanje}}</td>
+                        <td md-cell>
+                            <md-button class = "md-raised" ng-click = "prikaziStavke(izvod)">
+                                Prikaži stavke
+                            </md-button>
+                        </td>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{izvodi.length}}" md-page-select
+                                 md-boundary-links="options.boundaryLinks" md-label="{page: 'Stranica:', rowsPerPage: 'redova po stranici', of: 'od'}">
+            </md-table-pagination>
+        </md-card>
+        <h3 class="text-center" ng-if = "izvodi.length == 0">Niste preuzeli nijedan izvod.</h3>
+    </div>
+</div>
