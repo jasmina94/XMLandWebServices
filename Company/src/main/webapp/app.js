@@ -50,11 +50,6 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'FakturaController',
             templateUrl: 'page/faktura.html',
         })
-        .state('home.nalogPoverilac', {
-            url: '/nalogPoverilac',
-            controller: 'NalogController',
-            templateUrl: 'page/nalog.html',
-        })
         .state('home.nalogDuznik', {
             url: '/nalogDuznik',
             controller: 'NalogController',

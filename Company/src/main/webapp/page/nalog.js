@@ -7,21 +7,13 @@ app.controller('NalogController', function ($scope, $state, $rootScope, $mdDialo
 
     var loadData = function () {
         zaposleni = authenticationService.getUser();
-        if($state.current.name === "home.nalogPoverilac") {
-            nalogZaPrenosService.readPoverilac(zaposleni.tpodaciSubjektDTO.naziv,  function (response) {
-                $scope.uloga = "poverilac";
-                $scope.nalozi = response.data;
-            });
-        } else if ($state.current.name === "home.nalogDuznik") {
-            nalogZaPrenosService.readDuznik(zaposleni.tpodaciSubjektDTO.naziv, function (response) {
-                $scope.uloga = "duznik";
-                $scope.nalozi = response.data;
-            });
-        }
+        nalogZaPrenosService.readDuznik(zaposleni.tpodaciSubjektDTO.naziv, function (response) {
+            $scope.nalozi = response.data;
+        });
     };
 
-    loadData();
 
+    loadData();
     $scope.prikaziDetalje = function(nalog) {
         $mdDialog.show({
             parent: angular.element(document.body),

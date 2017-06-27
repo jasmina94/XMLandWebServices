@@ -5,41 +5,45 @@
                 <h2><span>{{zaposleni.tpodaciSubjektDTO.naziv}}</span></h2>
                 <md-menu>
                     <md-button class="md-raised" ng-click="$mdOpenMenu()">
-                        Fakture
+                        Izvodi
                     </md-button>
                     <md-menu-content>
                         <md-menu-item>
-                            <md-button ng-click = "goToFaktureDobavljac()">
-                                Dobavljac
+                            <md-button ng-click = "kreirajZahtevZaIzvod()">
+                                <md-icon md-svg-src="image/ic_get_app_black_24px.svg"></md-icon>
+                                Preuzmi izvod
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click = "goToFaktureKupac()">
-                                Kupac
+                            <md-button>
+                                <md-icon md-svg-src="image/ic_list_black_24px.svg"></md-icon>
+                                Prikazi izvode
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
                 <md-menu>
                     <md-button class="md-raised" ng-click="$mdOpenMenu()">
-                        Nalozi
+                        Fakture
                     </md-button>
                     <md-menu-content>
                         <md-menu-item>
-                            <md-button ng-click = "goToNaloziPoverilac()">
-                                Poverilac
+                            <md-button ng-click = "goToFaktureDobavljac()">
+                                <md-icon md-svg-src="image/ic_list_black_24px.svg"></md-icon>
+                                Dobavljac
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click = "goToNaloziDuznik()">
-                                Duznik
+                            <md-button ng-click = "goToFaktureKupac()">
+                                <md-icon md-svg-src="image/ic_list_black_24px.svg"></md-icon>
+                                Kupac
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-                <md-button class = "md-raised" ng-click = "kreirajZahtevZaIzvod()">
-                    <md-icon md-svg-src="image/ic_get_app_black_24px.svg"></md-icon>
-                    Preuzmi izvod
+                <md-button class="md-raised" ng-click="goToNaloziDuznik()">
+                    <md-icon md-svg-src="image/ic_list_black_24px.svg"></md-icon>
+                    Nalozi
                 </md-button>
                 <span flex></span>
                 <h3 class="toolbar-item"><span>{{zaposleni.ime}} {{zaposleni.prezime}}</span></h3>

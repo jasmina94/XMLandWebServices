@@ -34,17 +34,10 @@ public class NalogZaPrenosController {
     }
 
     @Transactional
-    @GetMapping(value = "/firmaPoverilac/{naziv}/")
-    public ResponseEntity readPoverilac(@PathVariable String naziv) {
-        return new ResponseEntity<>(nalogZaPrenosService.readPoverilac(naziv), HttpStatus.OK);
-    }
-
-    @Transactional
     @GetMapping(value = "/firmaDuznik/{naziv}/")
     public ResponseEntity readDuznik(@PathVariable String naziv) {
         return new ResponseEntity<>(nalogZaPrenosService.readDuznik(naziv), HttpStatus.OK);
     }
-
 
     @Transactional
     @PostMapping(value = "/kreirajNalog")
