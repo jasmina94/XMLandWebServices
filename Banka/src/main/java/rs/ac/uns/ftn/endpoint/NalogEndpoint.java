@@ -16,7 +16,8 @@ import rs.ac.uns.ftn.service.PlacanjeService;
  */
 @Endpoint
 public class NalogEndpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/nalog_za_prenos";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/nalog_za_prenos";
 
     @Autowired
     private PlacanjeService servisPlacanje;
