@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
+import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.soap.server.endpoint.SoapFaultDefinition;
 import org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
@@ -15,7 +16,11 @@ import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 import rs.ac.uns.ftn.exception.DetailSoapFaultDefinitionExceptionResolver;
 import rs.ac.uns.ftn.exception.ServiceFaultException;
+import rs.ac.uns.ftn.validation.ValidationInterceptor;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -39,6 +44,16 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         exceptionResolver.setExceptionMappings(errorMappings);
         exceptionResolver.setOrder(1);
         return exceptionResolver;
+    }
+
+    @Override
+    public void addInterceptors(List<EndpointInterceptor> interceptors) {
+
+        final ValidationInterceptor validationInterceptor = new ValidationInterceptor();
+        final Map<String, XsdSchema> schemas = new HashMap<>();
+        schemas.put(Mt102Endpoint.NAMESPACE_URI, mt102schema());
+        validationInterceptor.setSchemas(schemas);
+        interceptors.add(validationInterceptor);
     }
 
     @Bean

@@ -16,7 +16,7 @@ import rs.ac.uns.ftn.service.ClearingService;
 @Endpoint
 public class Mt102Endpoint {
 
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt102";
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt102";
 
     @Autowired
     private EnvironmentProperties environmentProperties;
