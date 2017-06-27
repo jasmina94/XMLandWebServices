@@ -15,7 +15,8 @@ import rs.ac.uns.ftn.service.PresekService;
  */
 @Endpoint
 public class PresekEndpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/presek";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/presek";
 
     @Autowired
     private EnvironmentProperties environmentProperties;
