@@ -16,6 +16,7 @@ app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $
         zahtevZaIzvodService.posaljiZahtev($scope.zahtevZaIzvod, function (response) {
             if(response.data) {
                 prikaziUspeh();
+                $scope.$broadcast('refresh');
             } else {
                 prikaziNeuspeh();
             }
