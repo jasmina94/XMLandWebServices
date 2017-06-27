@@ -74,13 +74,18 @@ public class ZahtevServiceImpl implements ZahtevService {
                 }else {
                    if(brojAnalitika > 3){
                        List<Presek> sviPreseci = new ArrayList<>();
-                       int brojacPreseka = 0;
+                       int pocetak = 0;
+                       int kraj = pocetak + 3;
                        int redniBroj = 1;
                        int brojac = ukupanBrojPreseka;
                        while (brojac != 0) {
-                           List<AnalitikaIzvoda> helperList = analitike.subList(brojacPreseka, brojacPreseka + 3);
+                           if(kraj > (analitike.size() - 1)){
+                               kraj = analitike.size();
+                           }
+                           List<AnalitikaIzvoda> helperList = analitike.subList(pocetak, kraj);
                            sviPreseci.add(napraviPresek(dnevnoStanjeRacunaReal, helperList, redniBroj));
-                           brojacPreseka += 3;
+                           pocetak += 3;
+                           kraj = pocetak;
                            redniBroj++;
                            brojac--;
                        }
