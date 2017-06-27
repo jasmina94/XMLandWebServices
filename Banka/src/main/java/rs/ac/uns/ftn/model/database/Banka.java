@@ -32,6 +32,4 @@ public class Banka {
 
     @OneToMany(mappedBy = "banka")
     private List<Racun> racuni;
-
-
 }

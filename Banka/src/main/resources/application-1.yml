@@ -19,5 +19,3 @@ spring:
 environment:
     swiftCode: CONARS22
     nbsUrl: http://localhost:8094/ws
-    firmaAUrl: http://localhost:8090/ws
-    firmaBUrl: http://localhost:8091/ws
