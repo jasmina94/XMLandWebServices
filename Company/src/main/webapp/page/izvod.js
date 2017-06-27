@@ -9,6 +9,10 @@ app.controller('IzvodController', function ($scope, $state, $rootScope, $mdDialo
     };
 
     loadData();
+
+    $scope.$on('refresh', function() {
+        loadData();
+    });
     
     $scope.prikaziStavke = function (izvod) {
         $mdDialog.show({
