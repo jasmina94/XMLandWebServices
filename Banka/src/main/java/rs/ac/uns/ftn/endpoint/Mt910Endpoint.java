@@ -18,7 +18,8 @@ import javax.jws.Oneway;
  */
 @Endpoint
 public class Mt910Endpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt910";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt910";
 
     @Autowired
     private EnvironmentProperties environmentProperties;
