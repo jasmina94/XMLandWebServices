@@ -91,4 +91,7 @@ dependencies {
 	// Jaxb
 	jaxb("org.glassfish.jaxb:jaxb-xjc:2.2.11")
 	compile(files(genJaxb.classesDir).builtBy(genJaxb))
+
+	// Pdf
+	compile group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
 }

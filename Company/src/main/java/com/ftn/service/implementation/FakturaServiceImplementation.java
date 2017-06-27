@@ -11,6 +11,7 @@ import com.ftn.model.generated.tipovi.TStavkaFaktura;
 import com.ftn.repository.FakturaDao;
 import com.ftn.repository.TPodaciSubjekatDao;
 import com.ftn.service.FakturaService;
+import com.ftn.service.PDFGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -43,12 +44,14 @@ public class FakturaServiceImplementation implements FakturaService {
     private final FakturaDao fakturaDao;
     private final TPodaciSubjekatDao tPodaciSubjekatDao;
     private final EnvironmentProperties environmentProperties;
+    private final PDFGeneratorService pdfService;
 
     @Autowired
-    public FakturaServiceImplementation(FakturaDao fakturaDao, TPodaciSubjekatDao tPodaciSubjekatDao, EnvironmentProperties environmentProperties) {
+    public FakturaServiceImplementation(FakturaDao fakturaDao, TPodaciSubjekatDao tPodaciSubjekatDao, EnvironmentProperties environmentProperties, PDFGeneratorService pdfGeneratorService) {
         this.fakturaDao = fakturaDao;
         this.tPodaciSubjekatDao = tPodaciSubjekatDao;
         this.environmentProperties = environmentProperties;
+        this.pdfService = pdfGeneratorService;
     }
 
     @Override
@@ -138,6 +141,7 @@ public class FakturaServiceImplementation implements FakturaService {
             if(!validateXMLSchema("src/main/resources/faktura.xsd", "src/main/resources/faktura.xml")) {
                 return null;
             }
+            pdfService.generisiFakturaPDF(faktura);
 
             final RestTemplate restTemplate = new RestTemplate();
             final String firmaUrl = tPodaciSubjekatDao.findByPib(faktura.getPodaciOKupcu().getPib()).get().getCompanyUrl();
