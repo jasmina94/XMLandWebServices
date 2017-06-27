@@ -14,10 +14,6 @@ public class EnvironmentProperties {
 
     private String nbsUrl;
 
-    private String firmaAUrl;
-
-    private String firmaBUrl;
-
     public void setSwiftCode(String swiftCode){
         this.swiftCode = swiftCode;
     }
@@ -32,21 +28,5 @@ public class EnvironmentProperties {
 
     public void setNbsUrl(String nbsUrl) {
         this.nbsUrl = nbsUrl;
-    }
-
-    public String getFirmaAUrl() {
-        return firmaAUrl;
-    }
-
-    public String getFirmaBUrl() {
-        return firmaBUrl;
-    }
-
-    public void setFirmaAUrl(String firmaAUrl) {
-        this.firmaAUrl = firmaAUrl;
-    }
-
-    public void setFirmaBUrl(String firmaBUrl) {
-        this.firmaBUrl = firmaBUrl;
     }
 }

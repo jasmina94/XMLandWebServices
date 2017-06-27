@@ -99,7 +99,6 @@ public class ZahtevServiceImpl implements ZahtevService {
         ZaglavljePreseka zaglavljePreseka = new ZaglavljePreseka();
         List<StavkaPreseka> stavkePreseka = new ArrayList<>();
 
-        //Setovanje zaglavlja
         zaglavljePreseka.setBrojPreseka(BigInteger.valueOf(brojPreseka));
         zaglavljePreseka.setBrojRacuna(dnevnoStanjeRacuna.getRacun().getBrojRacuna());
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
@@ -123,7 +122,6 @@ public class ZahtevServiceImpl implements ZahtevService {
         zaglavljePreseka.setTeret(promeneTeret);
         zaglavljePreseka.setKorist(promeneKorist);
 
-        //Setovanje stavki
         for (AnalitikaIzvoda analitika : analitikaIzvodaList) {
             StavkaPreseka stavkaPreseka = new StavkaPreseka();
 
@@ -186,6 +184,4 @@ public class ZahtevServiceImpl implements ZahtevService {
             return false;
         }
     }
-
-
 }

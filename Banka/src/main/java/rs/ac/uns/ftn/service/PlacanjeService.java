@@ -9,6 +9,4 @@ public interface PlacanjeService {
 
     void process(NalogZaPrenos nalogZaPrenos);
 
-    void send(NalogZaPrenos nalogZaPrenos);
-
 }
