@@ -45,16 +45,6 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return exceptionResolver;
     }
 
-    @Override
-    public void addInterceptors(List<EndpointInterceptor> interceptors) {
-
-        final ValidationInterceptor validationInterceptor = new ValidationInterceptor();
-        final Map<String, XsdSchema> schemas = new HashMap<>();
-        schemas.put(PresekEndpoint.NAMESPACE_URI, presekSchema());
-        validationInterceptor.setSchemas(schemas);
-        interceptors.add(validationInterceptor);
-    }
-
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
