@@ -73,30 +73,16 @@ public class ZahtevServiceImpl implements ZahtevService {
                     throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nije pronadjena nijedna transakcija za prosledjeni datum!"));
                 }else {
                    if(brojAnalitika > 3){
-                       List<Presek> sviPreseci = new ArrayList<>();
-                       int pocetak = 0;
+                       int pocetak = trazeniPresek -1;
                        int kraj = pocetak + 3;
-                       int redniBroj = 1;
-                       int brojac = ukupanBrojPreseka;
-                       while (brojac != 0) {
-                           if(kraj > (analitike.size() - 1)){
-                               kraj = analitike.size();
-                           }
-                           List<AnalitikaIzvoda> helperList = analitike.subList(pocetak, kraj);
-                           sviPreseci.add(napraviPresek(dnevnoStanjeRacunaReal, helperList, redniBroj));
-                           pocetak += 3;
-                           kraj = pocetak;
-                           redniBroj++;
-                           brojac--;
+                       if(kraj > (analitike.size() - 1)){
+                           kraj = analitike.size();
                        }
-                       for (Presek p : sviPreseci) {
-                           if(p.getZaglavljePreseka().getBrojPreseka() == BigInteger.valueOf(trazeniPresek)){
-                               presekService.send(p);
-                               break;
-                           }
-                       }
+                       List<AnalitikaIzvoda> helperList = analitike.subList(pocetak, kraj);
+                       Presek presek = napraviPresek(dnevnoStanjeRacunaReal, helperList, ukupanBrojPreseka);
+                       presekService.send(presek);
                    }else {
-                      Presek presek = napraviPresek(dnevnoStanjeRacunaReal, analitike, 1);
+                      Presek presek = napraviPresek(dnevnoStanjeRacunaReal, analitike, ukupanBrojPreseka);
                       presekService.send(presek);
                    }
                 }
