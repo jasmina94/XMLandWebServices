@@ -1,18 +1,23 @@
 package com.ftn.service.implementation;
 
+import com.ftn.model.database.DnevnoStanjeRacuna;
 import com.ftn.model.dto.AnalitikaIzvodaDTO;
 import com.ftn.model.dto.DnevnoStanjeRacunaDTO;
 import com.ftn.model.generated.presek.Presek;
 import com.ftn.model.generated.stavkapreseka.StavkaPreseka;
 import com.ftn.model.generated.zaglavljepreseka.ZaglavljePreseka;
+import com.ftn.model.generated.zahtevzaizvod.ZahtevZaIzvod;
 import com.ftn.repository.DnevnoStanjeRacunaDao;
 import com.ftn.service.AnalitikaIzvodaService;
 import com.ftn.service.DnevnoStanjeRacunaService;
 import com.ftn.service.PresekService;
+import com.ftn.service.ZahtevZaIzvodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Olivera on 26.6.2017..
@@ -20,30 +25,42 @@ import java.util.List;
 @Service
 public class PresekServiceImplementation implements PresekService {
 
-    private DnevnoStanjeRacunaService dnevnoStanjeRacunaService;
-    private AnalitikaIzvodaService analitikaIzvodaService;
+    private final DnevnoStanjeRacunaService dnevnoStanjeRacunaService;
+    private final AnalitikaIzvodaService analitikaIzvodaService;
+    private final ZahtevZaIzvodService zahtevZaIzvodService;
+    private final DnevnoStanjeRacunaDao dnevnoStanjeRacunaDao;
+    private static int brojac;
 
     @Autowired
-    public PresekServiceImplementation(DnevnoStanjeRacunaService dnevnoStanjeRacunaService, AnalitikaIzvodaService analitikaIzvodaService) {
+    public PresekServiceImplementation(DnevnoStanjeRacunaService dnevnoStanjeRacunaService, AnalitikaIzvodaService analitikaIzvodaService, ZahtevZaIzvodService zahtevZaIzvodService, DnevnoStanjeRacunaDao dnevnoStanjeRacunaDao) {
         this.dnevnoStanjeRacunaService = dnevnoStanjeRacunaService;
         this.analitikaIzvodaService = analitikaIzvodaService;
+        this.zahtevZaIzvodService = zahtevZaIzvodService;
+        this.dnevnoStanjeRacunaDao = dnevnoStanjeRacunaDao;
+        this.brojac = 2;
     }
 
     @Override
     public void process(Presek presek) {
         ZaglavljePreseka zaglavljePreseka = presek.getZaglavljePreseka();
-        DnevnoStanjeRacunaDTO dnevnoStanjeRacunaDTO = new DnevnoStanjeRacunaDTO();
-        dnevnoStanjeRacunaDTO.setBrojPreseka(zaglavljePreseka.getBrojPreseka().intValue());
-        dnevnoStanjeRacunaDTO.setDatum(zaglavljePreseka.getDatumNaloga());
-        dnevnoStanjeRacunaDTO.setPredhodnoStanje(zaglavljePreseka.getPrethodnoStanje().doubleValue());
-        dnevnoStanjeRacunaDTO.setBrojPromenaNaTeret(zaglavljePreseka.getTeret().getBrojPromena().intValue());
-        dnevnoStanjeRacunaDTO.setUkupnoNaTeret(zaglavljePreseka.getTeret().getUkupno().doubleValue());
-        dnevnoStanjeRacunaDTO.setBrojPromenaUKorist(zaglavljePreseka.getKorist().getBrojPromena().intValue());
-        dnevnoStanjeRacunaDTO.setUkupnoUKorist(zaglavljePreseka.getKorist().getUkupno().doubleValue());
-        dnevnoStanjeRacunaDTO.setNovoStanje(zaglavljePreseka.getNovoStanje().doubleValue());
+        Optional<DnevnoStanjeRacuna> dnevnoStanjeRacuna = dnevnoStanjeRacunaDao.findByDatum(zaglavljePreseka.getDatumNaloga());
+        DnevnoStanjeRacunaDTO sacuvanoDnevnoStanje;
 
-         DnevnoStanjeRacunaDTO sacuvanoDnevnoStanje = dnevnoStanjeRacunaService.create(dnevnoStanjeRacunaDTO);
+        if(!dnevnoStanjeRacuna.isPresent()) {
+            DnevnoStanjeRacunaDTO dnevnoStanjeRacunaDTO = new DnevnoStanjeRacunaDTO();
+            dnevnoStanjeRacunaDTO.setBrojPreseka(zaglavljePreseka.getBrojPreseka().intValue());
+            dnevnoStanjeRacunaDTO.setDatum(zaglavljePreseka.getDatumNaloga());
+            dnevnoStanjeRacunaDTO.setPredhodnoStanje(zaglavljePreseka.getPrethodnoStanje().doubleValue());
+            dnevnoStanjeRacunaDTO.setBrojPromenaNaTeret(zaglavljePreseka.getTeret().getBrojPromena().intValue());
+            dnevnoStanjeRacunaDTO.setUkupnoNaTeret(zaglavljePreseka.getTeret().getUkupno().doubleValue());
+            dnevnoStanjeRacunaDTO.setBrojPromenaUKorist(zaglavljePreseka.getKorist().getBrojPromena().intValue());
+            dnevnoStanjeRacunaDTO.setUkupnoUKorist(zaglavljePreseka.getKorist().getUkupno().doubleValue());
+            dnevnoStanjeRacunaDTO.setNovoStanje(zaglavljePreseka.getNovoStanje().doubleValue());
 
+            sacuvanoDnevnoStanje = dnevnoStanjeRacunaService.create(dnevnoStanjeRacunaDTO);
+        } else {
+            sacuvanoDnevnoStanje = new DnevnoStanjeRacunaDTO(dnevnoStanjeRacuna.get());
+        }
          List<StavkaPreseka> stavkePreseka = presek.getStavkaPreseka();
         
          for (StavkaPreseka stavka: stavkePreseka) {
@@ -73,5 +90,20 @@ public class PresekServiceImplementation implements PresekService {
 
          }
 
+         if (brojac <= zaglavljePreseka.getBrojPreseka().intValue()) {
+             ZahtevZaIzvod zahtevZaIzvod = new ZahtevZaIzvod();
+             zahtevZaIzvod.setDatum(zaglavljePreseka.getDatumNaloga());
+             zahtevZaIzvod.setBrojRacuna(zaglavljePreseka.getBrojRacuna());
+             System.out.println("brojac" + BigInteger.valueOf(brojac));
+             zahtevZaIzvod.setRedniBrojPreseka(BigInteger.valueOf(brojac));
+             zahtevZaIzvodService.posaljiZahtev(zahtevZaIzvod);
+         } else {
+             this.refreshBrojac();
+         }
+
+    }
+
+    private void refreshBrojac() {
+        this.brojac = 2;
     }
 }

@@ -34,7 +34,7 @@ public class ZahtevZaIzvodServiceImplementation  extends WebServiceGatewaySuppor
         this.environmentProperties = environmentProperties;
     }
 
-
+//postaviti redniBroj na 1!!!!!
     @Override
     public boolean posaljiZahtev(ZahtevZaIzvod zahtevZaIzvod) {
         File file = new File("src/main/resources/zahtevZaIzvod.xml");
