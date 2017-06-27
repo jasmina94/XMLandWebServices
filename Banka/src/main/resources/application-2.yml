@@ -19,5 +19,5 @@ spring:
 environment:
     swiftCode: VBUBRS22
     nbsUrl: http://localhost:8094/ws
-    firmaA: http://localhost:8090/ws
-    firmaB: http://localhost:8091/ws
+    firmaAUrl: http://localhost:8090/ws
+    firmaBUrl: http://localhost:8091/ws

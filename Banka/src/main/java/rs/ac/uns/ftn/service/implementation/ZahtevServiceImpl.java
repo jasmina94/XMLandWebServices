@@ -73,9 +73,25 @@ public class ZahtevServiceImpl implements ZahtevService {
                     throw new ServiceFaultException("Nije pronadjen.", new ServiceFault("404", "Nije pronadjena nijedna transakcija za prosledjeni datum!"));
                 }else {
                    if(brojAnalitika > 3){
-                       //test
+                       List<Presek> sviPreseci = new ArrayList<>();
+                       int brojacPreseka = 0;
+                       int redniBroj = 1;
+                       int brojac = ukupanBrojPreseka;
+                       while (brojac != 0) {
+                           List<AnalitikaIzvoda> helperList = analitike.subList(brojacPreseka, brojacPreseka + 3);
+                           sviPreseci.add(napraviPresek(dnevnoStanjeRacunaReal, helperList, redniBroj));
+                           brojacPreseka += 3;
+                           redniBroj++;
+                           brojac--;
+                       }
+                       for (Presek p : sviPreseci) {
+                           if(p.getZaglavljePreseka().getBrojPreseka() == BigInteger.valueOf(trazeniPresek)){
+                               presekService.send(p);
+                               break;
+                           }
+                       }
                    }else {
-                      Presek presek = napraviPresek(dnevnoStanjeRacunaReal, analitike);
+                      Presek presek = napraviPresek(dnevnoStanjeRacunaReal, analitike, 1);
                       presekService.send(presek);
                    }
                 }
@@ -87,13 +103,13 @@ public class ZahtevServiceImpl implements ZahtevService {
         }
     }
 
-    private Presek napraviPresek(DnevnoStanjeRacuna dnevnoStanjeRacuna, List<AnalitikaIzvoda> analitikaIzvodaList) {
+    private Presek napraviPresek(DnevnoStanjeRacuna dnevnoStanjeRacuna, List<AnalitikaIzvoda> analitikaIzvodaList, int brojPreseka) {
         Presek presek = new Presek();
         ZaglavljePreseka zaglavljePreseka = new ZaglavljePreseka();
         List<StavkaPreseka> stavkePreseka = new ArrayList<>();
 
         //Setovanje zaglavlja
-        zaglavljePreseka.setBrojPreseka(BigInteger.valueOf(1));
+        zaglavljePreseka.setBrojPreseka(BigInteger.valueOf(brojPreseka));
         zaglavljePreseka.setBrojRacuna(dnevnoStanjeRacuna.getRacun().getBrojRacuna());
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.setTime(dnevnoStanjeRacuna.getDatum());
