@@ -15,7 +15,8 @@ import rs.ac.uns.ftn.service.RTGSService;
  */
 @Endpoint
 public class Mt103Endpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt103";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt103";
 
     @Autowired
     private RTGSService rtgsService;

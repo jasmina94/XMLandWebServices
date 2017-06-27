@@ -52,6 +52,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         final ValidationInterceptor validationInterceptor = new ValidationInterceptor();
         final Map<String, XsdSchema> schemas = new HashMap<>();
         schemas.put(Mt102Endpoint.NAMESPACE_URI, mt102schema());
+        schemas.put(Mt103Endpoint.NAMESPACE_URI, mt103schema());
         validationInterceptor.setSchemas(schemas);
         interceptors.add(validationInterceptor);
     }
