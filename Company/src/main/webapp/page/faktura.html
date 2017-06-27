@@ -15,12 +15,12 @@
                 <table md-table>
                     <thead md-head md-order="query.order">
                     <tr md-row>
-                        <th md-column><span>Broj racuna</span></th>
-                        <th md-column><span>Datum racuna</span></th>
+                        <th md-column><span>Broj računa</span></th>
+                        <th md-column><span>Datum računa</span></th>
                         <th md-column><span>Id poruke</span></th>
                         <th md-column><span>Iznos za uplatu</span></th>
                         <th md-column><span>Oznaka valute</span></th>
-                        <th md-column><span>Dobavljac</span></th>
+                        <th md-column><span>Dobavljač</span></th>
                         <th md-column><span>Kupac</span></th>
                     </tr>
                     </thead>
@@ -35,7 +35,7 @@
                         <td md-cell ng-click="prikaziDetalje(faktura)">{{faktura.podaciOKupcu.naziv}}</td>
                         <td md-cell>
                             <md-button class = "md-raised" ng-click = "showStavke(faktura)">
-                                Prikazi stavke
+                                Prikaži stavke
                             </md-button>
                         </td>
                         <td md-cell ng-if = "uloga == 'kupac' && !faktura.kreiranNalog">
@@ -53,7 +53,7 @@
                         </td>
                         <td md-cell ng-if = "uloga == 'dobavljac'" >
                             <md-button class = "md-raised" ng-click = "sendFaktura(faktura)" ng-disabled="faktura.stavkaFakture.length == 0 || faktura.poslato">
-                                Posalji fakturu
+                                Pošalji fakturu
                             </md-button>
                         </td>
                     </tbody>

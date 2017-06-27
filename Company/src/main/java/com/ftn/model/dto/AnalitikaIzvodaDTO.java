@@ -83,7 +83,7 @@ public class AnalitikaIzvodaDTO {
 
 
         if (cascade) {
-            this.dnevnoStanjeRacuna = analitikaIzvoda.getDnevnoStanjeRacuna() != null ? new DnevnoStanjeRacunaDTO(analitikaIzvoda.getDnevnoStanjeRacuna()) : null;
+            this.dnevnoStanjeRacuna = analitikaIzvoda.getDnevnoStanjeRacuna() != null ? new DnevnoStanjeRacunaDTO(analitikaIzvoda.getDnevnoStanjeRacuna(), false) : null;
         }
     }
 
