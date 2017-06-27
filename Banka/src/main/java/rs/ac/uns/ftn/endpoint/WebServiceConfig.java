@@ -57,6 +57,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         schemas.put(Mt910Endpoint.NAMESPACE_URI, mt910schema());
         schemas.put(NalogEndpoint.NAMESPACE_URI, nalogzaprenos());
         schemas.put(PresekEndpoint.NAMESPACE_URI, presekSchema());
+        schemas.put(ZahtevEndpoint.NAMESPACE_URI, zahtevSchema());
         validationInterceptor.setSchemas(schemas);
         interceptors.add(validationInterceptor);
     }

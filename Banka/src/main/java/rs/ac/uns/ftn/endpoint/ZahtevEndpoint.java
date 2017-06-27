@@ -15,7 +15,8 @@ import rs.ac.uns.ftn.service.ZahtevService;
  */
 @Endpoint
 public class ZahtevEndpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/zahtevZaIzvod";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/zahtevZaIzvod";
 
     @Autowired
     private EnvironmentProperties environmentProperties;
