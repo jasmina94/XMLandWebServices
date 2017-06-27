@@ -12,8 +12,6 @@ public interface NalogZaPrenosService {
 
     List<NalogZaPrenosDTO> read();
 
-    List<NalogZaPrenosDTO> readPoverilac(String naziv);
-
     List<NalogZaPrenosDTO> readDuznik(String naziv);
 
     NalogZaPrenosDTO create(NalogZaPrenosDTO nalogZaPrenosDTO);

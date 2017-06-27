@@ -62,17 +62,6 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
     }
 
     @Override
-    public List<NalogZaPrenosDTO> readPoverilac(String naziv) {
-        List<NalogZaPrenos> nalozi = new ArrayList<>();
-        for(NalogZaPrenos nalog : nalogZaPrenosDao.findAll()) {
-            if(nalog.getPoverilac().equals(naziv)) {
-                nalozi.add(nalog);
-            }
-        }
-        return nalozi.stream().map(NalogZaPrenosDTO::new).collect(Collectors.toList());
-    }
-
-    @Override
     public List<NalogZaPrenosDTO> readDuznik(String naziv) {
         List<NalogZaPrenos> nalozi = new ArrayList<>();
         for(NalogZaPrenos nalog : nalogZaPrenosDao.findAll()) {
@@ -132,7 +121,6 @@ public class NalogZaPrenosServiceImplementation extends WebServiceGatewaySupport
             UUIDString = UUID.randomUUID().toString();
 
         nalogZaPrenos.setIdPoruke(UUIDString);
-        //nalogZaPrenos.setIdPoruke(podaciZaNalogDTO.getFaktura().getIdPoruke());
         nalogZaPrenos.setDuznik(podaciZaNalogDTO.getFaktura().getPodaciOKupcu().getNaziv());
         nalogZaPrenos.setPoverilac(podaciZaNalogDTO.getFaktura().getPodaciODobavljacu().getNaziv());
         nalogZaPrenos.setSvrhaPlacanja("Placanje po fakturi " + podaciZaNalogDTO.getFaktura().getBrojRacuna());
