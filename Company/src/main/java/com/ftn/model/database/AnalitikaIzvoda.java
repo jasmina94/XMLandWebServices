@@ -58,7 +58,6 @@ public class AnalitikaIzvoda {
     @Column(nullable = false)
     private BigDecimal iznos;
 
-
     @ManyToOne
     private DnevnoStanjeRacuna dnevnoStanjeRacuna;
 

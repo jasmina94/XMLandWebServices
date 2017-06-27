@@ -37,7 +37,6 @@ public class PresekServiceImplementation implements PresekService {
         this.analitikaIzvodaService = analitikaIzvodaService;
         this.zahtevZaIzvodService = zahtevZaIzvodService;
         this.dnevnoStanjeRacunaDao = dnevnoStanjeRacunaDao;
-        this.brojac = 2;
     }
 
     @Override
@@ -58,47 +57,49 @@ public class PresekServiceImplementation implements PresekService {
             dnevnoStanjeRacunaDTO.setNovoStanje(zaglavljePreseka.getNovoStanje().doubleValue());
 
             sacuvanoDnevnoStanje = dnevnoStanjeRacunaService.create(dnevnoStanjeRacunaDTO);
+
+            this.refreshBrojac();
         } else {
             sacuvanoDnevnoStanje = new DnevnoStanjeRacunaDTO(dnevnoStanjeRacuna.get());
         }
-         List<StavkaPreseka> stavkePreseka = presek.getStavkaPreseka();
-        
-         for (StavkaPreseka stavka: stavkePreseka) {
-             AnalitikaIzvodaDTO analitikaIzvodaDTO  = new AnalitikaIzvodaDTO();
-             analitikaIzvodaDTO.setDatumNaloga(stavka.getPodaciOUplati().getDatumNaloga());
-             if (stavka.getPodaciOUplati().getSmer().equalsIgnoreCase("ulaz"))
-                 analitikaIzvodaDTO.setSmer(true);
-             else
-                 analitikaIzvodaDTO.setSmer(false);
 
-             analitikaIzvodaDTO.setDuznik(stavka.getPodaciODuzniku().getNaziv());
-             analitikaIzvodaDTO.setPoverilac(stavka.getPodaciOPoveriocu().getNaziv());
-             analitikaIzvodaDTO.setSvrhaPlacanja(stavka.getPodaciOUplati().getSvrhaPlacanja());
-             analitikaIzvodaDTO.setDatumValute(stavka.getPodaciOUplati().getDatumValute());
-             analitikaIzvodaDTO.setRacunDuznika(stavka.getPodaciODuzniku().getBrojRacuna());
-             analitikaIzvodaDTO.setModelZaduzenja(stavka.getPodaciOUplati().getPodaciOZaduzenju().getModel().longValue());
-             analitikaIzvodaDTO.setPozivNaBrojZaduzenja(stavka.getPodaciOUplati().getPodaciOZaduzenju().getPozivNaBroj());
-             analitikaIzvodaDTO.setRacunPoverioca(stavka.getPodaciOPoveriocu().getBrojRacuna());
-             analitikaIzvodaDTO.setModelOdobrenja(stavka.getPodaciOUplati().getPodaciOOdobrenju().getModel().longValue());
-             analitikaIzvodaDTO.setPozivNaBrojOdobrenja(stavka.getPodaciOUplati().getPodaciOOdobrenju().getPozivNaBroj());
+        List<StavkaPreseka> stavkePreseka = presek.getStavkaPreseka();
 
-             //?
-             analitikaIzvodaDTO.setDnevnoStanjeRacuna(sacuvanoDnevnoStanje);
-             AnalitikaIzvodaDTO kreiranaAnalitikaDTO = analitikaIzvodaService.create(analitikaIzvodaDTO);
-             sacuvanoDnevnoStanje.getAnalitikeIzvoda().add(kreiranaAnalitikaDTO);
-             dnevnoStanjeRacunaService.update(sacuvanoDnevnoStanje.getId(), sacuvanoDnevnoStanje);
+        for (StavkaPreseka stavka: stavkePreseka) {
+            AnalitikaIzvodaDTO analitikaIzvodaDTO  = new AnalitikaIzvodaDTO();
+            analitikaIzvodaDTO.setDatumNaloga(stavka.getPodaciOUplati().getDatumNaloga());
+            if (stavka.getPodaciOUplati().getSmer().equalsIgnoreCase("ulaz"))
+                analitikaIzvodaDTO.setSmer(true);
+            else
+                analitikaIzvodaDTO.setSmer(false);
 
-         }
+            analitikaIzvodaDTO.setDuznik(stavka.getPodaciODuzniku().getNaziv());
+            analitikaIzvodaDTO.setPoverilac(stavka.getPodaciOPoveriocu().getNaziv());
+            analitikaIzvodaDTO.setSvrhaPlacanja(stavka.getPodaciOUplati().getSvrhaPlacanja());
+            analitikaIzvodaDTO.setDatumValute(stavka.getPodaciOUplati().getDatumValute());
+            analitikaIzvodaDTO.setRacunDuznika(stavka.getPodaciODuzniku().getBrojRacuna());
+            analitikaIzvodaDTO.setModelZaduzenja(stavka.getPodaciOUplati().getPodaciOZaduzenju().getModel().longValue());
+            analitikaIzvodaDTO.setPozivNaBrojZaduzenja(stavka.getPodaciOUplati().getPodaciOZaduzenju().getPozivNaBroj());
+            analitikaIzvodaDTO.setRacunPoverioca(stavka.getPodaciOPoveriocu().getBrojRacuna());
+            analitikaIzvodaDTO.setModelOdobrenja(stavka.getPodaciOUplati().getPodaciOOdobrenju().getModel().longValue());
+            analitikaIzvodaDTO.setPozivNaBrojOdobrenja(stavka.getPodaciOUplati().getPodaciOOdobrenju().getPozivNaBroj());
+            analitikaIzvodaDTO.setIznos(stavka.getPodaciOUplati().getIznos());
+            //?
+            analitikaIzvodaDTO.setDnevnoStanjeRacuna(sacuvanoDnevnoStanje);
+            AnalitikaIzvodaDTO kreiranaAnalitikaDTO = analitikaIzvodaService.create(analitikaIzvodaDTO);
+            //sacuvanoDnevnoStanje.getAnalitikeIzvoda().add(kreiranaAnalitikaDTO);
+            //dnevnoStanjeRacunaService.update(sacuvanoDnevnoStanje.getId(), sacuvanoDnevnoStanje);
+
+        }
+
 
          if (brojac <= zaglavljePreseka.getBrojPreseka().intValue()) {
              ZahtevZaIzvod zahtevZaIzvod = new ZahtevZaIzvod();
              zahtevZaIzvod.setDatum(zaglavljePreseka.getDatumNaloga());
              zahtevZaIzvod.setBrojRacuna(zaglavljePreseka.getBrojRacuna());
-             System.out.println("brojac" + BigInteger.valueOf(brojac));
              zahtevZaIzvod.setRedniBrojPreseka(BigInteger.valueOf(brojac));
+             brojac += 1;
              zahtevZaIzvodService.posaljiZahtev(zahtevZaIzvod);
-         } else {
-             this.refreshBrojac();
          }
 
     }

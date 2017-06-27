@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,8 +46,8 @@ public class DnevnoStanjeRacuna {
     private double novoStanje;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna")
-    private List<AnalitikaIzvoda> analitikeIzvoda;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "dnevnoStanjeRacuna", cascade = CascadeType.ALL)
+    private List<AnalitikaIzvoda> analitikeIzvoda = new ArrayList<>();
 
     public void merge(DnevnoStanjeRacunaDTO dnevnoStanjeRacunaDTO) {
         this.brojPreseka = dnevnoStanjeRacunaDTO.getBrojPreseka();

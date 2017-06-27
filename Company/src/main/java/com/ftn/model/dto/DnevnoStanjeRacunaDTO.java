@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +45,7 @@ public class DnevnoStanjeRacunaDTO {
     private double novoStanje;
 
 
-    private List<AnalitikaIzvodaDTO> analitikeIzvoda;
+    private List<AnalitikaIzvodaDTO> analitikeIzvoda = new ArrayList<>();
 
     public DnevnoStanjeRacunaDTO(DnevnoStanjeRacuna dnevnoStanjeRacuna) {
         this(dnevnoStanjeRacuna, true);
@@ -62,13 +63,14 @@ public class DnevnoStanjeRacunaDTO {
         this.novoStanje = dnevnoStanjeRacuna.getNovoStanje();
 
         if (cascade) {
-            this.analitikeIzvoda = dnevnoStanjeRacuna.getAnalitikeIzvoda().stream().map(analitikaIzvoda -> new AnalitikaIzvodaDTO(analitikaIzvoda)).collect(Collectors.toList());
+            this.analitikeIzvoda = dnevnoStanjeRacuna.getAnalitikeIzvoda().stream().map(analitikaIzvoda -> new AnalitikaIzvodaDTO(analitikaIzvoda, false)).collect(Collectors.toList());
         }
     }
 
     public DnevnoStanjeRacuna construct() {
         final DnevnoStanjeRacuna dnevnoStanjeRacuna = new DnevnoStanjeRacuna();
 
+        dnevnoStanjeRacuna.setId(id);
         dnevnoStanjeRacuna.setBrojPreseka(brojPreseka);
         dnevnoStanjeRacuna.setDatum(datum);
         dnevnoStanjeRacuna.setPredhodnoStanje(predhodnoStanje);
