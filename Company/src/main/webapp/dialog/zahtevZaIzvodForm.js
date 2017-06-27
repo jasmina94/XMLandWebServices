@@ -37,7 +37,7 @@ app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $
             $mdDialog.alert()
                 .parent(angular.element(document.body))
                 .title('Neuspeh')
-                .content('Doslo je do greske pri slanju zahteva.')
+                .content('Došlo je do greške pri slanju zahteva.')
                 .ok('Ok')
         );
     }

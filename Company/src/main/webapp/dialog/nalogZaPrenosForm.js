@@ -34,7 +34,7 @@ app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $
             $mdDialog.alert()
                 .parent(angular.element(document.body))
                 .title('Uspeh')
-                .content('Uspesno je kreiran nalog za izabranu fakturu.')
+                .content('Kreiran je nalog za izabranu fakturu.')
                 .ok('Ok')
         );
     }
@@ -44,7 +44,7 @@ app.controller('NalogZaPrenosFormController', function ($scope, $http, $state, $
             $mdDialog.alert()
                 .parent(angular.element(document.body))
                 .title('Neuspeh')
-                .content('Doslo je do greske pri kreiranju naloga.')
+                .content('Došlo je do greške pri kreiranju naloga.')
                 .ok('Ok')
         );
     }

@@ -80,9 +80,34 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
     $scope.sendFaktura = function(faktura) {
         faktura.poslato = true;
         fakturaService.update(faktura, function (response) {
-           loadData();
-        });
+            if(response.data != "") {
+                loadData();
+                prikaziUspeh();
+            } else {
+                prikaziNeuspeh();
+            }
 
+        });
+    }
+
+    var prikaziUspeh = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Uspeh')
+                .content('Faktura je uspešno poslata.')
+                .ok('Ok')
+        );
+    }
+
+    var prikaziNeuspeh = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Neuspeh')
+                .content('Došlo je do greške pri slanju fakture.')
+                .ok('Ok')
+        );
     }
 
     $scope.query = {
