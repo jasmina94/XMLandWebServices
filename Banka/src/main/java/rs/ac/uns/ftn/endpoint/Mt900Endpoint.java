@@ -17,7 +17,8 @@ import rs.ac.uns.ftn.service.RTGSService;
  */
 @Endpoint
 public class Mt900Endpoint {
-    private static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt900";
+
+    public static final String NAMESPACE_URI = "http://www.ftn.uns.ac.rs/mt900";
 
     @Autowired
     private EnvironmentProperties environmentProperties;
