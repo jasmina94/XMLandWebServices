@@ -25,7 +25,7 @@
                 <tr md-row ng-repeat="stavka in izvod.analitikeIzvoda | limitTo: query.limit:(query.page-1) * query.limit"
                     ng-click="null">
                     <td md-cell>{{stavka.datumNaloga | date: 'dd-MM-yyyy'}}</td>
-                    <td md-cell>{{stavka.smer ? "ulaz" : "izlaz"}}</td>
+                    <td md-cell>{{stavka.smer ? "K" : "T"}}</td>
                     <td md-cell>{{stavka.svrhaPlacanja}}</td>
                     <td md-cell>{{stavka.iznos}}</td>
                     <td md-cell>{{stavka.duznik}}</td>
