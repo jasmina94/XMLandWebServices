@@ -1,5 +1,6 @@
 package com.ftn.controller;
 
+import com.ftn.constants.Auth;
 import com.ftn.exception.BadRequestException;
 import com.ftn.model.dto.NalogZaPrenosDTO;
 import com.ftn.model.dto.PodaciZaNalogDTO;
@@ -7,6 +8,7 @@ import com.ftn.service.NalogZaPrenosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,18 +30,21 @@ public class NalogZaPrenosController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(nalogZaPrenosService.read(), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/firmaDuznik/{naziv}/")
     public ResponseEntity readDuznik(@PathVariable String naziv) {
         return new ResponseEntity<>(nalogZaPrenosService.readDuznik(naziv), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping(value = "/kreirajNalog")
     public ResponseEntity kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
          if (bindingResult.hasErrors())
@@ -49,6 +54,7 @@ public class NalogZaPrenosController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody NalogZaPrenosDTO nalogZaPrenosDTO, BindingResult bindingResult) {
          if (bindingResult.hasErrors())

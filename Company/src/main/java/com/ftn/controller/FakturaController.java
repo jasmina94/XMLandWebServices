@@ -1,6 +1,6 @@
 package com.ftn.controller;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
+import com.ftn.constants.Auth;
 import com.ftn.exception.BadRequestException;
 import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.environment.EnvironmentProperties;
@@ -9,6 +9,7 @@ import com.ftn.service.PDFGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,30 +38,35 @@ public class FakturaController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(fakturaService.read(), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/{id}")
     public ResponseEntity readFaktura(@PathVariable Long id) {
         return new ResponseEntity<>(fakturaService.readFaktura(id), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/firmaDobavljac")
     public ResponseEntity readDobavljac() {
         return new ResponseEntity<>(fakturaService.readDobavljac(), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/firmaKupac")
     public ResponseEntity readKupac() {
         return new ResponseEntity<>(fakturaService.readKupac(), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody FakturaDTO fakturaDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -69,6 +75,7 @@ public class FakturaController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PatchMapping(value = "/{id}")
     public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody FakturaDTO fakturaDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())

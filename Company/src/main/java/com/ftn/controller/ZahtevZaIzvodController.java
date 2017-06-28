@@ -1,23 +1,19 @@
 package com.ftn.controller;
 
-import com.ftn.exception.BadRequestException;
+import com.ftn.constants.Auth;
 import com.ftn.model.database.DnevnoStanjeRacuna;
-import com.ftn.model.dto.FakturaDTO;
 import com.ftn.model.generated.zahtevzaizvod.ZahtevZaIzvod;
 import com.ftn.repository.DnevnoStanjeRacunaDao;
-import com.ftn.service.PDFGeneratorService;
 import com.ftn.service.ZahtevZaIzvodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -37,6 +33,7 @@ public class ZahtevZaIzvodController {
         this.dnevnoStanjeRacunaDao = dnevnoStanjeRacunaDao;
     }
 
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping(value = "/posaljiZahtev")
     public ResponseEntity posaljiZahtev(@RequestBody ZahtevZaIzvod zahtevZaIzvod) {
         final Optional<DnevnoStanjeRacuna> dnevnoStanjeRacuna = dnevnoStanjeRacunaDao.findByDatum(zahtevZaIzvod.getDatum());
