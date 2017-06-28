@@ -1,4 +1,4 @@
-app.controller('IzvodController', function ($scope, $state, $rootScope, $mdDialog, zahtevZaIzvodService) {
+app.controller('IzvodController', function ($scope, $state, $window, $rootScope, $mdDialog, zahtevZaIzvodService) {
 
     $scope.page.current = 3.4;
 
@@ -16,6 +16,21 @@ app.controller('IzvodController', function ($scope, $state, $rootScope, $mdDialo
             templateUrl: 'dialog/stavkeIzvoda.html',
             controller: 'StavkeIzvodaController',
             locals: {izvod: izvod}
+        });
+    }
+
+    $scope.generisiPdf = function(izvod) {
+        zahtevZaIzvodService.generisiPdf(izvod, function (response) {
+            if(response.data != null) {
+                izvod.link = response.data;
+                // $mdDialog.show(
+                //     $mdDialog.alert()
+                //         .parent(angular.element(document.body))
+                //         .title('Uspeh')
+                //         .content('Izabrani izvod je zapisan kao pdf.')
+                //         .ok('Ok')
+                // );
+            }
         });
     }
 

@@ -82,7 +82,7 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         fakturaService.update(faktura, function (response) {
             if(response.data != "") {
                 loadData();
-                prikaziUspeh();
+                prikaziUspeh('Faktura je uspešno poslata.');
             } else {
                 prikaziNeuspeh();
             }
@@ -90,12 +90,12 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
         });
     }
 
-    var prikaziUspeh = function () {
+    var prikaziUspeh = function (tekstPoruke) {
         $mdDialog.show(
             $mdDialog.alert()
                 .parent(angular.element(document.body))
                 .title('Uspeh')
-                .content('Faktura je uspešno poslata.')
+                .content(tekstPoruke)
                 .ok('Ok')
         );
     }
@@ -112,6 +112,8 @@ app.controller('FakturaController', function ($scope, $state, $rootScope, $mdDia
 
     $scope.generisiPdf = function(faktura) {
         fakturaService.generisiPdf(faktura, function (response) {
+            if(response.data != null)
+                prikaziUspeh('Izabrana faktura je zapisana kao pdf.');
         });
     }
 

@@ -33,6 +33,14 @@
                                 Prikaži stavke
                             </md-button>
                         </td>
+                        <td md-cell>
+                            <md-button class = "md-raised" aria-label = "Generisi pdf" ng-click = "generisiPdf(izvod)">
+                                <md-icon md-svg-src="image/ic_picture_as_pdf_black_24px.svg"></md-icon>
+                            </md-button>
+                        </td>
+                        <td md-cell ng-if="izvod.link != null">
+                            <a ng-href="{{izvod.link}}">Download</a>
+                        </td>
                     </tbody>
                 </table>
             </md-table-container>

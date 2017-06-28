@@ -27,7 +27,7 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
     private EnvironmentProperties environmentProperties;
 
     private static String FakturaFILE = "src/main/resources/faktura.pdf";
-    private static String NalogZaPrenosFILE = "src/main/resources/nalogZaPrenos.pdf";
+    private static String IzvodFILE = "src/main/resources/izvod.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -56,16 +56,18 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
     }
 
     @Override
-    public void generisiIzvodPDF(DnevnoStanjeRacuna dnevnoStanjeRacuna, ArrayList<AnalitikaIzvoda> analitikaIzvodaList) {
+    public DnevnoStanjeRacuna generisiIzvodPDF(DnevnoStanjeRacuna dnevnoStanjeRacuna, ArrayList<AnalitikaIzvoda> analitikaIzvodaList) {
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FakturaFILE));
+            PdfWriter.getInstance(document, new FileOutputStream(IzvodFILE));
             document.open();
             addMetaIzvodPDF(document);
             addTitlePageIzvod(document, dnevnoStanjeRacuna, analitikaIzvodaList);
             document.close();
+            return dnevnoStanjeRacuna;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -96,7 +98,7 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
         addEmptyLine(preface, 1);
 
 
-        PdfPTable tabelaStavki = new PdfPTable(12);
+        PdfPTable tabelaStavki = new PdfPTable(8);
 
         PdfPCell c1 = new PdfPCell(new Phrase("Datum valute"));
         tabelaStavki.addCell(c1);
@@ -136,24 +138,24 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
 
         addEmptyLine(preface, 4);
 
-        preface.add(new Paragraph(
+
+
+        document.add(preface);
+        addEmptyLine(preface, 2);
+        document.add(tabelaStavki);
+        // Start a new page
+        addEmptyLine(preface, 2);
+
+        Paragraph preface2 = new Paragraph();
+
+        preface2.add(new Paragraph(
                 "This document is a preliminary version and not subject to your license agreement or any other agreement with vogella.com ;-).",
                 redFont));
-        preface.add(new Paragraph(
+        preface2.add(new Paragraph(
                 "Izvod generisan dana: " + new Date(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 smallBold));
 
-        Paragraph linija = new Paragraph("                       ");
-        DottedLineSeparator separator = new DottedLineSeparator();
-        separator.setOffset(0);
-        separator.setGap(0);
-        linija.add(separator);
-        document.add(linija);
-
-        document.add(tabelaStavki);
-        document.add(preface);
-        // Start a new page
-        document.newPage();
+        document.add(preface2);
 
     }
 
@@ -229,7 +231,6 @@ public class PDFGeneratorServiceImpl implements PDFGeneratorService {
 
         document.add(preface);
         // Start a new page
-        document.newPage();
     }
 
     private static void addEmptyLine(Paragraph paragraph, int number) {

@@ -5,6 +5,7 @@ import com.ftn.model.database.DnevnoStanjeRacuna;
 import com.ftn.model.generated.faktura.Faktura;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -14,5 +15,5 @@ public interface PDFGeneratorService {
 
     Faktura generisiFakturaPDF(Faktura faktura);
 
-    void generisiIzvodPDF(DnevnoStanjeRacuna dnevnoStanjeRacuna, ArrayList<AnalitikaIzvoda> analitikaIzvodaList);
+    DnevnoStanjeRacuna generisiIzvodPDF(DnevnoStanjeRacuna dnevnoStanjeRacuna, ArrayList<AnalitikaIzvoda> analitikaIzvodaList);
 }
