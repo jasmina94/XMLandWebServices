@@ -15,8 +15,8 @@ app.controller('ZahtevZaIzvodFormController', function ($scope, $http, $state, $
         $scope.zahtevZaIzvod.redniBrojPreseka = 1;
         zahtevZaIzvodService.posaljiZahtev($scope.zahtevZaIzvod, function (response) {
             if(response.data) {
-                prikaziUspeh();
                 $scope.$broadcast('refresh');
+                prikaziUspeh();
             } else {
                 prikaziNeuspeh();
             }

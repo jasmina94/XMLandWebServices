@@ -2,7 +2,7 @@
 <getZahtevZaIzvodRequest xmlns="http://www.ftn.uns.ac.rs/zahtevZaIzvod">
     <zahtev_za_izvod>
         <broj_racuna>205-2200148916622-71</broj_racuna>
-        <datum>2017-06-02</datum>
-        <redni_broj_preseka>1</redni_broj_preseka>
+        <datum>2017-05-01</datum>
+        <redni_broj_preseka>2</redni_broj_preseka>
     </zahtev_za_izvod>
 </getZahtevZaIzvodRequest>

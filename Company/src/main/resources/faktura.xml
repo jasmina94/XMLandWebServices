@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:getFakturaRequest xmlns="http://www.ftn.uns.ac.rs/tipovi" xmlns:ns2="http://www.ftn.uns.ac.rs/faktura">
-    <ns2:faktura id_poruke="25" broj_racuna="777777" datum_racuna="2017-05-01" datum_valute="2017-05-01">
+    <ns2:faktura id_poruke="23" broj_racuna="555555" datum_racuna="2017-05-01" datum_valute="2017-05-01">
         <ns2:podaci_o_dobavljacu>
             <naziv>Imlek</naziv>
             <adresa>Zrenjaninski put 100</adresa>
@@ -17,7 +17,7 @@
         <ns2:ukupan_rabat>5000</ns2:ukupan_rabat>
         <ns2:ukupan_porez>8000</ns2:ukupan_porez>
         <ns2:oznaka_valute>RSD</ns2:oznaka_valute>
-        <ns2:Iznos_za_uplatu>100</ns2:Iznos_za_uplatu>
+        <ns2:Iznos_za_uplatu>20000</ns2:Iznos_za_uplatu>
         <ns2:uplata_na_racun>265-2234522100015-72</ns2:uplata_na_racun>
         <ns2:stavka_fakture>
             <redni_broj>1</redni_broj>

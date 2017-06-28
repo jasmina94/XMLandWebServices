@@ -33,7 +33,6 @@ public class ZahtevZaIzvodController {
         this.dnevnoStanjeRacunaDao = dnevnoStanjeRacunaDao;
     }
 
-    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping(value = "/posaljiZahtev")
     public ResponseEntity posaljiZahtev(@RequestBody ZahtevZaIzvod zahtevZaIzvod) {
         final Optional<DnevnoStanjeRacuna> dnevnoStanjeRacuna = dnevnoStanjeRacunaDao.findByDatum(zahtevZaIzvod.getDatum());

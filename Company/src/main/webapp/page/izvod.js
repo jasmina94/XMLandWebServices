@@ -27,13 +27,13 @@ app.controller('IzvodController', function ($scope, $state, $window, $rootScope,
         zahtevZaIzvodService.generisiPdf(izvod, function (response) {
             if(response.data != null) {
                 izvod.link = response.data;
-                // $mdDialog.show(
-                //     $mdDialog.alert()
-                //         .parent(angular.element(document.body))
-                //         .title('Uspeh')
-                //         .content('Izabrani izvod je zapisan kao pdf.')
-                //         .ok('Ok')
-                // );
+                 $mdDialog.show(
+                     $mdDialog.alert()
+                         .parent(angular.element(document.body))
+                         .title('Uspeh')
+                         .content('Izabrani izvod je zapisan kao pdf.')
+                         .ok('Ok')
+                 );
             }
         });
     }

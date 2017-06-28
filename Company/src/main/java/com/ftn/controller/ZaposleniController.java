@@ -27,7 +27,6 @@ public class ZaposleniController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(zaposleniService.read(), HttpStatus.OK);

@@ -28,14 +28,12 @@ public class TPodaciSubjektController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(tPodaciSubjektService.read(), HttpStatus.OK);
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/poslovniPartneri/{id}")
     public ResponseEntity readPoslovniPartneri(@PathVariable Long id) {
         return new ResponseEntity<>(tPodaciSubjektService.readPoslovniPartneri(id), HttpStatus.OK);

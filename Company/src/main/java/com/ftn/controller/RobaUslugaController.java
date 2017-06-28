@@ -27,7 +27,6 @@ public class RobaUslugaController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(robaUslugaService.read(), HttpStatus.OK);

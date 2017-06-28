@@ -30,21 +30,18 @@ public class NalogZaPrenosController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(nalogZaPrenosService.read(), HttpStatus.OK);
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/firmaDuznik/{naziv}/")
     public ResponseEntity readDuznik(@PathVariable String naziv) {
         return new ResponseEntity<>(nalogZaPrenosService.readDuznik(naziv), HttpStatus.OK);
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping(value = "/kreirajNalog")
     public ResponseEntity kreirajNalog(@Valid @RequestBody PodaciZaNalogDTO podaciZaNalogDTO, BindingResult bindingResult) {
          if (bindingResult.hasErrors())
@@ -54,7 +51,6 @@ public class NalogZaPrenosController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody NalogZaPrenosDTO nalogZaPrenosDTO, BindingResult bindingResult) {
          if (bindingResult.hasErrors())

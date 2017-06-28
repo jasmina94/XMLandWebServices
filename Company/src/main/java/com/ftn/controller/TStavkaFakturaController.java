@@ -35,21 +35,18 @@ public class TStavkaFakturaController {
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping
     public ResponseEntity read() {
         return new ResponseEntity<>(tStavkaFakturaService.read(), HttpStatus.OK);
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/fakture/{fakturaId}")
     public ResponseEntity read(@PathVariable Long fakturaId) {
         return new ResponseEntity<>(tStavkaFakturaService.read(fakturaId), HttpStatus.OK);
     }
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping(value = "/{fakturaId}/{kolicina}")
     public ResponseEntity createTStavkaFaktura(@PathVariable Long fakturaId, @PathVariable BigDecimal kolicina, @Valid @RequestBody RobaUslugaDTO robaUslugaDTO, BindingResult bindingResult) {
         FakturaDTO fakturaDTO = fakturaService.readFaktura(fakturaId);
